@@ -1,0 +1,52 @@
+{
+	"name": "personal-blog",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --plugin-search-dir . --check . && eslint .",
+		"format": "prettier --plugin-search-dir . --write ."
+	},
+	"devDependencies": {
+		"@floating-ui/dom": "^1.5.1",
+		"@skeletonlabs/skeleton": "^2.0.0",
+		"@skeletonlabs/tw-plugin": "^0.1.0",
+		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/adapter-static": "^2.0.3",
+		"@sveltejs/kit": "^1.24.0",
+		"@tailwindcss/forms": "^0.5.5",
+		"@tailwindcss/typography": "^0.5.9",
+		"@types/node": "^20.5.9",
+		"@typescript-eslint/eslint-plugin": "^5.45.0",
+		"@typescript-eslint/parser": "^5.45.0",
+		"autoprefixer": "^10.4.14",
+		"eslint": "^8.28.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-svelte": "^2.26.0",
+		"flowbite-svelte-icons": "^0.3.6",
+		"highlight.js": "^11.8.0",
+		"mdsvex": "^0.11.0",
+		"postcss": "^8.4.24",
+		"postcss-load-config": "^4.0.1",
+		"prettier": "^2.8.0",
+		"prettier-plugin-svelte": "^2.8.1",
+		"svelte": "^3.54.0",
+		"svelte-check": "^3.0.1",
+		"tailwindcss": "^3.3.3",
+		"tslib": "^2.4.1",
+		"typescript": "^5.0.0",
+		"vite": "^4.3.0"
+	},
+	"type": "module",
+	"dependencies": {
+		"rehype-slug": "^6.0.0",
+		"remark-toc": "^8.0.1",
+		"remark-unwrap-images": "^3.0.1",
+		"shiki": "^0.14.4",
+		"tailwind-merge": "^1.14.0"
+	}
+}

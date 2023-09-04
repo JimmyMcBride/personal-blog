@@ -5,3 +5,5 @@ export async function load({ url }: ServerLoadEvent) {
 		url: url.pathname,
 	}
 }
+
+export const prerender = true

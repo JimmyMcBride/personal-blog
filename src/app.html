@@ -7,6 +7,15 @@
 		<meta name="viewport" content="width=device-width" />
 		%sveltekit.head%
 	</head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-1JDCB3KQD2"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-1JDCB3KQD2');
+	</script>
 	<body data-sveltekit-preload-data="hover" data-theme="my-custom-theme">
 		<div style="display: contents" class="h-full">%sveltekit.body%</div>
 	</body>

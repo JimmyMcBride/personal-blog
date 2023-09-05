@@ -20,7 +20,7 @@
 	import { initializeApp } from "firebase/app"
 	// import { getFirestore } from "firebase/firestore"
 	// import { getAuth } from "firebase/auth"
-	import { getAnalytics } from "firebase/analytics"
+	import { getAnalytics, isSupported } from "firebase/analytics"
 
 	// Initialize Firebase
 	const app = initializeApp({
@@ -34,7 +34,16 @@
 	})
 	// const firestore = getFirestore(app)
 	// const auth = getAuth(app)
-	const analytics = getAnalytics(app)
+	const getFirebaseAnalytics = async () => {
+		if (await isSupported()) {
+			console.log("Firebase Analytics is supported!")
+			return getAnalytics(app)
+		} else {
+			console.log("Firebase Analytics is NOT supported!")
+			return null
+		}
+	}
+	getFirebaseAnalytics()
 
 	initializeStores()
 

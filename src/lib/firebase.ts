@@ -2,7 +2,8 @@
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
 import { getAuth } from "firebase/auth"
-import { getAnalytics, isSupported } from "firebase/analytics"
+import { getAnalytics, logEvent } from "firebase/analytics"
+import type { EventNameString, EventParams } from "firebase/analytics"
 
 // Initialize Firebase
 export const app = initializeApp({
@@ -17,12 +18,17 @@ export const app = initializeApp({
 export const firestore = getFirestore(app)
 export const auth = getAuth(app)
 
-export async function getFirebaseAnalytics() {
-	if (await isSupported()) {
-		console.log("Firebase analytics is supported")
+export function getFirebaseAnalytics() {
+	if (typeof window !== "undefined") {
 		return getAnalytics(app)
 	} else {
-		console.log("Firebase analytics is NOT supported")
 		return null
+	}
+}
+
+export function logFirebaseEvent(eventName: EventNameString, eventParams: EventParams) {
+	if (typeof window !== "undefined") {
+		const analytics = getAnalytics(app)
+		logEvent(analytics, eventName.valueOf(), eventParams)
 	}
 }

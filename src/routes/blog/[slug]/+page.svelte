@@ -3,7 +3,6 @@
 	import { url, title } from "$lib/config"
 
 	export let data
-	console.log(data)
 </script>
 
 <!-- SEO -->

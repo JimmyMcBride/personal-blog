@@ -21,7 +21,6 @@
 			body: JSON.stringify({ email }),
 		})
 		const data = await res.json()
-		console.log(data)
 		if (res.status === 200) {
 			t.message = data.message
 		} else {

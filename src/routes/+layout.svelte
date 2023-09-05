@@ -16,9 +16,11 @@
 	import MyLinks from "$lib/components/MyLinks.svelte"
 	import PageTransition from "$lib/components/transition.svelte"
 	import Subscribe from "$lib/components/Subscribe.svelte"
-	import { getFirebaseAnalytics } from "$lib/firebase"
+	import { logFirebaseEvent } from "$lib/firebase"
 
-	getFirebaseAnalytics()
+	if (typeof window !== "undefined") {
+		logFirebaseEvent("page_view", { route: window.location.pathname })
+	}
 
 	initializeStores()
 
@@ -36,6 +38,7 @@
 			params.from && params.to && params.from.route.id !== params.to.route.id
 		const elemPage = document.querySelector("#page")
 		if (isNewPage && elemPage !== null) {
+			logFirebaseEvent("page_view", { route: window.location.pathname })
 			elemPage.scrollTop = 0
 		}
 		// Scroll heading into view

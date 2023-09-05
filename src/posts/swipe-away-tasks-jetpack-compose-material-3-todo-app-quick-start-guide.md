@@ -1,5 +1,5 @@
 ---
-title: "Swipe Away Tasks: Jetpack Compose & Material 3 Todo App Quick-Start Guide 🎯"
+title: "Swipe Away Tasks: Jetpack Compose And Material 3 Todo App Quick-Start Guide 🎯"
 description: Welcome to this fantastic journey into the world of Jetpack Compose, Material 3, and animations! If you've been looking for a comprehensive guide to help you create a task app using these cutting-edge technologies, you've come to the right place.
 date: "2023-5-3"
 image: https://res.cloudinary.com/practicaldev/image/fetch/s--U9q86BAR--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/t2ci6vk2vktgt7iy8is1.png

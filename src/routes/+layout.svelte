@@ -16,6 +16,25 @@
 	import MyLinks from "$lib/components/MyLinks.svelte"
 	import PageTransition from "$lib/components/transition.svelte"
 	import Subscribe from "$lib/components/Subscribe.svelte"
+	// import { FirebaseApp } from "sveltefire"
+	import { initializeApp } from "firebase/app"
+	// import { getFirestore } from "firebase/firestore"
+	// import { getAuth } from "firebase/auth"
+	// import { getAnalytics } from "firebase/analytics"
+
+	// Initialize Firebase
+	const app = initializeApp({
+		apiKey: "AIzaSyCs4tX6nVa1yPRi9ZiuyGCiqcIQshXzdi0",
+		authDomain: "blog-ed382.firebaseapp.com",
+		projectId: "blog-ed382",
+		storageBucket: "blog-ed382.appspot.com",
+		messagingSenderId: "396963456507",
+		appId: "1:396963456507:web:33b8a0ee5c066984fe975e",
+		measurementId: "G-1JDCB3KQD2",
+	})
+	// const firestore = getFirestore(app)
+	// const auth = getAuth(app)
+	// const analytics = getAnalytics(app)
 
 	initializeStores()
 
@@ -56,6 +75,7 @@
 
 <Toast />
 
+<!--<FirebaseApp {auth} {firestore}>-->
 <AppShell>
 	<svelte:fragment slot="header">
 		<nav class="container mx-auto my-8 flex justify-between items-center">
@@ -93,3 +113,4 @@
 		</AppBar>
 	</svelte:fragment>
 </AppShell>
+<!--</FirebaseApp>-->

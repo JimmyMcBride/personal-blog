@@ -16,33 +16,8 @@
 	import MyLinks from "$lib/components/MyLinks.svelte"
 	import PageTransition from "$lib/components/transition.svelte"
 	import Subscribe from "$lib/components/Subscribe.svelte"
-	// import { FirebaseApp } from "sveltefire"
-	import { initializeApp } from "firebase/app"
-	// import { getFirestore } from "firebase/firestore"
-	// import { getAuth } from "firebase/auth"
-	import { getAnalytics, isSupported } from "firebase/analytics"
+	import { getFirebaseAnalytics } from "$lib/firebase"
 
-	// Initialize Firebase
-	const app = initializeApp({
-		apiKey: "AIzaSyCs4tX6nVa1yPRi9ZiuyGCiqcIQshXzdi0",
-		authDomain: "blog-ed382.firebaseapp.com",
-		projectId: "blog-ed382",
-		storageBucket: "blog-ed382.appspot.com",
-		messagingSenderId: "396963456507",
-		appId: "1:396963456507:web:33b8a0ee5c066984fe975e",
-		measurementId: "G-1JDCB3KQD2",
-	})
-	// const firestore = getFirestore(app)
-	// const auth = getAuth(app)
-	const getFirebaseAnalytics = async () => {
-		if (await isSupported()) {
-			console.log("Firebase Analytics is supported!")
-			return getAnalytics(app)
-		} else {
-			console.log("Firebase Analytics is NOT supported!")
-			return null
-		}
-	}
 	getFirebaseAnalytics()
 
 	initializeStores()

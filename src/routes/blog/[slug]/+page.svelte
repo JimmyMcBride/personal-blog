@@ -1,6 +1,24 @@
 <script lang="ts">
 	import { formatDate } from "$lib/utils"
 	import { url, title } from "$lib/config"
+	import { page } from "$app/stores"
+	import { onMount } from "svelte"
+
+	// Access the slug from the page store
+	let slug = $page.params.slug
+	let totalViews: number
+
+	onMount(() => {
+		fetch("/api/unique-views", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ slug: slug }),
+		})
+			.then((res) => res.json())
+			.then((data) => (totalViews = data.totalViews))
+	})
 
 	export let data
 </script>
@@ -30,13 +48,14 @@
 	<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 	<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
 </svelte:head>
-
 <article class="prose md:prose-lg lg:prose-xl mx-auto dark:prose-invert mb-16">
 	<!-- Title -->
 	<hgroup>
 		<h1 class="">{data.meta.title}</h1>
 		<img src={data.meta.image} alt="blog banner" class="rounded-md" />
-		<p class="text-end text-sm">Published at {formatDate(data.meta.date)}</p>
+		<p class="text-end text-sm">
+			Total Views: {totalViews} Published at {formatDate(data.meta.date)}
+		</p>
 	</hgroup>
 
 	<!-- Tags -->

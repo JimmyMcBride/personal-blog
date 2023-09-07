@@ -16,7 +16,8 @@
 	import MyLinks from "$lib/components/MyLinks.svelte"
 	import PageTransition from "$lib/components/transition.svelte"
 	import Subscribe from "$lib/components/Subscribe.svelte"
-	import { logFirebaseEvent } from "$lib/firebase"
+	import { logFirebaseEvent, firestore, auth } from "$lib/firebase"
+	import { FirebaseApp } from "sveltefire"
 
 	if (typeof window !== "undefined") {
 		logFirebaseEvent("page_view", { route: window.location.pathname })
@@ -62,42 +63,46 @@
 
 <Toast />
 
-<!--<FirebaseApp {auth} {firestore}>-->
-<AppShell>
-	<svelte:fragment slot="header">
-		<nav class="container mx-auto my-8 flex justify-between items-center">
-			<Avatar class="ml-2" src="/me-anime.jpeg" width="w-12" rounded="rounded-full" />
-			<RadioGroup
-				active="variant-filled-primary"
-				hover="hover:variant-soft-primary"
-				class="items-center"
-			>
-				<RadioItem on:click={handleNavigation} name="route" bind:group={route} value="/">
-					Home
-				</RadioItem>
-				<RadioItem on:change={handleNavigation} name="route" bind:group={route} value="/blog">
-					Blog
-				</RadioItem>
-			</RadioGroup>
-			<LightSwitch />
-		</nav>
-	</svelte:fragment>
-	<PageTransition url={data.url}>
-		<main class="container mx-auto h-full">
-			<slot />
-		</main>
-	</PageTransition>
+<FirebaseApp {auth} {firestore}>
+	<AppShell>
+		<svelte:fragment slot="header">
+			<nav class="container mx-auto my-8 flex justify-between items-center">
+				<Avatar class="ml-2" src="/me-anime.jpeg" width="w-12" rounded="rounded-full" />
+				<RadioGroup
+					active="variant-filled-primary"
+					hover="hover:variant-soft-primary"
+					class="items-center"
+				>
+					<RadioItem on:click={handleNavigation} name="route" bind:group={route} value="/">
+						Home
+					</RadioItem>
+					<RadioItem on:change={handleNavigation} name="route" bind:group={route} value="/blog">
+						Blog
+					</RadioItem>
+				</RadioGroup>
+				<LightSwitch />
+			</nav>
+		</svelte:fragment>
+		<PageTransition url={data.url}>
+			<main class="container mx-auto h-full">
+				<slot />
+			</main>
+		</PageTransition>
 
-	<svelte:fragment slot="pageFooter">
-		<AppBar gridColumns="grid-cols-1" slotDefault="place-self-center" slotTrail="place-content-end">
-			<div class="flex flex-col gap-4 items-center">
-				<MyLinks />
-				<Subscribe />
-			</div>
-			<svelte:fragment slot="headline">
-				<div class="text-center">&copy; Copyright 2023. All rights reserved.</div>
-			</svelte:fragment>
-		</AppBar>
-	</svelte:fragment>
-</AppShell>
-<!--</FirebaseApp>-->
+		<svelte:fragment slot="pageFooter">
+			<AppBar
+				gridColumns="grid-cols-1"
+				slotDefault="place-self-center"
+				slotTrail="place-content-end"
+			>
+				<div class="flex flex-col gap-4 items-center">
+					<MyLinks />
+					<Subscribe />
+				</div>
+				<svelte:fragment slot="headline">
+					<div class="text-center">&copy; Copyright 2023. All rights reserved.</div>
+				</svelte:fragment>
+			</AppBar>
+		</svelte:fragment>
+	</AppShell>
+</FirebaseApp>

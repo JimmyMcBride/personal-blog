@@ -50,11 +50,16 @@
 </svelte:head>
 <article class="prose md:prose-lg lg:prose-xl mx-auto dark:prose-invert mb-16">
 	<!-- Title -->
-	<hgroup>
+	<hgroup class="flex flex-col items-end">
 		<h1 class="">{data.meta.title}</h1>
 		<img src={data.meta.image} alt="blog banner" class="rounded-md" />
 		<p class="text-end text-sm">
-			Total Views: {totalViews} Published at {formatDate(data.meta.date)}
+			Published at {formatDate(data.meta.date)}
+			<br />
+			Total Views:
+			{#if totalViews !== undefined}
+				{totalViews}
+			{/if}
 		</p>
 	</hgroup>
 

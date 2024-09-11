@@ -31,8 +31,8 @@ export async function GET({ fetch }: ServerLoadEvent) {
                         <item>
                             <title>${escapeXml(post.title)}</title>
                             <description>${escapeXml(post.description)}</description>
-                            <link>${escapeXml(config.url)}/${escapeXml(post.slug)}</link>
-                            <guid isPermaLink="true">${escapeXml(config.url)}/${escapeXml(
+                            <link>${escapeXml(config.url)}/blog/${escapeXml(post.slug)}</link>
+                            <guid isPermaLink="true">${escapeXml(config.url)}/blog/${escapeXml(
 											post.slug
 										)}</guid>
                             <pubDate>${new Date(post.date).toUTCString()}</pubDate>

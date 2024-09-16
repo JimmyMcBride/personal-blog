@@ -32,7 +32,14 @@
 				content: newComment,
 				name: $user.displayName ?? "Anonymous",
 				avatar: $user.photoURL ?? "",
-				createdAt: new Date(),
+				createdAt: new Date().toLocaleString("en-US", {
+					month: "short",
+					day: "numeric",
+					year: "numeric",
+					hour: "numeric",
+					minute: "numeric",
+					hour12: true,
+				}),
 			}
 			const res = await fetch("/api/add-comment", {
 				method: "POST",
@@ -56,6 +63,10 @@
 			.catch((error) => {
 				console.error("Login failed", error)
 			})
+	}
+
+	function signOut() {
+		auth.signOut()
 	}
 
 	export let data
@@ -119,12 +130,17 @@
 
 		{#if comments?.length > 0}
 			{#each comments as comment}
-				<div class="comment">
-					<div class="flex align-items-center">
-						<Avatar src={comment.avatar} width="w-8" rounded="rounded-full" />
-						<strong>{comment.name}</strong>
+				<div class="grid grid-cols-[auto_1fr] gap-2 mb-4">
+					<Avatar src={comment.avatar} width="w-12" rounded="rounded-full" />
+					<div class="card p-4 variant-soft rounded-tl-none space-y-2">
+						<header class="flex justify-between">
+							<small class="font-bold text-lg">{comment.name}</small>
+							<small class="opacity-50">
+								{comment.createdAt}
+							</small>
+						</header>
+						<p>{comment.content}</p>
 					</div>
-					<p>{comment.content}</p>
 				</div>
 			{/each}
 		{:else}
@@ -132,13 +148,33 @@
 		{/if}
 
 		{#if $user}
-			<form on:submit|preventDefault={addComment} class="mt-4">
-				<textarea bind:value={newComment} placeholder="Add your comment" rows="3" class="border" />
-				<button type="submit" class="btn mt-2">Submit Comment</button>
-			</form>
+			<div>
+				<form on:submit|preventDefault={addComment} class="mt-4">
+					<div
+						class="input-group input-group-divider grid-cols-[auto_1fr_auto] rounded-container-token"
+					>
+						<button class="input-group-shim">+</button>
+						<textarea
+							bind:value={newComment}
+							class="bg-transparent border-0 ring-0"
+							name="prompt"
+							id="prompt"
+							placeholder="Write a message..."
+							rows="1"
+						/>
+						<button class="variant-filled-primary">Send</button>
+					</div>
+
+					<!-- <textarea bind:value={newComment} placeholder="Add your comment" rows="3" class="border" />
+				<button type="submit" class="btn mt-2">Submit Comment</button> -->
+				</form>
+				<button class="btn variant-filled-error mt-8" on:click={signOut}>Sign out</button>
+			</div>
 		{:else}
 			<p>You must be logged in to add a comment.</p>
-			<button on:click={loginWithGoogle}>Log in with Google</button>
+			<button class="btn variant-filled-primary" on:click={loginWithGoogle}
+				>Log in with Google</button
+			>
 		{/if}
 	</section>
 </article>

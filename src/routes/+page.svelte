@@ -33,7 +33,6 @@
 <section class="flex flex-row-reverse justify-center mt-16 flex-wrap gap-40">
 	<Avatar src="/me.jpg" width="w-96" rounded="rounded-full" />
 	<div class="gap-8 flex flex-col">
-		<!--		<h1 class="text-7xl">Hi, I'm Jimmy McBride.</h1>-->
 		<h1 class="h1">
 			<span
 				class="bg-gradient-to-br dark:from-tertiary-300 dark:to-primary-500 from-secondary-500 to-primary-500 bg-clip-text text-transparent box-decoration-clone"

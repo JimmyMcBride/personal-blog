@@ -17,3 +17,10 @@ interface Post {
 	categories: string[]
 	published: boolean
 }
+
+interface BlogComment {
+	name: string
+	avatar: string
+	content: string
+	createdAt: Date
+}

@@ -3,22 +3,60 @@
 	import { url, title } from "$lib/config"
 	import { page } from "$app/stores"
 	import { onMount } from "svelte"
+	import { userStore } from "sveltefire"
+	import { auth } from "$lib/firebase"
+	import { signInWithPopup, GoogleAuthProvider } from "firebase/auth"
+	import { Avatar } from "@skeletonlabs/skeleton"
+	const provider = new GoogleAuthProvider()
 
-	// Access the slug from the page store
 	let slug = $page.params.slug
 	let totalViews: number
+	let newComment = ""
+	let comments: BlogComment[] = []
+	const user = userStore(auth)
 
-	onMount(() => {
-		fetch("/api/unique-views", {
+	onMount(async () => {
+		const res = await fetch("/api/unique-views", {
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ slug: slug }),
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ slug }),
 		})
-			.then((res) => res.json())
-			.then((data) => (totalViews = data.totalViews))
+		const data = await res.json()
+		totalViews = data.totalViews
+		comments = data.comments // Comments from the API
 	})
+
+	async function addComment() {
+		if ($user) {
+			const comment: BlogComment = {
+				content: newComment,
+				name: $user.displayName ?? "Anonymous",
+				avatar: $user.photoURL ?? "",
+				createdAt: new Date(),
+			}
+			const res = await fetch("/api/add-comment", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ slug, comment }),
+			})
+			if (res.ok) {
+				comments = [...comments, comment]
+				newComment = "" // Clear input
+			} else {
+				console.error("Failed to add comment")
+			}
+		}
+	}
+
+	function loginWithGoogle() {
+		signInWithPopup(auth, provider)
+			.then((result) => {
+				console.log("Logged in", result.user)
+			})
+			.catch((error) => {
+				console.error("Login failed", error)
+			})
+	}
 
 	export let data
 </script>
@@ -74,4 +112,33 @@
 
 	<!-- Post -->
 	<svelte:component this={data.content} />
+
+	<!-- Comments Section -->
+	<section class="comments mt-10">
+		<h2>Comments</h2>
+
+		{#if comments?.length > 0}
+			{#each comments as comment}
+				<div class="comment">
+					<div class="flex align-items-center">
+						<Avatar src={comment.avatar} width="w-8" rounded="rounded-full" />
+						<strong>{comment.name}</strong>
+					</div>
+					<p>{comment.content}</p>
+				</div>
+			{/each}
+		{:else}
+			<p>No comments yet.</p>
+		{/if}
+
+		{#if $user}
+			<form on:submit|preventDefault={addComment} class="mt-4">
+				<textarea bind:value={newComment} placeholder="Add your comment" rows="3" class="border" />
+				<button type="submit" class="btn mt-2">Submit Comment</button>
+			</form>
+		{:else}
+			<p>You must be logged in to add a comment.</p>
+			<button on:click={loginWithGoogle}>Log in with Google</button>
+		{/if}
+	</section>
 </article>

@@ -164,9 +164,6 @@
 						/>
 						<button class="variant-filled-primary">Send</button>
 					</div>
-
-					<!-- <textarea bind:value={newComment} placeholder="Add your comment" rows="3" class="border" />
-				<button type="submit" class="btn mt-2">Submit Comment</button> -->
 				</form>
 				<button class="btn variant-filled-error mt-8" on:click={signOut}>Sign out</button>
 			</div>

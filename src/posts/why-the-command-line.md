@@ -139,4 +139,4 @@ This is just the beginning. Soon, you’ll stop looking at the shell as a hassle
 
 ---
 
-*If you enjoyed this post and want more content on Linux, scripting, and app building, connect with me on [LinkedIn](https://linkedin.com/in/jimmy-mcbride/). Also, join my **Discord** for more discussions with like-minded shell wizards! [Click here to join!](#)*
+*If you enjoyed this post and want more content on Linux, scripting, and app building, connect with me on [LinkedIn](https://linkedin.com/in/jimmy-mcbride/). Also, join my **Discord** for more discussions with like-minded shell wizards! [Click here to join!](https://discord.gg/4PCy4Bz)*

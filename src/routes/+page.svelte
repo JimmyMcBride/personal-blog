@@ -43,9 +43,9 @@
 		<p class="max-w-4xl text-xl">
 			As a devoted software engineer, I thrive in the world of app development. From delving deep
 			into Linux server configurations to architecting full-stack SaaS platforms, I just love the
-			process of creating things. By day, I'm a lead Android developer at Ally Financial; by night,
-			I tinker away at whatever currently has my interest. Check out my blog and find out what I've
-			been getting into lately.
+			process of creating things. By day, I'm a senior Android developer; by night, I tinker away at
+			whatever currently has my interest. Check out my blog and find out what I've been getting into
+			lately.
 		</p>
 		<MyLinks />
 		<Subscribe />
@@ -54,25 +54,25 @@
 <section class="mt-16">
 	<div class="flex justify-between flex-wrap gap-4">
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">5k+</p>
+			<p class="text-primary-900-50-token text-8xl">6k+</p>
 			<p class="text-primary-600-300-token">Contributions</p>
 		</div>
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">70+</p>
+			<p class="text-primary-900-50-token text-8xl">80+</p>
 			<p class="text-primary-600-300-token">Blogs</p>
 		</div>
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">4k+</p>
+			<p class="text-primary-900-50-token text-8xl">7k+</p>
 			<p class="text-primary-600-300-token">Followers</p>
 		</div>
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">100k+</p>
+			<p class="text-primary-900-50-token text-8xl">160k+</p>
 			<p class="text-primary-600-300-token">Blog Views</p>
 		</div>
 	</div>
 </section>
 
-<section class="my-16 flex justify-between">
+<section class="my-16 flex justify-between flex-wrap">
 	<div class="card variant-ringed-primary p-4 w-[32%]">
 		<Icon name="scale-balance-solid" class="h-12 w-12 mb-4 text-primary-500-400-token" />
 		<h3 class="h2">Scalable</h3>

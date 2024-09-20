@@ -32,7 +32,7 @@
 
 <section class="flex flex-row-reverse justify-center mt-16 flex-wrap gap-40">
 	<Avatar src="/me.jpg" width="w-96" rounded="rounded-full" />
-	<div class="gap-8 flex flex-col">
+	<div class="gap-8 flex flex-col max-w-full">
 		<h1 class="h1">
 			<span
 				class="bg-gradient-to-br dark:from-tertiary-300 dark:to-primary-500 from-secondary-500 to-primary-500 bg-clip-text text-transparent box-decoration-clone"
@@ -43,9 +43,9 @@
 		<p class="max-w-4xl text-xl">
 			As a devoted software engineer, I thrive in the world of app development. From delving deep
 			into Linux server configurations to architecting full-stack SaaS platforms, I just love the
-			process of creating things. By day, I'm a lead Android developer at Ally Financial; by night,
-			I tinker away at whatever currently has my interest. Check out my blog and find out what I've
-			been getting into lately.
+			process of creating things. By day, I'm a senior Android developer; by night, I tinker away at
+			whatever currently has my interest. Check out my blog and find out what I've been getting into
+			lately.
 		</p>
 		<MyLinks />
 		<Subscribe />
@@ -54,26 +54,26 @@
 <section class="mt-16">
 	<div class="flex justify-between flex-wrap gap-4">
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">5k+</p>
+			<p class="text-primary-900-50-token text-8xl">6k+</p>
 			<p class="text-primary-600-300-token">Contributions</p>
 		</div>
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">70+</p>
+			<p class="text-primary-900-50-token text-8xl">80+</p>
 			<p class="text-primary-600-300-token">Blogs</p>
 		</div>
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">4k+</p>
+			<p class="text-primary-900-50-token text-8xl">7k+</p>
 			<p class="text-primary-600-300-token">Followers</p>
 		</div>
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">100k+</p>
+			<p class="text-primary-900-50-token text-8xl">160k+</p>
 			<p class="text-primary-600-300-token">Blog Views</p>
 		</div>
 	</div>
 </section>
 
-<section class="my-16 flex justify-between">
-	<div class="card variant-ringed-primary p-4 w-[32%]">
+<section class="my-16 flex justify-center flex-wrap gap-4">
+	<div class="card variant-ringed-primary p-4 w-[32%] min-w-60">
 		<Icon name="scale-balance-solid" class="h-12 w-12 mb-4 text-primary-500-400-token" />
 		<h3 class="h2">Scalable</h3>
 		<hr class="mb-4" />
@@ -84,7 +84,7 @@
 			reliability even under increasing loads.
 		</p>
 	</div>
-	<div class="card variant-ringed-primary p-4 w-[32%]">
+	<div class="card variant-ringed-primary p-4 w-[32%] min-w-60">
 		<Icon name="computer-speaker-solid" class="h-12 w-12 mb-4 text-primary-500-400-token" />
 		<h3 class="h2">Full Stack</h3>
 		<hr class="mb-4" />
@@ -95,7 +95,7 @@
 			deliver smooth, responsive experiences.
 		</p>
 	</div>
-	<div class="card variant-ringed-primary p-4 w-[32%]">
+	<div class="card variant-ringed-primary p-4 w-[32%] min-w-60">
 		<Icon name="brain-solid" class="h-12 w-12 mb-4 text-primary-500-400-token" />
 		<h3 class="h2">Simple By Design</h3>
 		<hr class="mb-4" />

@@ -33,7 +33,7 @@
 </script>
 
 <div class="input-group input-group-divider flex w-max">
-	<div class="input-group-shim w-28">
+	<div class="input-group-shim">
 		{#if loading}
 			<ProgressRadial
 				value={undefined}

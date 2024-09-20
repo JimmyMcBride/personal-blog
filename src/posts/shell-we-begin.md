@@ -1,11 +1,12 @@
 ---
-title: "Why the Command Line? The Power of Shell"
+title: "Shell We Begin? Discover the Power of the Command Line"
 description: "In this post, we explore the power of the command line and shell basics, from navigation to file management. If you're ready to start your journey toward becoming a shell wizard, this guide is for you!"
 date: "2024-9-17"
-image: /why-the-command-line-banner.png
+image: /shell-we-begin-banner.png
 categories:
   - tutorial
   - bash
+  - shell-wizards
 published: true
 ---
 
@@ -18,7 +19,6 @@ I’m not exaggerating. Learning the command line isn't just about looking cool 
 Let’s be real—when you’re used to point-and-click interfaces, the shell might seem like overkill. But once you start grasping its power, the game changes completely. Here’s why:
 
 1. **Efficiency**: When you know the right commands, you can perform tasks way faster than with a mouse. Need to rename 100 files? No problem, that’s one command away.
-   
 2. **Control**: The shell gives you fine-grained control over your system. You’re no longer just clicking through menus—you’re sending precise instructions.
 
 3. **Automation**: If there’s one thing the shell excels at, it’s automation. Tasks that would normally take hours (or worse, be painfully repetitive) can be handled with a single script.
@@ -102,7 +102,7 @@ This command creates all the necessary directories in one go.
 Let’s say you need to move, copy, or delete files:
 
 - **Move** a file from one location to another:
-  
+
   ```bash
   mv file.txt new_location/
   ```
@@ -135,8 +135,12 @@ At this point, you might be thinking, “Yeah, okay, I get it, but this seems pr
 
 This is just the beginning. Soon, you’ll stop looking at the shell as a hassle and start seeing it as the magical tool it really is.
 
-**Next Up**: I’ll be breaking down the **core commands** you’ll use daily and how to combine them like a pro. We’ll make the terminal work *for you*.
+**Next Up**: I’ll be breaking down the **core commands** you’ll use daily and how to combine them like a pro. We’ll make the terminal work _for you_.
 
 ---
 
-*If you enjoyed this post and want more content on Linux, scripting, and app building, connect with me on [LinkedIn](https://linkedin.com/in/jimmy-mcbride/). Also, join my **Discord** for more discussions with like-minded shell wizards! [Click here to join!](https://discord.gg/4PCy4Bz)*
+### **Join the Community!**
+
+If you’re into coding, Linux, and just love being around people who want to learn, grow, and help each other out, come hang out with us on Discord! It’s a community of like-minded folks who share tips, talk shop, and support each other on our coding journeys. Whether you're a beginner or a seasoned pro, there's a place for you.
+
+**[Click here to join the conversation!](https://discord.gg/4PCy4Bz)**

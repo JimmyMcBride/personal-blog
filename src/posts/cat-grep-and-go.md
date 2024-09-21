@@ -135,22 +135,27 @@ grep "warning" log.txt >> errors.txt
 Now that you know how to use `cat`, `grep`, and combine them with pipes and redirection, let’s look at a more advanced example. Suppose you want to:
 
 1. Search for all error lines in multiple log files.
-2. Count the number of errors.
-3. Save the results to a file.
+2. Save the results to a file while still viewing the output in the terminal.
 
 Here’s the magic one-liner:
 
 ```bash
-cat *.log | grep "error" | tee errors.txt | wc -l
+cat *.log | grep "error" > errors.txt && cat errors.txt
 ```
 
-This command will search through all `.log` files for "error," save the results to `errors.txt` using `tee` (which allows you to see the output while saving it), and then count the number of error lines.
+Let’s break this down:
+
+- **`grep "error"`**: We’re searching for the word "error" across multiple `.log` files.
+- **`> errors.txt`**: This uses **redirection** to save the output of `grep` to the file `errors.txt`.
+- **`&& cat errors.txt`**: The `&&` ensures that the file is created first, then we use `cat` to display the contents of `errors.txt` back to the terminal, effectively letting you both see the results and save them at the same time.
+
+This command allows you to search through all `.log` files for "error," save the results to `errors.txt`, and then view them immediately.
 
 ---
 
-### **Coming Soon: An `awk` Deep Dive**
+### **Coming Soon: A `sed` Deep Dive**
 
-As mentioned in the comments, `awk` is an absolute powerhouse for text processing and data manipulation. We’ll be doing a full deep dive into `awk` in an upcoming post, where we’ll cover everything from basic field extraction to more advanced pattern matching and data summarization. Stay tuned for that!
+As promised, the next post will be all about `sed`—a powerful stream editor for transforming and manipulating text. We’ll cover everything from basic substitutions to advanced text transformations. Stay tuned!
 
 ---
 

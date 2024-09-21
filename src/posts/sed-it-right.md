@@ -163,7 +163,3 @@ Next up in the **Textual Healing** series, we’re diving deep into **`awk`**, a
 ---
 
 **Want to hang out with other Linux lovers and coding enthusiasts?** Come join our community on **Discord**! We’re a group of friendly folks who love to code, share tips, and help each other grow. **[Click here to join the conversation!](https://discord.gg/4PCy4Bz)**
-
----
-
-This version covers everything you need for a thorough deep dive into `sed`. Let me know if there’s anything you’d like to tweak!

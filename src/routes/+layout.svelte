@@ -59,6 +59,7 @@
 
 <svelte:head>
 	{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}
+	<meta name="google-site-verification" content="CseTqMt48Lh5608yesp0xuVuqTa6Y_Q1yWUe6rC5gSU" />
 </svelte:head>
 
 <Toast />

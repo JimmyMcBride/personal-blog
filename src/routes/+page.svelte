@@ -58,15 +58,15 @@
 			<p class="text-primary-600-300-token">Contributions</p>
 		</div>
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">80+</p>
+			<p class="text-primary-900-50-token text-8xl">90+</p>
 			<p class="text-primary-600-300-token">Blogs</p>
 		</div>
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">9k+</p>
+			<p class="text-primary-900-50-token text-8xl">13k+</p>
 			<p class="text-primary-600-300-token">Followers</p>
 		</div>
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">170k+</p>
+			<p class="text-primary-900-50-token text-8xl">190k+</p>
 			<p class="text-primary-600-300-token">Blog Views</p>
 		</div>
 	</div>

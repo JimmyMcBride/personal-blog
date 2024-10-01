@@ -2,7 +2,7 @@
 title: "Linux, I Choose You! 🐧 "
 description: "In this blog, I dive into why I love Linux and why it’s the only operating system I use on my personal machine. From ownership and freedom to open-source values, I explain what makes Linux special for me and why it aligns with my morals and passions as a developer."
 date: "2024-9-25"
-image: /sveltekit-blog-banner.png
+image: /linux-i-choose-you-banner.png
 categories:
   - linux
   - opinion

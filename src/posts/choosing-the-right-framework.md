@@ -2,7 +2,7 @@
 title: "Choosing the Right Framework: Should You Follow the Hype?"
 description: "In this blog, I discuss the never-ending hype of new frameworks, the dangers of shiny object syndrome, and how to focus on building with the tools you already know. Whether you're a builder or a tinkerer, I offer advice on how to stay true to your goals and choose the right technology stack for your projects."
 date: "2024-9-12"
-image: /choosing-the-right-framework-banner.png
+image: /choosing-the-right-framework-banner.webp
 categories:
   - advice
   - career

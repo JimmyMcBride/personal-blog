@@ -2,7 +2,7 @@
 title: "Hitchhiker's Guide to the Arch Linux Installation"
 description: "This guide is the perfect companion for your first Arch Linux installation. It breaks down the process step by step, simplifying the technical details, and ensuring you don’t feel lost. From partitioning the disk to setting up a swap file, I’ll guide you through it all—including a few pro tips to save you from the mistakes I made as a beginner."
 date: "2024-9-24"
-image: /hitchhikers-guide-to-the-arch-linux-installation-banner.png
+image: /hitchhikers-guide-to-the-arch-linux-installation-banner.webp
 categories:
   - linux
   - arch

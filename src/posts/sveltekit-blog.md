@@ -2,7 +2,7 @@
 title: "Build The Perfect Tech Blog With SvelteKit"
 description: "In this blog, we dive into building a modern blog platform using SvelteKit, Tailwind CSS, and Shiki for syntax highlighting. We’ll cover everything from setting up your project, working with markdown using mdsvex, to implementing SEO and prerendering for maximum performance. By the end, you'll have a fast, scalable blog ready to handle beautiful code snippets and more!"
 date: "2024-10-1"
-image: /sveltekit-blog-banner.png
+image: /sveltekit-blog-banner.webp
 categories:
   - svelte
   - sveltekit
@@ -147,7 +147,7 @@ Each blog post is written as a markdown file in the `src/posts` directory. Here'
 title: "First Post"
 description: "This is my first post!"
 date: "2024-09-24"
-image: /first-post-banner.png
+image: /first-post-banner.webp
 categories:
   - blog
   - tutorial
@@ -161,7 +161,7 @@ This is my first post!
 Lorem ipsum dolor sit amet...
 ```
 
-This metadata in the frontmatter helps populate information like the title, description, date, and categories for each post. **Important**, to make sure images are working, please add an image in your `/static` folder named `first-post-banner.png` so you can verify it works and nothing breaks.
+This metadata in the frontmatter helps populate information like the title, description, date, and categories for each post. **Important**, to make sure images are working, please add an image in your `/static` folder named `first-post-banner.webp` so you can verify it works and nothing breaks.
 
 ---
 
@@ -275,14 +275,14 @@ We’ll display each blog post using a custom **BlogCard** component. Let's crea
 	<meta property="og:title" content={title} />
 	<meta property="og:description" content={description} />
 	<meta property="og:site_name" content={title} />
-	<meta property="og:image" content="/blog-banner.png" />
+	<meta property="og:image" content="/blog-banner.webp" />
 
 	<meta name="twitter:site" content="@McBride1105" />
 	<meta name="twitter:creator" content="@McBride1105" />
 	<meta name="twitter:title" content={title} />
 	<meta name="twitter:description" content={description} />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:image:src" content="/blog-banner.png" />
+	<meta name="twitter:image:src" content="/blog-banner.webp" />
 	<meta name="twitter:widgets:new-embed-design" content="on" />
 
 	<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />

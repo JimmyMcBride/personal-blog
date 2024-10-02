@@ -2,7 +2,7 @@
 title: "Learn By Example: Bash Script - Godot 4 Project Creator"
 description: "In this blog, I walk through the process of automating Godot project creation using a custom bash script. Learn how to set up new projects, add specific assets, initialize Git, and streamline your game development workflow. Perfect for anyone looking to automate repetitive tasks in game development!"
 date: "2024-9-13"
-image: /bash-script-godot-4-project-creator-banner.png
+image: /bash-script-godot-4-project-creator-banner.webp
 categories:
   - advice
   - career

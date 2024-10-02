@@ -2,7 +2,7 @@
 title: "Why Writing Your Own Tools is More Important Than You Think"
 description: "In this blog post, I discuss the dangers of over-relying on third-party tools, the advantages of writing your own, and when it might be more practical to rely on a third-party tool."
 date: "2024-9-10"
-image: /writing-your-own-tools-banner.png
+image: /writing-your-own-tools-banner.webp
 categories:
   - advice
   - career

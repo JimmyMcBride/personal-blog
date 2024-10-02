@@ -2,7 +2,7 @@
 title: "The Undisputed BEST Way To Learn How To Code"
 description: "With so many opinions buzzing around the tech realm, you might be thinking, \"Which path do I take? What language do I start with?\" 🤷‍♂️🤷‍♀️ Well, fret not, because this guide is here to help you navigate through the modern labyrinth of choices, and find your best path."
 date: "2023-9-04"
-image: /the-undisputed-best-way-to-learn-how-to-code-banner.png
+image: /the-undisputed-best-way-to-learn-how-to-code-banner.webp
 categories:
   - advice
   - productivity

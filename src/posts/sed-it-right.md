@@ -2,7 +2,7 @@
 title: "Sed It Right: Mastering the Stream Editor for Text Magic"
 description: "In this post, we dive into the power of sed, the stream editor that makes text manipulation fast and efficient. From simple find-and-replace tasks to powerful regex transformations, sed can handle it all."
 date: "2024-9-22"
-image: /sed-it-right-banner.png
+image: /sed-it-right-banner.webp
 categories:
   - linux
   - arch
@@ -94,7 +94,7 @@ Here, we’re replacing "apple" with "orange" and "grape" with "mango" in a sing
 
 ### **6. Using `sed` with Regular Expressions**
 
-![Regex Meme](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fres.cloudinary.com%2Fpracticaldev%2Fimage%2Ffetch%2Fs--Y7UrCHfr--%2Fc_imagga_scale%2Cf_auto%2Cfl_progressive%2Ch_500%2Cq_auto%2Cw_1000%2Fhttps%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fi%2F3umga1qn8k7lwrr1ltw8.png&f=1&nofb=1&ipt=f71e65d9c8a7f5d771acce4eed226b7ad3a4e2d57ea7dd8f384bff93d591c196&ipo=images)
+![Regex Meme](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fres.cloudinary.com%2Fpracticaldev%2Fimage%2Ffetch%2Fs--Y7UrCHfr--%2Fc_imagga_scale%2Cf_auto%2Cfl_progressive%2Ch_500%2Cq_auto%2Cw_1000%2Fhttps%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fi%2F3umga1qn8k7lwrr1ltw8.webp&f=1&nofb=1&ipt=f71e65d9c8a7f5d771acce4eed226b7ad3a4e2d57ea7dd8f384bff93d591c196&ipo=images)
 
 We all feel the pain of regex's weird syntax, but hey, **we're not going to let that stop us from achieving greatness**! Despite its quirks, regex is a powerhouse when used in combination with `sed`. Let’s harness its strength!
 

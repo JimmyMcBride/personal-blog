@@ -102,7 +102,7 @@
 	<!-- Title -->
 	<hgroup class="flex flex-col items-end">
 		<h1 class="">{data.meta.title}</h1>
-		<img src={data.meta.image} alt="blog banner" class="rounded-md" width="800px" loading="lazy" />
+		<img src={data.meta.image} alt="blog banner" class="rounded-md" width="800px" />
 		<p class="text-end text-sm">
 			Published at {formatDate(data.meta.date)}
 			<br />

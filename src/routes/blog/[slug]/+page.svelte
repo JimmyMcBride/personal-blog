@@ -12,7 +12,7 @@
 	let slug = $page.params.slug
 	let totalViews: number
 	let newComment = ""
-	let comments: BlogComment[] = []
+	let comments = []
 	const user = userStore(auth)
 
 	onMount(async () => {
@@ -28,7 +28,7 @@
 
 	async function addComment() {
 		if ($user) {
-			const comment: BlogComment = {
+			const comment = {
 				content: newComment,
 				name: $user.displayName ?? "Anonymous",
 				avatar: $user.photoURL ?? "",
@@ -101,7 +101,7 @@
 	<!-- Title -->
 	<hgroup class="flex flex-col items-end">
 		<h1 class="">{data.meta.title}</h1>
-		<img src={data.meta.image} alt="blog banner" class="rounded-md" />
+		<img src={data.meta.image} alt="blog banner" class="rounded-md" width="800px" />
 		<p class="text-end text-sm">
 			Published at {formatDate(data.meta.date)}
 			<br />

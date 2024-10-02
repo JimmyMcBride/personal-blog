@@ -2,15 +2,14 @@
 	import { formatDate } from "$lib/utils.js"
 	import { Avatar } from "@skeletonlabs/skeleton"
 
-	// eslint-disable-next-line no-undef
-	export let post: Post
+	export let post
 </script>
 
 {#key post.slug}
 	<a class="card card-hover overflow-hidden w-full max-w-4xl mt-4 mx-4" href={`/blog/${post.slug}`}>
 		<header class="mb-4">
 			{#if post.image}
-				<img src={post.image} alt="blog banner" />
+				<img src={post.image} alt="blog banner" width="1000px" />
 			{/if}
 		</header>
 

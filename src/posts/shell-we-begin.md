@@ -2,7 +2,7 @@
 title: "Shell We Begin? Discover the Power of the Command Line"
 description: "In this post, we explore the power of the command line and shell basics, from navigation to file management. If you're ready to start your journey toward becoming a shell wizard, this guide is for you!"
 date: "2024-9-17"
-image: /shell-we-begin-banner.png
+image: /shell-we-begin-banner.webp
 categories:
   - tutorial
   - bash

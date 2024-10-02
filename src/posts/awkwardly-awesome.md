@@ -2,7 +2,7 @@
 title: "Awkwardly Awesome: Unlocking the Power of awk"
 description: "In this post, we unlock the power of awk—a command-line tool that excels at text processing and data manipulation. Using a simple example file, we explore how to extract, transform, and summarize data with ease. Whether you’re calculating totals, printing specific columns, or performing advanced pattern matching, this guide will get you up and running with awk like a pro!"
 date: "2024-9-23"
-image: /awkwardly-awesome-banner.png
+image: /awkwardly-awesome-banner.webp
 categories:
   - bash
   - tutorial

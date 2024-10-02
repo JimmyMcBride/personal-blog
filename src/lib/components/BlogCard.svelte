@@ -24,7 +24,7 @@
 		</div>
 		<hr class="opacity-50" />
 		<footer class="p-4 flex justify-start items-center space-x-4">
-			<Avatar src="/me-anime.jpeg" width="w-8" />
+			<Avatar src="/me-anime.webp" width="w-8" />
 			<div class="flex-auto flex justify-between items-center">
 				<h6 class="font-bold" data-toc-ignore>By Jimmy McBride</h6>
 				<small>On {formatDate(post.date)}</small>

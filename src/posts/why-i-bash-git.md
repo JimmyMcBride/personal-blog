@@ -2,7 +2,7 @@
 title: "Why I Bash Git (And Why You Should Too)"
 description: "In this blog, I break down my favorite Bash functions and aliases that make working with Git faster and more efficient. Learn how to create custom Git workflows in your terminal that save time and reduce typing. Whether you’re a terminal purist or just curious about automating your Git commands, this post has something for everyone!"
 date: "2024-9-15"
-image: /why-i-bash-git-banner.png
+image: /why-i-bash-git-banner.webp
 categories:
   - tutoiral
   - bash

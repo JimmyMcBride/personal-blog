@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts" defer>
 	import { formatDate } from "$lib/utils"
 	import { url, title } from "$lib/config"
 	import { page } from "$app/stores"
@@ -97,11 +97,12 @@
 	<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 	<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
 </svelte:head>
-<article class="prose md:prose-lg lg:prose-xl mx-auto dark:prose-invert mb-16">
+
+<article class="prose md:prose-lg lg:prose-xl mx-auto dark:prose-invert mb-16 p-4">
 	<!-- Title -->
 	<hgroup class="flex flex-col items-end">
 		<h1 class="">{data.meta.title}</h1>
-		<img src={data.meta.image} alt="blog banner" class="rounded-md" width="800px" />
+		<img src={data.meta.image} alt="blog banner" class="rounded-md" width="800px" loading="lazy" />
 		<p class="text-end text-sm">
 			Published at {formatDate(data.meta.date)}
 			<br />

@@ -1,4 +1,4 @@
-<script>
+<script defer>
 	import BlogCard from "$lib/components/BlogCard.svelte"
 	import { title, description, url } from "$lib/config"
 
@@ -30,7 +30,7 @@
 </svelte:head>
 
 <section class="mb-16">
-	<ul class="flex flex-col items-center">
+	<ul class="flex flex-col items-center p-4">
 		{#each data.posts as post}
 			<BlogCard {post} />
 		{/each}

@@ -2,7 +2,7 @@
 title: "Create Custom Jetpack Compose Animations 🎨 Make Your App Experience Truly Unique"
 description: Ready to take your Jetpack Compose animations to the next level? In today's blog post, we'll learn how to create custom animations instead of using predefined ones, giving you the flexibility to design a unique experience for your app users.
 date: "2023-5-8"
-image: https://res.cloudinary.com/practicaldev/image/fetch/s--lwglygF9--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/laxgx2f39sn9vzox4844.webp
+image: https://res.cloudinary.com/practicaldev/image/fetch/s--lwglygF9--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/laxgx2f39sn9vzox4844.png
 categories:
   - kotlin
   - android
@@ -27,19 +27,19 @@ In this example, we'll animate the scale of a button from 1f (normal size) to 1.
 @Composable
 fun CustomScaleAnimationButton() {
     val animationProgress = remember { Animatable(1f) }
-    
+
     val pressInteractionSource = remember { MutableInteractionSource() }
     val isPressed by pressInteractionSource.collectIsPressedAsState()
 
     LaunchedEffect(isPressed) {
         if (isPressed) {
             animationProgress.animateTo(
-                targetValue = 1.5f, 
+                targetValue = 1.5f,
                 animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy)
             )
         } else {
             animationProgress.animateTo(
-                targetValue = 1f, 
+                targetValue = 1f,
                 animationSpec = spring(0.75f)
             )
         }

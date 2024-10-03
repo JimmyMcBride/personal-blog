@@ -2,7 +2,7 @@
 title: "Swipe Away Tasks: Jetpack Compose & Material 3 Todo App Quick-Start Guide 🎯"
 description: Welcome to this fantastic journey into the world of Jetpack Compose, Material 3, and animations! If you've been looking for a comprehensive guide to help you create a task app using these cutting-edge technologies, you've come to the right place.
 date: "2023-5-3"
-image: https://res.cloudinary.com/practicaldev/image/fetch/s--U9q86BAR--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/t2ci6vk2vktgt7iy8is1.webp
+image: https://res.cloudinary.com/practicaldev/image/fetch/s--U9q86BAR--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/t2ci6vk2vktgt7iy8is1.png
 categories:
   - kotlin
   - android
@@ -158,13 +158,13 @@ Before we move any further, let's handle the business logic of our app. I prefer
 
 ```kotlin
 class TaskViewModel : ViewModel() {
-  /* we use private set on our taskList so that it can't be 
+  /* we use private set on our taskList so that it can't be
   mutated from the view */
   var taskList by mutableStateOf<List<Task>>(listOf())
     private set
 
   /* we use a pair here for simple error handling
-  the first value stands for isError, and the second value is 
+  the first value stands for isError, and the second value is
   the error message. */
   fun addTask(body: String): Pair<Boolean, String> {
     // ...
@@ -241,7 +241,7 @@ Now, let's include our top app bar in the `TaskScreen` scaffold:
 ```kotlin
 @Composable
 fun TaskScreen(viewModel: TaskViewModel) {
-  /* our state doesn't toggle the dialog yet, but we'll come 
+  /* our state doesn't toggle the dialog yet, but we'll come
   back to this */
   val deleteAllTasksDialog = remember {
     mutableStateOf(false)
@@ -330,6 +330,7 @@ Inside `./screens/TaskScreen.kt`:
       AddTaskInput(viewModel) // add our new component here
       // ...
 ```
+
 Next, let's work on rendering our list. Start by creating `./components/TaskCard.kt`.
 
 ```kotlin

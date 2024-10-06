@@ -68,7 +68,13 @@
 	<AppShell>
 		<svelte:fragment slot="header">
 			<nav class="container mx-auto my-8 flex justify-between items-center">
-				<Avatar class="ml-2" src="/me-anime.webp" width="w-12" rounded="rounded-full" />
+				<Avatar
+					class="ml-2"
+					src="/me-anime.webp"
+					width="w-12"
+					rounded="rounded-full"
+					alt="Jimmy's Profile Pic"
+				/>
 				<RadioGroup
 					active="variant-filled-primary"
 					hover="hover:variant-soft-primary"

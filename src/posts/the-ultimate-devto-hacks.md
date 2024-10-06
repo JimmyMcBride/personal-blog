@@ -25,7 +25,7 @@ That means if you do not have a canonical link, search engines may index the dup
 
 So here's how you'd add a canonical link to your **Dev.to** post, for instance:
 
-![set canonical link on dev](/dev-canonical-link.webp)
+![set canonical link on dev](/dev-canonical-link.webp "Set a cononical link on Dev.to")
 
 Then on your offical blog, you can add a link in your header pointing to your site as the canonical link as well.
 
@@ -98,7 +98,7 @@ Here's what you do:
 
 1. **Submit Your Sitemap**: Navigate to [Google Search Console](https://search.google.com/search-console/about), click the **Sitemaps** section, and submit your sitemap URL - for example, `https://your-site.com/sitemap.xml`.
 
-![google search console add sitemap](/gsc-sitemap.webp)
+![google search console add sitemap](/gsc-sitemap.webp "Add a sitemap to Google Seach Console")
 
 2. **Request Indexing**: Once you've submitted your sitemap, you can then go into Google Search Console and request indexing of your posts immediately without having to wait for Google to crawl your site. Within **URL Inspection Tool**, you put your blog URL and hit **Request Indexing**. That's you telling Google, **"Hey, I've got new content—check it out!"**
 

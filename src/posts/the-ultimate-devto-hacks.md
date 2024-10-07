@@ -51,7 +51,7 @@ This is where **sitemaps** and **Google Search Console** save your bacon.
 
 That's what sitemaps are for: it helps search engines understand the architecture of your website and index your content quicker. Think of it this way: you’re giving Google a clear roadmap to your content, pointing out exactly where each important piece is located—like marking all the key spots on a map—so it knows exactly where to return and crawl your site efficiently.
 
-In SvelteKit, you can dynamically generate a sitemap to help search engines like Google keep up with your latest blog posts as they are published. Here’s the **sitemap.xml** implementation I use for my [SvelteKit blog](https://jimmymcbride.dev/blog/sveltekit-blog):
+In SvelteKit, you can dynamically generate a sitemap to help search engines like Google keep up with your latest blog posts as they are published. Here’s the **sitemap.xml** implementation I use for my [SvelteKit blog](/blog/sveltekit-blog):
 
 ```typescript
 import { url } from "$lib/config"

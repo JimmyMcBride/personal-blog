@@ -17,9 +17,7 @@ My aim with this blog is to help you understand how the system works, and levera
 
 I truly believe Dev can serve as a great tool when growing your audience in the tech space, so here's how I use Dev's platform to get traffic and SEO boosts!
 
-## Contents
-
-#### **Canonical Links: Why You Need Them**
+### **Canonical Links: Why You Need Them**
 
 So, first up **canonical links**. If you're publishing the same content to your blog and platforms like **Dev.to** or **Medium**, then you'll need to let search engines know where the **official** version lives. That's what canonical links are for. They allow Google - and others - to understand which version of your blog is the "original" or "canonical" source.
 

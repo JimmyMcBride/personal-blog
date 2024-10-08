@@ -35,8 +35,6 @@
 	// Lifecycle
 	afterNavigate((params: any) => {
 		// Scroll to top
-		const isNewPage: boolean =
-			params.from && params.to && params.from.route.id !== params.to.route.id
 		const elemPage = document.querySelector("#page")
 		if (elemPage !== null) {
 			logFirebaseEvent("page_view", { route: window.location.pathname })
@@ -58,7 +56,7 @@
 </script>
 
 <svelte:head>
-	{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}
+	{@html "<script>(" + autoModeWatcher.toString() + ")();</script>"}
 	<meta name="google-site-verification" content="CseTqMt48Lh5608yesp0xuVuqTa6Y_Q1yWUe6rC5gSU" />
 </svelte:head>
 

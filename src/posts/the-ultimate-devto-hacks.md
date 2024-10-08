@@ -9,6 +9,10 @@ categories:
 published: true
 ---
 
+## Contents
+
+## Intro
+
 SEO can be hard. Getting people to click and notice your original content can be soul-crushing in the beginning. For us techies, that's what makes a platform like Dev so great! It's a community of like-minded people there to read and support you along your journey. I started my journey blogging on Dev as a way to solidify what I was learning at a coding bootcamp. I was absolutely blown away by the amount of engagement I started to get. People were following me like crazy. I even remember the first time I won "Top 7 Most Popular Blog Of The Week"! I felt like I was on fire!
 
 I remember thinking to myself that my dreams of creating valuable content that helps others out weren't as far off as I feared. So I started my own blog and began posting my Dev content there, but there was still so much I didn't know!
@@ -17,7 +21,7 @@ My aim with this blog is to help you understand how the system works, and levera
 
 I truly believe Dev can serve as a great tool when growing your audience in the tech space, so here's how I use Dev's platform to get traffic and SEO boosts!
 
-### **Canonical Links: Why You Need Them**
+## **Canonical Links: Why You Need Them**
 
 So, first up **canonical links**. If you're publishing the same content to your blog and platforms like **Dev.to** or **Medium**, then you'll need to let search engines know where the **official** version lives. That's what canonical links are for. They allow Google - and others - to understand which version of your blog is the "original" or "canonical" source.
 
@@ -37,7 +41,7 @@ This tells Google, **"Hey, this post lives officially on my blog, not on this pl
 
 ---
 
-### **Why Canonical Links Alone Aren't Enough**
+## **Why Canonical Links Alone Aren't Enough**
 
 Now, here is where things get interesting. **Canonical links alone don't always ensure that your blog shows up in search results first**--especially if Dev.to or Medium has been indexed more quickly because of the size and traffic of their platforms.
 
@@ -47,7 +51,7 @@ This is where **sitemaps** and **Google Search Console** save your bacon.
 
 ---
 
-### **Sitemaps: Your Fast Pass for Indexing**
+## **Sitemaps: Your Fast Pass for Indexing**
 
 That's what sitemaps are for: it helps search engines understand the architecture of your website and index your content quicker. Think of it this way: you’re giving Google a clear roadmap to your content, pointing out exactly where each important piece is located—like marking all the key spots on a map—so it knows exactly where to return and crawl your site efficiently.
 
@@ -90,7 +94,7 @@ Once your sitemap is ready, this needs to be submitted to **Google Search Consol
 
 ---
 
-### **Google Search Console: Your Control Center for Indexing**
+## **Google Search Console: Your Control Center for Indexing**
 
 And so brings us to **Google Search Console**. If you're serious about SEO, well, this tool is not optional.
 
@@ -106,7 +110,7 @@ This will ensure that **your personal blog** gets indexed sooner and appears hig
 
 ---
 
-### **The Full SEO Picture**
+## **The Full SEO Picture**
 
 So, here's the recap: **Canonical links** help Google understand which blog is the "official" version, whereas **sitemaps** and **Google Search Console** ensure **your site** gets indexed and appears in search results **first**. If you don't do all three, then you will probably find your Dev.to or Medium posts outrank your blog.
 
@@ -114,7 +118,7 @@ It's a little extra effort, but it's worth it when you see that the traffic is g
 
 ---
 
-### **Wrapping Up: SEO Done Right**
+## **Wrapping Up: SEO Done Right**
 
 By now, if you have worked hard in creating and growing your tech blog, these tips will put you in full command of your SEO strategy. Keep in mind, though, that everything is about securing **your site** with much-deserved visibility in the search engines.
 

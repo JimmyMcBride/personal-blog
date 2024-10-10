@@ -99,9 +99,6 @@
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:widgets:new-embed-design" content="on" />
 
-	<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-	<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
-
 	<meta property="article:published_time" content={data.meta.date} />
 	<meta property="article:modified_time" content={data.meta.date} />
 	<meta name="date" content={data.meta.date} />

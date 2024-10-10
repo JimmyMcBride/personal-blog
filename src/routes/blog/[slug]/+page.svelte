@@ -70,6 +70,7 @@
 	}
 
 	export let data
+	console.log(data.meta.short)
 </script>
 
 <!-- SEO -->
@@ -77,25 +78,35 @@
 	<title>{data.meta.title}</title>
 
 	<link rel="canonical" href={`${url}${data.url}`} />
-	<meta name="description" content={data.meta.description} />
+	<meta name="description" content={data.meta.short ? data.meta.short : data.meta.description} />
 
 	<meta property="og:type" content="article" />
 	<meta property="og:url" content={`${url}${data.url}`} />
 	<meta property="og:title" content={data.meta.title} />
-	<meta property="og:description" content={data.meta.description} />
+	<meta
+		property="og:description"
+		content={data.meta.short ? data.meta.short : data.meta.description}
+	/>
 	<meta property="og:site_name" content={title} />
 	<meta property="og:image" content={data.meta.image} />
 
 	<meta name="twitter:site" content="@McBride1105" />
 	<meta name="twitter:creator" content="@McBride1105" />
 	<meta name="twitter:title" content={data.meta.title} />
-	<meta name="twitter:description" content={data.meta.description} />
+	<meta
+		name="twitter:description"
+		content={data.meta.short ? data.meta.short : data.meta.description}
+	/>
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:image" content={data.meta.image} />
 	<meta name="twitter:widgets:new-embed-design" content="on" />
 
 	<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 	<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+
+	<meta property="article:published_time" content={data.meta.date} />
+	<meta property="article:modified_time" content={data.meta.date} />
+	<meta name="date" content={data.meta.date} />
 </svelte:head>
 
 <article class="prose md:prose-lg lg:prose-xl mx-auto dark:prose-invert mb-16 p-4">

@@ -62,11 +62,11 @@
 			<p class="text-primary-600-300-token">Blogs</p>
 		</div>
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">13k+</p>
+			<p class="text-primary-900-50-token text-8xl">53k+</p>
 			<p class="text-primary-600-300-token">Followers</p>
 		</div>
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">190k+</p>
+			<p class="text-primary-900-50-token text-8xl">197k+</p>
 			<p class="text-primary-600-300-token">Blog Views</p>
 		</div>
 	</div>

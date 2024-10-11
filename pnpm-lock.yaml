@@ -8,24 +8,39 @@ importers:
 
   .:
     dependencies:
-      '@sveltejs/adapter-auto':
-        specifier: ^3.0.0
-        version: 3.2.5(@sveltejs/kit@2.6.3(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28)))(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28)))
-      '@sveltejs/kit':
-        specifier: ^2.0.0
-        version: 2.6.3(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28)))(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28))
-      '@sveltejs/vite-plugin-svelte':
-        specifier: ^3.1.2
-        version: 3.1.2(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28))
+      firebase:
+        specifier: ^9.23.0
+        version: 9.23.0
+      firebase-admin:
+        specifier: ^11.11.1
+        version: 11.11.1
+      rehype-slug:
+        specifier: ^6.0.0
+        version: 6.0.0
+      remark-toc:
+        specifier: ^9.0.0
+        version: 9.0.0
+      remark-unwrap-images:
+        specifier: ^4.0.0
+        version: 4.0.0
+      shiki:
+        specifier: ^1.21.0
+        version: 1.22.0
+      sitemap:
+        specifier: ^8.0.0
+        version: 8.0.0
       svelte:
         specifier: ^4.2.7
         version: 4.2.12
-      svelte-check:
-        specifier: ^4.0.0
-        version: 4.0.4(svelte@4.2.12)(typescript@5.4.2)
-      vite:
-        specifier: ^5.0.3
-        version: 5.4.8(@types/node@20.11.28)
+      sveltefire:
+        specifier: ^0.4.5
+        version: 0.4.5(firebase@9.23.0)(svelte@4.2.12)
+      tailwind-merge:
+        specifier: ^1.14.0
+        version: 1.14.0
+      uuid:
+        specifier: ^9.0.1
+        version: 9.0.1
     devDependencies:
       '@floating-ui/dom':
         specifier: ^1.6.3
@@ -36,6 +51,15 @@ importers:
       '@skeletonlabs/tw-plugin':
         specifier: ^0.1.0
         version: 0.1.0(tailwindcss@3.4.1)
+      '@sveltejs/adapter-auto':
+        specifier: ^3.0.0
+        version: 3.2.5(@sveltejs/kit@2.6.3(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28)))(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28)))
+      '@sveltejs/kit':
+        specifier: ^2.0.0
+        version: 2.6.3(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28)))(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28))
+      '@sveltejs/vite-plugin-svelte':
+        specifier: ^3.1.2
+        version: 3.1.2(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28))
       '@tailwindcss/forms':
         specifier: ^0.5.7
         version: 0.5.7(tailwindcss@3.4.1)
@@ -66,12 +90,6 @@ importers:
       eslint-plugin-svelte:
         specifier: ^2.35.1
         version: 2.35.1(eslint@8.57.0)(svelte@4.2.12)
-      firebase:
-        specifier: ^9.23.0
-        version: 9.23.0
-      firebase-admin:
-        specifier: ^11.11.1
-        version: 11.11.1
       flowbite-svelte-icons:
         specifier: ^0.3.6
         version: 0.3.6(svelte@4.2.12)(tailwind-merge@1.14.0)(tailwindcss@3.4.1)
@@ -90,27 +108,9 @@ importers:
       prettier-plugin-svelte:
         specifier: ^2.10.1
         version: 2.10.1(prettier@2.8.8)(svelte@4.2.12)
-      rehype-slug:
-        specifier: ^6.0.0
-        version: 6.0.0
-      remark-toc:
-        specifier: ^9.0.0
-        version: 9.0.0
-      remark-unwrap-images:
+      svelte-check:
         specifier: ^4.0.0
-        version: 4.0.0
-      shiki:
-        specifier: ^1.21.0
-        version: 1.22.0
-      sitemap:
-        specifier: ^8.0.0
-        version: 8.0.0
-      sveltefire:
-        specifier: ^0.4.5
-        version: 0.4.5(firebase@9.23.0)(svelte@4.2.12)
-      tailwind-merge:
-        specifier: ^1.14.0
-        version: 1.14.0
+        version: 4.0.4(svelte@4.2.12)(typescript@5.4.2)
       tailwindcss:
         specifier: ^3.4.1
         version: 3.4.1
@@ -120,9 +120,9 @@ importers:
       typescript:
         specifier: ^5.4.2
         version: 5.4.2
-      uuid:
-        specifier: ^9.0.1
-        version: 9.0.1
+      vite:
+        specifier: ^5.0.3
+        version: 5.4.8(@types/node@20.11.28)
 
 packages:
 

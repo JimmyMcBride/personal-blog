@@ -8,15 +8,88 @@ importers:
 
   .:
     dependencies:
+      '@sveltejs/adapter-auto':
+        specifier: ^3.0.0
+        version: 3.2.5(@sveltejs/kit@2.6.3(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28)))(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28)))
+      '@sveltejs/kit':
+        specifier: ^2.0.0
+        version: 2.6.3(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28)))(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28))
+      '@sveltejs/vite-plugin-svelte':
+        specifier: ^3.1.2
+        version: 3.1.2(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28))
+      svelte:
+        specifier: ^4.2.7
+        version: 4.2.12
+      svelte-check:
+        specifier: ^4.0.0
+        version: 4.0.4(svelte@4.2.12)(typescript@5.4.2)
+      vite:
+        specifier: ^5.0.3
+        version: 5.4.8(@types/node@20.11.28)
+    devDependencies:
+      '@floating-ui/dom':
+        specifier: ^1.6.3
+        version: 1.6.3
+      '@skeletonlabs/skeleton':
+        specifier: ^2.9.0
+        version: 2.9.0(svelte@4.2.12)
+      '@skeletonlabs/tw-plugin':
+        specifier: ^0.1.0
+        version: 0.1.0(tailwindcss@3.4.1)
+      '@tailwindcss/forms':
+        specifier: ^0.5.7
+        version: 0.5.7(tailwindcss@3.4.1)
+      '@tailwindcss/typography':
+        specifier: ^0.5.10
+        version: 0.5.10(tailwindcss@3.4.1)
+      '@types/node':
+        specifier: ^20.11.28
+        version: 20.11.28
       '@types/uuid':
         specifier: ^9.0.8
         version: 9.0.8
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^5.62.0
+        version: 5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.4.2))(eslint@8.57.0)(typescript@5.4.2)
+      '@typescript-eslint/parser':
+        specifier: ^5.62.0
+        version: 5.62.0(eslint@8.57.0)(typescript@5.4.2)
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.35)
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
+      eslint-config-prettier:
+        specifier: ^8.10.0
+        version: 8.10.0(eslint@8.57.0)
+      eslint-plugin-svelte:
+        specifier: ^2.35.1
+        version: 2.35.1(eslint@8.57.0)(svelte@4.2.12)
       firebase:
         specifier: ^9.23.0
         version: 9.23.0
       firebase-admin:
         specifier: ^11.11.1
         version: 11.11.1
+      flowbite-svelte-icons:
+        specifier: ^0.3.6
+        version: 0.3.6(svelte@4.2.12)(tailwind-merge@1.14.0)(tailwindcss@3.4.1)
+      mdsvex:
+        specifier: ^0.12.3
+        version: 0.12.3(svelte@4.2.12)
+      postcss:
+        specifier: ^8.4.35
+        version: 8.4.35
+      postcss-load-config:
+        specifier: ^4.0.2
+        version: 4.0.2(postcss@8.4.35)
+      prettier:
+        specifier: ^2.8.8
+        version: 2.8.8
+      prettier-plugin-svelte:
+        specifier: ^2.10.1
+        version: 2.10.1(prettier@2.8.8)(svelte@4.2.12)
       rehype-slug:
         specifier: ^6.0.0
         version: 6.0.0
@@ -38,79 +111,6 @@ importers:
       tailwind-merge:
         specifier: ^1.14.0
         version: 1.14.0
-      uuid:
-        specifier: ^9.0.1
-        version: 9.0.1
-    devDependencies:
-      '@floating-ui/dom':
-        specifier: ^1.6.3
-        version: 1.6.3
-      '@skeletonlabs/skeleton':
-        specifier: ^2.9.0
-        version: 2.9.0(svelte@4.2.12)
-      '@skeletonlabs/tw-plugin':
-        specifier: ^0.1.0
-        version: 0.1.0(tailwindcss@3.4.1)
-      '@sveltejs/adapter-auto':
-        specifier: ^3.0.0
-        version: 3.2.5(@sveltejs/kit@2.6.3(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28)))(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28)))
-      '@sveltejs/kit':
-        specifier: ^2.0.0
-        version: 2.6.3(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28)))(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28))
-      '@sveltejs/vite-plugin-svelte':
-        specifier: ^3.1.2
-        version: 3.1.2(svelte@4.2.12)(vite@5.4.8(@types/node@20.11.28))
-      '@tailwindcss/forms':
-        specifier: ^0.5.7
-        version: 0.5.7(tailwindcss@3.4.1)
-      '@tailwindcss/typography':
-        specifier: ^0.5.10
-        version: 0.5.10(tailwindcss@3.4.1)
-      '@types/node':
-        specifier: ^20.11.28
-        version: 20.11.28
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^5.62.0
-        version: 5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.4.2))(eslint@8.57.0)(typescript@5.4.2)
-      '@typescript-eslint/parser':
-        specifier: ^5.62.0
-        version: 5.62.0(eslint@8.57.0)(typescript@5.4.2)
-      autoprefixer:
-        specifier: ^10.4.20
-        version: 10.4.20(postcss@8.4.35)
-      eslint:
-        specifier: ^8.57.0
-        version: 8.57.0
-      eslint-config-prettier:
-        specifier: ^8.10.0
-        version: 8.10.0(eslint@8.57.0)
-      eslint-plugin-svelte:
-        specifier: ^2.35.1
-        version: 2.35.1(eslint@8.57.0)(svelte@4.2.12)
-      flowbite-svelte-icons:
-        specifier: ^0.3.6
-        version: 0.3.6(svelte@4.2.12)(tailwind-merge@1.14.0)(tailwindcss@3.4.1)
-      mdsvex:
-        specifier: ^0.12.3
-        version: 0.12.3(svelte@4.2.12)
-      postcss:
-        specifier: ^8.4.35
-        version: 8.4.35
-      postcss-load-config:
-        specifier: ^4.0.2
-        version: 4.0.2(postcss@8.4.35)
-      prettier:
-        specifier: ^2.8.8
-        version: 2.8.8
-      prettier-plugin-svelte:
-        specifier: ^2.10.1
-        version: 2.10.1(prettier@2.8.8)(svelte@4.2.12)
-      svelte:
-        specifier: ^4.2.7
-        version: 4.2.12
-      svelte-check:
-        specifier: ^4.0.0
-        version: 4.0.4(svelte@4.2.12)(typescript@5.4.2)
       tailwindcss:
         specifier: ^3.4.1
         version: 3.4.1
@@ -120,9 +120,9 @@ importers:
       typescript:
         specifier: ^5.4.2
         version: 5.4.2
-      vite:
-        specifier: ^5.0.3
-        version: 5.4.8(@types/node@20.11.28)
+      uuid:
+        specifier: ^9.0.1
+        version: 9.0.1
 
 packages:
 

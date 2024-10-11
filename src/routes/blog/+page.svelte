@@ -1,7 +1,6 @@
 <script defer>
 	import BlogCard from "$lib/components/BlogCard.svelte"
 	import { title, description, url } from "$lib/config"
-	import { page } from "$app/stores"
 
 	export let data
 	const pageSize = 8
@@ -10,14 +9,17 @@
 	let currentPage = 1
 	let totalPages = 1
 	let searchTerm = ""
+
+	// Reactive filtered posts based on search term
 	$: filteredPosts = posts.filter((post) =>
 		post.title.toLowerCase().includes(searchTerm.toLowerCase())
 	)
 
-	// Extract page and search params from the URL
+	// Watch for searchTerm changes and reset the currentPage
 	$: {
-		const query = $page.url.searchParams
-		currentPage = parseInt(query.get("page")) || 1
+		if (searchTerm) {
+			currentPage = 1 // Reset page to 1 when search term changes
+		}
 	}
 
 	$: {
@@ -70,22 +72,25 @@
 	<!-- Pagination -->
 	<div class="flex justify-center items-center space-x-4 mt-4">
 		{#if currentPage > 1}
-			<a
-				href="?page={currentPage - 1}&search={searchTerm}"
-				class="btn variant-filled-primary px-4 py-2 bg-blue-500 text-white">Previous</a
+			<button
+				on:click={() => currentPage--}
+				class="btn variant-filled-primary px-4 py-2 bg-blue-500 text-white"
 			>
+				Previous
+			</button>
 		{/if}
 
 		{#if currentPage < totalPages}
-			<a
-				href="?page={currentPage + 1}&search={searchTerm}"
-				class="btn variant-filled-primary px-4 py-2 bg-blue-500 text-white">Next</a
+			<button
+				on:click={() => currentPage++}
+				class="btn variant-filled-primary px-4 py-2 bg-blue-500 text-white"
 			>
+				Next
+			</button>
 		{/if}
 
 		<p class="code">Page: {currentPage}/{totalPages}</p>
 	</div>
-
 	<!-- Blog List -->
 	<ul class="flex flex-col items-center p-4">
 		{#each paginatedPosts as post}
@@ -94,19 +99,23 @@
 	</ul>
 
 	<!-- Pagination -->
-	<div class="flex justify-center space-x-4 mt-4">
+	<div class="flex justify-center items-center space-x-4 mt-4">
 		{#if currentPage > 1}
-			<a
-				href="?page={currentPage - 1}&search={searchTerm}"
-				class="btn variant-filled-primary px-4 py-2 bg-blue-500 text-white">Previous</a
+			<button
+				on:click={() => currentPage--}
+				class="btn variant-filled-primary px-4 py-2 bg-blue-500 text-white"
 			>
+				Previous
+			</button>
 		{/if}
 
 		{#if currentPage < totalPages}
-			<a
-				href="?page={currentPage + 1}&search={searchTerm}"
-				class="btn variant-filled-primary px-4 py-2 bg-blue-500 text-white">Next</a
+			<button
+				on:click={() => currentPage++}
+				class="btn variant-filled-primary px-4 py-2 bg-blue-500 text-white"
 			>
+				Next
+			</button>
 		{/if}
 
 		<p class="code">Page: {currentPage}/{totalPages}</p>

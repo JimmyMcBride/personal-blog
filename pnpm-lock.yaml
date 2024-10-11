@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@types/uuid':
-        specifier: ^9.0.8
-        version: 9.0.8
       firebase:
         specifier: ^9.23.0
         version: 9.23.0
@@ -32,6 +29,9 @@ importers:
       sitemap:
         specifier: ^8.0.0
         version: 8.0.0
+      svelte:
+        specifier: ^4.2.7
+        version: 4.2.12
       sveltefire:
         specifier: ^0.4.5
         version: 0.4.5(firebase@9.23.0)(svelte@4.2.12)
@@ -69,6 +69,9 @@ importers:
       '@types/node':
         specifier: ^20.11.28
         version: 20.11.28
+      '@types/uuid':
+        specifier: ^9.0.8
+        version: 9.0.8
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.62.0
         version: 5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@5.4.2))(eslint@8.57.0)(typescript@5.4.2)
@@ -105,9 +108,6 @@ importers:
       prettier-plugin-svelte:
         specifier: ^2.10.1
         version: 2.10.1(prettier@2.8.8)(svelte@4.2.12)
-      svelte:
-        specifier: ^4.2.7
-        version: 4.2.12
       svelte-check:
         specifier: ^4.0.0
         version: 4.0.4(svelte@4.2.12)(typescript@5.4.2)

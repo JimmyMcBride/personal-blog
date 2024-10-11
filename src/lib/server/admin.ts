@@ -5,19 +5,19 @@ import { dev } from "$app/environment"
 import pkg from "firebase-admin"
 
 try {
-	pkg.initializeApp({
-		credential: pkg.credential.cert({
-			projectId: FB_PROJECT_ID,
-			clientEmail: FB_CLIENT_EMAIL,
-			privateKey: dev ? FB_PRIVATE_KEY : JSON.parse(FB_PRIVATE_KEY),
-		}),
-	})
+  pkg.initializeApp({
+    credential: pkg.credential.cert({
+      projectId: FB_PROJECT_ID,
+      clientEmail: FB_CLIENT_EMAIL,
+      privateKey: FB_PRIVATE_KEY.replace(/\\n/g, "\n"),
+    }),
+  })
 } catch (err) {
-	if (err instanceof Error) {
-		if (!/already exists/u.test(err.message)) {
-			console.error("Firebase Admin Error: ", err.stack)
-		}
-	}
+  if (err instanceof Error) {
+    if (!/already exists/u.test(err.message)) {
+      console.error("Firebase Admin Error: ", err.stack)
+    }
+  }
 }
 
 export const adminDB = getFirestore()

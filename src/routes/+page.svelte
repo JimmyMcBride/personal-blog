@@ -54,7 +54,7 @@
 <section class="mt-16">
 	<div class="flex justify-between flex-wrap gap-4">
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">6k+</p>
+			<p class="text-primary-900-50-token text-8xl">7k+</p>
 			<p class="text-primary-600-300-token">Contributions</p>
 		</div>
 		<div class="flex flex-col">
@@ -62,11 +62,11 @@
 			<p class="text-primary-600-300-token">Blogs</p>
 		</div>
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">53k+</p>
+			<p class="text-primary-900-50-token text-8xl">16k+</p>
 			<p class="text-primary-600-300-token">Followers</p>
 		</div>
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">197k+</p>
+			<p class="text-primary-900-50-token text-8xl">198k+</p>
 			<p class="text-primary-600-300-token">Blog Views</p>
 		</div>
 	</div>

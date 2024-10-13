@@ -58,6 +58,7 @@
 <svelte:head>
 	{@html "<script>(" + autoModeWatcher.toString() + ")();</script>"}
 	<meta name="google-site-verification" content="CseTqMt48Lh5608yesp0xuVuqTa6Y_Q1yWUe6rC5gSU" />
+  <script defer data-domain="jimmymcbride.dev" src="https://plausible.jimmymcbride.dev/js/script.outbound-links.pageview-props.tagged-events.js"></script>
 </svelte:head>
 
 <Toast />

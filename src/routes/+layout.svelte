@@ -11,17 +11,38 @@
 		autoModeWatcher,
 		initializeStores,
 	} from "@skeletonlabs/skeleton"
-	import { afterNavigate, goto } from "$app/navigation"
-	import { page } from "$app/stores"
 	import MyLinks from "$lib/components/MyLinks.svelte"
 	import PageTransition from "$lib/components/transition.svelte"
 	import Subscribe from "$lib/components/Subscribe.svelte"
-	import { logFirebaseEvent, firestore, auth } from "$lib/firebase"
-	import { FirebaseApp } from "sveltefire"
+	import { afterNavigate, goto } from "$app/navigation"
+	import { page } from "$app/stores"
+	import { pb, getAvatarUrl } from "$lib/pocketbase"
+	import { user } from "$lib/stores/user"
+	import { onMount } from "svelte"
 
-	if (typeof window !== "undefined") {
-		logFirebaseEvent("page_view", { route: window.location.pathname })
+	export let data
+
+	// User store initialization
+	$: user.set(data.user ?? null)
+
+	// Clear authStore if there's no user
+	$: if (!data.user) {
+		pb.authStore.clear()
 	}
+
+	onMount(() => {
+		// Register the auth change listener
+		const unsubscribeAuthStore = pb.authStore.onChange((_, model) => {
+      if (!model) {
+        document.cookie = "pb_auth=; Max-Age=0; path=/;"
+        user.set(null)
+      }
+		})
+
+    return () => {
+      unsubscribeAuthStore()
+    }
+	})
 
 	initializeStores()
 
@@ -33,11 +54,11 @@
 	}
 
 	// Lifecycle
-	afterNavigate((params: any) => {
+	afterNavigate(() => {
 		// Scroll to top
 		const elemPage = document.querySelector("#page")
 		if (elemPage !== null) {
-			logFirebaseEvent("page_view", { route: window.location.pathname })
+			// logFirebaseEvent("page_view", { route: window.location.pathname })
 			elemPage.scrollTop = 0
 		}
 		// Scroll heading into view
@@ -52,7 +73,6 @@
 	}
 
 	$: route = $page.url.pathname
-	export let data
 </script>
 
 <svelte:head>
@@ -63,13 +83,12 @@
 
 <Toast />
 
-<FirebaseApp {auth} {firestore}>
 	<AppShell>
 		<svelte:fragment slot="header">
 			<nav class="container mx-auto my-8 flex justify-between items-center">
 				<Avatar
 					class="ml-2"
-					src="/me-anime.webp"
+					src={$user ? getAvatarUrl($user.id, $user.avatar) : "/me-anime.webp"}
 					width="w-12"
 					rounded="rounded-full"
 					alt="Jimmy's Profile Pic"
@@ -89,7 +108,7 @@
 				<LightSwitch />
 			</nav>
 		</svelte:fragment>
-		<PageTransition url={data.url}>
+		<PageTransition url={route}>
 			<main class="container mx-auto h-full">
 				<slot />
 			</main>
@@ -111,4 +130,3 @@
 			</AppBar>
 		</svelte:fragment>
 	</AppShell>
-</FirebaseApp>

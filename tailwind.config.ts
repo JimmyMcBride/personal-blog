@@ -26,6 +26,10 @@ const config = {
   plugins: [
     forms,
     typography,
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    require("flowbite/plugin")({
+      wysiwyg: true,
+    }),
     // 4. Append the Skeleton plugin (after other plugins)
     skeleton({
       themes: {

@@ -2,110 +2,70 @@
 	import { formatDate } from "$lib/utils"
 	import { url, title } from "$lib/config"
 	import { page } from "$app/stores"
-	import { onMount } from "svelte"
-	import { userStore } from "sveltefire"
-	import { auth } from "$lib/firebase"
-	import { signInWithPopup, GoogleAuthProvider } from "firebase/auth"
+	import { handleDiscordLogin, handleLogout } from "$lib/pocketbase"
+	import { user } from "$lib/stores/user"
 	import { Avatar } from "@skeletonlabs/skeleton"
-	const provider = new GoogleAuthProvider()
+	import { pb, getAvatarUrl } from "$lib/pocketbase"
 
 	let slug = $page.params.slug
-	let totalViews: number
 	let newComment = ""
-	let comments = []
-	const user = userStore(auth)
-
-	onMount(async () => {
-		const res = await fetch("/api/unique-views", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ slug }),
-		})
-		const data = await res.json()
-		totalViews = data.totalViews
-		comments = data.comments // Comments from the API
-	})
+	export let data
+	let { content, meta, views, comments } = data
 
 	async function addComment() {
 		if ($user) {
-			const comment = {
-				content: newComment,
-				name: $user.displayName ?? "Anonymous",
-				avatar: $user.photoURL ?? "",
-				createdAt: new Date().toLocaleString("en-US", {
-					month: "short",
-					day: "numeric",
-					year: "numeric",
-					hour: "numeric",
-					minute: "numeric",
-					hour12: true,
-				}),
-			}
-			const res = await fetch("/api/add-comment", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ slug, comment }),
-			})
-			if (res.ok) {
-				comments = [...comments, comment]
-				newComment = "" // Clear input
-			} else {
-				console.error("Failed to add comment")
+			try {
+				const comment = {
+					message: newComment,
+					user: $user.id,
+					slug: slug,
+				}
+				const record = await pb.collection("comments").create(comment)
+				if (record) {
+					comments = [...comments, comment]
+					newComment = "" // Clear input
+				} else {
+					console.error("Failed to add comment")
+				}
+			} catch (e) {
+				console.error(e)
 			}
 		}
 	}
 
-	function loginWithGoogle() {
-		signInWithPopup(auth, provider)
-			.then((result) => {
-				console.log("Logged in", result.user)
-			})
-			.catch((error) => {
-				console.error("Login failed", error)
-			})
+	function login() {
+		sessionStorage.setItem("last_page", `/blog/${slug}`)
+		handleDiscordLogin()
 	}
-
-	function signOut() {
-		auth.signOut()
-	}
-
-	export let data
-	console.log(data.meta.short)
 </script>
 
 <!-- SEO -->
 <svelte:head>
-	<title>{data.meta.title}</title>
+	<title>{meta.title}</title>
 
-	<link rel="canonical" href={`${url}${data.url}`} />
-	<meta name="description" content={data.meta.short ? data.meta.short : data.meta.description} />
+	<link rel="canonical" href={`${url}${url}`} />
+	<meta name="description" content={meta.short ? meta.short : meta.description} />
 
 	<meta property="og:type" content="article" />
-	<meta property="og:url" content={`${url}${data.url}`} />
-	<meta property="og:title" content={data.meta.title} />
-	<meta
-		property="og:description"
-		content={data.meta.short ? data.meta.short : data.meta.description}
-	/>
+	<meta property="og:url" content={`${url}${url}`} />
+	<meta property="og:title" content={meta.title} />
+	<meta property="og:description" content={meta.short ? meta.short : meta.description} />
 	<meta property="og:site_name" content={title} />
 
 	<meta name="twitter:site" content="@McBride1105" />
 	<meta name="twitter:creator" content="@McBride1105" />
-	<meta name="twitter:title" content={data.meta.title} />
-	<meta
-		name="twitter:description"
-		content={data.meta.short ? data.meta.short : data.meta.description}
-	/>
+	<meta name="twitter:title" content={meta.title} />
+	<meta name="twitter:description" content={meta.short ? meta.short : meta.description} />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:widgets:new-embed-design" content="on" />
 
-	<meta property="article:published_time" content={data.meta.date} />
-	<meta property="article:modified_time" content={data.meta.date} />
-	<meta name="date" content={data.meta.date} />
+	<meta property="article:published_time" content={meta.date} />
+	<meta property="article:modified_time" content={meta.date} />
+	<meta name="date" content={meta.date} />
 
 	<meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-	<meta property="og:image" content={data.meta.image} />
-	<meta name="twitter:image:src" content={data.meta.image} />
+	<meta property="og:image" content={meta.image} />
+	<meta name="twitter:image:src" content={meta.image} />
 
 	<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 	<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
@@ -114,27 +74,21 @@
 <article class="prose md:prose-lg lg:prose-xl mx-auto dark:prose-invert mb-16 p-4">
 	<!-- Title -->
 	<hgroup class="flex flex-col items-end">
-		<h1 class="">{data.meta.title}</h1>
-		<img
-			src={data.meta.image}
-			alt="blog banner"
-			class="rounded-md"
-			width="800px"
-			title="Blog banner"
-		/>
+		<h1 class="">{meta.title}</h1>
+		<img src={meta.image} alt="blog banner" class="rounded-md" width="800px" title="Blog banner" />
 		<p class="text-end text-sm">
-			Published at {formatDate(data.meta.date)}
+			Published at {formatDate(meta.date)}
 			<br />
 			Total Views:
-			{#if totalViews !== undefined}
-				{totalViews}
+			{#if views !== undefined}
+				{views}
 			{/if}
 		</p>
 	</hgroup>
 
 	<!-- Tags -->
 	<div class="flex flex-wrap gap-4 mb-6">
-		{#each data.meta.categories as category}
+		{#each meta.categories as category}
 			<a href={`/blog/categories/${category}`} class="chip variant-filled-secondary no-underline"
 				>&num;{category}</a
 			>
@@ -142,7 +96,7 @@
 	</div>
 
 	<!-- Post -->
-	<svelte:component this={data.content} />
+	<svelte:component this={content} />
 
 	<!-- Comments Section -->
 	<section class="comments mt-10">
@@ -151,15 +105,19 @@
 		{#if comments?.length > 0}
 			{#each comments as comment}
 				<div class="grid grid-cols-[auto_1fr] gap-2 mb-4">
-					<Avatar src={comment.avatar} width="w-12" rounded="rounded-full" />
+					<Avatar
+						src={getAvatarUrl(comment.expand.user.id, comment.expand.user.avatar)}
+						width="w-12"
+						rounded="rounded-full"
+					/>
 					<div class="card p-4 variant-soft rounded-tl-none space-y-2">
 						<header class="flex justify-between">
-							<small class="font-bold text-lg">{comment.name}</small>
+							<small class="font-bold text-lg">{comment.expand.user.username}</small>
 							<small class="opacity-50">
-								{comment.createdAt}
+								{formatDate(comment.created)}
 							</small>
 						</header>
-						<p>{comment.content}</p>
+						<p>{comment.message}</p>
 					</div>
 				</div>
 			{/each}
@@ -185,13 +143,11 @@
 						<button class="variant-filled-primary">Send</button>
 					</div>
 				</form>
-				<button class="btn variant-filled-error mt-8" on:click={signOut}>Sign out</button>
+				<button class="btn variant-filled-error mt-8" on:click={handleLogout}>Sign out</button>
 			</div>
 		{:else}
 			<p>You must be logged in to add a comment.</p>
-			<button class="btn variant-filled-primary" on:click={loginWithGoogle}
-				>Log in with Google</button
-			>
+			<button class="btn variant-filled-primary" on:click={login}> Log in with Discord </button>
 		{/if}
 	</section>
 </article>

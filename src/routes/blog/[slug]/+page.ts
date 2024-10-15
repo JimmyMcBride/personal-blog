@@ -1,15 +1,37 @@
 import { error } from "@sveltejs/kit"
-import type { ServerLoadEvent } from "@sveltejs/kit"
+import { pb } from "$lib/pocketbase"
+import type { LoadEvent } from "@sveltejs/kit"
 
-export const load = async ({ params }: ServerLoadEvent) => {
-	try {
-		const post = await import(`../../../posts/${params.slug}.md`)
+export const load = async ({ params, fetch }: LoadEvent) => {
+  try {
+    // Load the mdsvex markdown post (Svelte component)
+    const post = await import(`../../../posts/${params.slug}.md`)
 
-		return {
-			content: post.default,
-			meta: post.metadata,
-		}
-	} catch (e) {
-		throw error(404, `Could not find ${params.slug}`)
-	}
+    // Fetch Plausible analytics data
+    const slug = params.slug
+
+    const res = await fetch(`/api/views/${slug}`)
+
+    const data = await res.json()
+    const views = data.views
+    const readers = data.readers
+
+    const commentsData = await pb.collection("comments").getList(0, 50, {
+      filter: `slug = "${slug}"`,
+      sort: "-created", // Order by newest comments first
+      expand: "user",
+    })
+
+    // Return the markdown component and serializable data
+    return {
+      content: post.default, // This is the Svelte component for the blog content
+      meta: post.metadata,
+      views,
+      readers,
+      comments: commentsData.items,
+    }
+  } catch (e) {
+    console.error(e)
+    throw error(404, `Could not find ${params.slug}`)
+  }
 }

@@ -1,8 +1,5 @@
 [phases.setup]
-nixPkgs = ["nodejs_22", "pnpm"] # Use Node.js and Yarn
-
-# [phases.build]
-# cmd = "pnpm install && pnpm build" # Install dependencies and build the app
+nixPkgs = ["nodejs_22", "pnpm"] # Use Node.js and pnpm
 
 [start]
 cmd = "pnpm preview" # Start the app using Vite preview

@@ -21,6 +21,7 @@ export const handleDiscordLogin = async () => {
     sessionStorage.setItem("discord_codeVerifier", discordProvider.codeVerifier)
 
     // Redirect the user to Discord's OAuth login page
+    console.log(`discord auth url: ${discordProvider.authUrl}`)
     window.location.href = discordProvider.authUrl
   } else {
     console.error("Discord auth provider not found")

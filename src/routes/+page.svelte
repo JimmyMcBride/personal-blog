@@ -37,14 +37,14 @@
 			<span
 				class="bg-gradient-to-br dark:from-tertiary-300 dark:to-primary-500 from-secondary-500 to-primary-500 bg-clip-text text-transparent box-decoration-clone"
 			>
-				Hi, I'm Jimmy McBride!
+				Hi, I'm Jimmy McBride.
 			</span>
 		</h1>
 		<p class="max-w-4xl text-xl">
 			As a devoted software engineer, I thrive in the world of app development. From delving deep
 			into Linux server configurations to architecting full-stack SaaS platforms, I just love the
 			process of creating things. By day, I'm a senior Android developer; by night, I tinker away at
-			whatever currently has my interest. Check out my blog and see what I've been getting into
+			whatever currently has my interest. Check out my blog and find out what I've been getting into
 			lately.
 		</p>
 		<MyLinks />

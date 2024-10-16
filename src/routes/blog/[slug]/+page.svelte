@@ -63,7 +63,6 @@
 	<meta property="article:modified_time" content={meta.date} />
 	<meta name="date" content={meta.date} />
 
-	<meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 	<meta property="og:image" content={meta.image} />
 	<meta name="twitter:image:src" content={meta.image} />
 

@@ -4,6 +4,8 @@
 	import { Avatar } from "@skeletonlabs/skeleton"
 	import { Icon } from "flowbite-svelte-icons"
 	import Subscribe from "$lib/components/Subscribe.svelte"
+	import { dev } from "$app/environment"
+	console.log(`dev env: ${dev}`)
 </script>
 
 <svelte:head>

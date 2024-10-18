@@ -10,8 +10,8 @@
 	let slug = $page.params.slug
 	export let data
 	let { content, meta, views } = data
-	$: newComment = ""
-	$: comments = data.comments
+	let newComment = ""
+	let comments = data.comments || []
 
 	async function addComment() {
 		if ($user) {
@@ -107,7 +107,7 @@
 		<h2>Comments</h2>
 
 		{#if comments?.length > 0}
-			{#each $comments as comment}
+			{#each comments as comment}
 				<div class="grid grid-cols-[auto_1fr] gap-2 mb-4">
 					<Avatar
 						src={getAvatarUrl(comment.expand.user.id, comment.expand.user.avatar)}
@@ -137,7 +137,7 @@
 					>
 						<button class="input-group-shim">+</button>
 						<textarea
-							bind:value={$newComment}
+							bind:value={newComment}
 							class="bg-transparent border-0 ring-0"
 							name="prompt"
 							id="prompt"

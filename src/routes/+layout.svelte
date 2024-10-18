@@ -90,7 +90,7 @@
 			<nav class="container mx-auto my-8 flex justify-between items-center">
 				<Avatar
 					class="ml-2"
-					src={$user?.avatar ?  : "/me-anime.webp"}
+					src={$avatarUrl ? $avatarUrl : "/me-anime.webp"}
 					width="w-12"
 					rounded="rounded-full"
 					alt="Jimmy's Profile Pic"

@@ -24,6 +24,7 @@
 
 	// User store initialization
 	$: user.set(data.user ?? null)
+  console.dir($user)
 
 	// Clear authStore if there's no user
 	$: if (!data.user) {

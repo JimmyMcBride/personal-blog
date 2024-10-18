@@ -85,7 +85,7 @@
 				const avatarFile = await downloadAvatar(avatarUrl)
 
 				// Upload the avatar to PocketBase
-				await uploadAvatarAndName(authData.record.id, avatarFile, authData.record.global_name)
+				await uploadAvatarAndName(authData.record.id, avatarFile, authData.record.globalName)
 			}
 
 			// On success, redirect to the homepage or any desired page

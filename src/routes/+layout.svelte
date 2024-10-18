@@ -44,7 +44,7 @@
     }
 	})
 
-  $: avatarUrl = getAvatarUrl($user.id, $user.avatar)
+  $: avatarUrl = $user ?? getAvatarUrl($user.id, $user.avatar)
 
 	initializeStores()
 

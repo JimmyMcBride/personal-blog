@@ -34,6 +34,7 @@
 		// Register the auth change listener
 		const unsubscribeAuthStore = pb.authStore.onChange((_, model) => {
       if (!model) {
+        console.log("deleting cookie")
         document.cookie = "pb_auth=; Max-Age=0; path=/;"
         user.set(null)
       }

@@ -44,7 +44,7 @@
     }
 	})
 
-  $: avatarUrl = $user ? getAvatarUrl($user.id, $user.avatar) : "/me-anime.webp"
+  // $: avatarUrl = $user ?? 
 
 	initializeStores()
 
@@ -88,13 +88,24 @@
 	<AppShell>
 		<svelte:fragment slot="header">
 			<nav class="container mx-auto my-8 flex justify-between items-center">
-				<Avatar
-					class="ml-2"
-					src={$avatarUrl}
-					width="w-12"
+      {#if $user}
+        <Avatar
+					class="ml-3"
+					src={getAvatarUrl($user.id, $user.avatar)}
+					width="w-13"
 					rounded="rounded-full"
 					alt="Jimmy's Profile Pic"
 				/>
+      {:else}
+        <Avatar
+					class="ml-3"
+					src="/me-anime.webp"
+					width="w-13"
+					rounded="rounded-full"
+					alt="Jimmy's Profile Pic"
+				/>
+      {/if}
+				
 				<RadioGroup
 					active="variant-filled-primary"
 					hover="hover:variant-soft-primary"

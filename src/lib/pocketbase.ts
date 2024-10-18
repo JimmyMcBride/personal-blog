@@ -13,6 +13,8 @@ export const handleDiscordLogin = async () => {
   // Fetch the available auth methods, including Discord
   const authMethods = await pb.collection("users").listAuthMethods()
 
+  console.dir(authMethods.authProviders)
+
   // Find Discord as the auth provider
   const discordProvider = authMethods.authProviders.find((p) => p.name === "discord")
 

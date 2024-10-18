@@ -32,7 +32,7 @@
 	}
 
 	// Function to upload the avatar to PocketBase
-	const uploadAvatar = async (userId: string, avatarFile: File) => {
+	const uploadAvatarAndName = async (userId: string, avatarFile: File, name: string) => {
 		const formData = new FormData()
 		formData.append("avatar", avatarFile)
 
@@ -56,12 +56,15 @@
 				.collection("users")
 				.authWithOAuth2Code("discord", code, codeVerifier, redirectUri)
 
+			console.log("auth data:")
+			console.dir(authData.record)
+
 			user.set(pb.authStore.model)
 
 			document.cookie = pb.authStore.exportToCookie({
 				httpOnly: false,
 				secure: !dev,
-				sameSite: "None",
+				sameSite: false,
 				credentials: "include",
 			})
 
@@ -73,14 +76,18 @@
 				// Fetch user data from Discord using the access token
 				const discordUser = await fetchDiscordUserData(authData.meta.accessToken)
 
+				console.log("discord user:")
+				console.dir(discordUser)
+
 				// Construct the avatar URL
 				const avatarUrl = `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`
+				console.log(`avatar url: ${avatarUrl}`)
 
 				// Download the avatar as a file
 				const avatarFile = await downloadAvatar(avatarUrl)
 
 				// Upload the avatar to PocketBase
-				await uploadAvatar(authData.record.id, avatarFile)
+				await uploadAvatarAndName(authData.record.id, avatarFile, "")
 			}
 
 			// On success, redirect to the homepage or any desired page

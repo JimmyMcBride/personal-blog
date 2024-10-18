@@ -2,6 +2,7 @@
 title: "Sed It Right: Mastering the Stream Editor for Text Magic"
 description: "In this post, we dive into the power of sed, the stream editor that makes text manipulation fast and efficient. From simple find-and-replace tasks to powerful regex transformations, sed can handle it all."
 date: "2024-9-22"
+updated: "2024-9-22"
 image: /sed-it-right-banner.webp
 categories:
   - linux

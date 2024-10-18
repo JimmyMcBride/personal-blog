@@ -2,6 +2,7 @@
 title: "The Ultimate Dev.to Hacks To Skyrocket Your Blog's SEO & Traffic"
 description: "This blog dives into how to boost your SEO rankings by leveraging canonical links, sitemaps, and Google Search Console when cross-posting content on platforms like Dev.to or Medium. We cover how to ensure your official blog gets indexed first, and the importance of using sitemaps to drive traffic back to your main site. Using a SvelteKit blog as an example, you’ll see a step-by-step guide on implementing a dynamic sitemap that keeps Google updated on new posts, helping to improve search engine visibility and grow your blog’s audience. Perfect for anyone looking to get the most out of their SEO strategy!"
 date: "2024-10-4"
+updated: "2024-10-4"
 image: /the-ultimate-devto-hacks-banner.webp
 categories:
   - seo

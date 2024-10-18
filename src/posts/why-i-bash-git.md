@@ -2,6 +2,7 @@
 title: "Why I Bash Git (And Why You Should Too)"
 description: "In this blog, I break down my favorite Bash functions and aliases that make working with Git faster and more efficient. Learn how to create custom Git workflows in your terminal that save time and reduce typing. Whether you’re a terminal purist or just curious about automating your Git commands, this post has something for everyone!"
 date: "2024-9-15"
+updated: "2024-9-15"
 image: /why-i-bash-git-banner.webp
 categories:
   - tutoiral
@@ -44,6 +45,7 @@ These aliases shave off seconds, but those seconds add up. Plus, they just feel 
 Now, let’s kick it up a notch with some custom **Bash functions** that automate a bit more of your workflow. Functions like these can save you from typing out multiple commands and ensure you don’t miss any steps.
 
 #### 2.1. **Create a New Branch and Push It**
+
 ```bash
 gnew() {
   git checkout -b "$1"
@@ -53,6 +55,7 @@ gnew() {
 ```
 
 #### 2.2. **Quick Commit and Push**
+
 ```bash
 gquick() {
   git add .
@@ -63,6 +66,7 @@ gquick() {
 ```
 
 #### 2.3. **Rebase Current Branch onto Main**
+
 ```bash
 grebase() {
   git checkout main
@@ -74,6 +78,7 @@ grebase() {
 ```
 
 #### 2.4. **Undo the Last Commit**
+
 ```bash
 gundo() {
   git reset --soft HEAD~1
@@ -82,6 +87,7 @@ gundo() {
 ```
 
 #### 2.5. **Squash Commits**
+
 ```bash
 gsquash() {
   git reset --soft HEAD~"$1"
@@ -91,6 +97,7 @@ gsquash() {
 ```
 
 #### 2.6. **Sync Fork with Upstream**
+
 ```bash
 gupdate-fork() {
   git fetch upstream
@@ -102,6 +109,7 @@ gupdate-fork() {
 ```
 
 #### 2.7. **Interactive Rebase on Previous Commits**
+
 ```bash
 grebasei() {
   git rebase -i HEAD~"$1"
@@ -116,6 +124,7 @@ grebasei() {
 These final functions enhance general Git workflows to make things even more efficient.
 
 #### 3.1. **Show Git Tree**
+
 ```bash
 glogtree() {
   git log --graph --oneline --decorate --all
@@ -124,6 +133,7 @@ glogtree() {
 ```
 
 #### 3.2. **Reset Branch to Remote**
+
 ```bash
 gresetremote() {
   git fetch origin
@@ -139,14 +149,14 @@ gresetremote() {
 If you want these functions and aliases to persist across terminal sessions, you’ll need to add them to your `.bashrc` or `.zshrc`. Here’s how:
 
 1. Open your shell configuration file:
-    ```bash
-    nano ~/.bashrc  # OR ~/.zshrc
-    ```
+   ```bash
+   nano ~/.bashrc  # OR ~/.zshrc
+   ```
 2. Paste the aliases and functions into the file.
 3. After saving, refresh your shell:
-    ```bash
-    source ~/.bashrc  # OR ~/.zshrc
-    ```
+   ```bash
+   source ~/.bashrc  # OR ~/.zshrc
+   ```
 
 ---
 

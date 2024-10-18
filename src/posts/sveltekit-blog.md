@@ -2,6 +2,7 @@
 title: "Build The Perfect Tech Blog With SvelteKit"
 description: "In this blog, we dive into building a modern blog platform using SvelteKit, Tailwind CSS, and Shiki for syntax highlighting. We’ll cover everything from setting up your project, working with markdown using mdsvex, to implementing SEO and prerendering for maximum performance. By the end, you'll have a fast, scalable blog ready to handle beautiful code snippets and more!"
 date: "2024-10-1"
+updated: "2024-10-1"
 image: /sveltekit-blog-banner.webp
 categories:
   - svelte

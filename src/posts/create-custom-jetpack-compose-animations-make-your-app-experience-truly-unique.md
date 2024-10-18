@@ -2,6 +2,7 @@
 title: "Create Custom Jetpack Compose Animations 🎨 Make Your App Experience Truly Unique"
 description: Ready to take your Jetpack Compose animations to the next level? In today's blog post, we'll learn how to create custom animations instead of using predefined ones, giving you the flexibility to design a unique experience for your app users.
 date: "2023-5-8"
+updated: "2023-5-8"
 image: https://res.cloudinary.com/practicaldev/image/fetch/s--lwglygF9--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/laxgx2f39sn9vzox4844.png
 categories:
   - kotlin

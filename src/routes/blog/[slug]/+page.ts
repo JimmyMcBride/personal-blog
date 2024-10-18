@@ -2,7 +2,6 @@ import { error } from "@sveltejs/kit"
 import { pb } from "$lib/pocketbase"
 import type { LoadEvent } from "@sveltejs/kit"
 import type { ListResult, RecordModel } from "pocketbase"
-import { argv0 } from "process"
 
 export const load = async ({ params, fetch }: LoadEvent) => {
   try {

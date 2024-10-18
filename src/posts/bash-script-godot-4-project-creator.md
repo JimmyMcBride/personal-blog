@@ -2,6 +2,7 @@
 title: "Learn By Example: Bash Script - Godot 4 Project Creator"
 description: "In this blog, I walk through the process of automating Godot project creation using a custom bash script. Learn how to set up new projects, add specific assets, initialize Git, and streamline your game development workflow. Perfect for anyone looking to automate repetitive tasks in game development!"
 date: "2024-9-13"
+updated: "2024-9-13"
 image: /bash-script-godot-4-project-creator-banner.webp
 categories:
   - advice
@@ -16,13 +17,16 @@ Before we begin, if you’re new to bash scripting or need a refresher, feel fre
 ---
 
 ### The Problem:
+
 I love dabbling in game development on the side. It's been a super fun hobby, and I find myself starting new projects all the time. However, as time went on, I accumulated a lot of assets and wrote various tools and utilities in C# that I like to add to each project. But here’s the issue—I don’t want to add **all** of them to every project. I have grouped my assets and tools into modules, and some projects need certain assets and tools while others don’t.
 
 Manually adding these files and assets to each new project became incredibly cumbersome. So, I decided to write a bash script to automate the process!
 
 ### Overview of the Script:
+
 Here’s what I needed the script to do:
 At its simplest, I wanted to run `gdcreate "{name of project}"` and have it create a new Godot project. But I also wanted some additional options:
+
 - **Initialize a Git repository** and push it to a remote (in this case, GitLab, because their free tier is great for private projects—especially when I have proprietary assets I don’t want the world downloading for free).
 - **Add specific asset packs** from my collection, grouped into modules (e.g., dark fantasy assets, biomes, character controllers).
 - **Add common C# utilities** that I use throughout my Godot projects.
@@ -31,6 +35,7 @@ For example, I wanted to run a command like this:
 `gdcreate ProjectName --assets "dfantasy,biomes,ccontrollers" --gitinit --utils`
 
 This command would:
+
 1. Create a new Godot 4 project.
 2. Add the asset packs I’ve grouped as `dfantasy`, `biomes`, and `ccontrollers` to the project.
 3. Add my favorite C# utilities.
@@ -52,6 +57,7 @@ usage() {
 The `usage` function defines how the script should be used. It helps guide the user by showing them the correct format for calling the script. If the script is run incorrectly, this function will display usage instructions and then `exit` the script with a failure status (`1`).
 
 Key Bash Concepts:
+
 - `function_name() {}`: Defines a bash function.
 - `echo`: Prints a string to the terminal.
 - `exit 1`: Terminates the script with an error code.
@@ -85,6 +91,7 @@ copy_assets() {
 ```
 
 The `copy_assets` function copies the specified assets (such as "Dark Fantasy" or "Biomes") into the new project directory. Here’s a breakdown of what’s happening:
+
 - `cp -r`: Copies files recursively (meaning it includes subdirectories).
 - `local`: Declares variables that are scoped only within the function.
 - `IFS=','`: Defines the delimiter used to split the asset list into an array. In this case, we’re splitting by commas.
@@ -92,6 +99,7 @@ The `copy_assets` function copies the specified assets (such as "Dark Fantasy" o
 - `case`: Evaluates the asset name and sets the `src_path` accordingly.
 
 Key Concepts:
+
 - **Arrays in Bash:** The `IFS` and `read` command allow us to split a string into an array and loop over it.
 - **Switch-case:** The `case` block allows for conditional logic based on the asset name.
 
@@ -112,6 +120,7 @@ update_namespace() {
 This function updates namespaces in all `.cs` files within a given directory by replacing occurrences of `Template` with the project’s name. It uses the powerful combination of `find` and `sed`.
 
 Key Concepts:
+
 - **`find` command**: Searches through directories to find files that match specific criteria (in this case, `.cs` files).
 - **`sed` command**: A stream editor used to modify files. Here, it’s being used to replace text within the files.
 - **`-exec` option**: Executes a command on each file found by `find`.
@@ -129,6 +138,7 @@ generate_guid() {
 This function generates a unique identifier (GUID) and ensures it’s in lowercase. `uuidgen` generates a UUID, and `tr` translates uppercase letters to lowercase.
 
 Key Concepts:
+
 - **`uuidgen`**: A command-line tool for generating universally unique identifiers.
 - **`tr`**: A command used to translate characters in a string.
 
@@ -149,6 +159,7 @@ EOL
 This creates the project directory (`mkdir -p`) and writes the `.csproj` file using a `heredoc`. A heredoc allows you to create multi-line strings in bash scripts, making it easier to write template files like this.
 
 Key Concepts:
+
 - **`mkdir -p`**: Creates a directory and any necessary parent directories.
 - **Heredoc (`<<EOL`)**: A way to write multi-line strings in bash.
 
@@ -172,6 +183,7 @@ fi
 This section initializes a Git repository, creates a new project on GitLab using the `glab` CLI, and pushes the project to the remote repository.
 
 Key Concepts:
+
 - **`glab`**: A CLI tool for GitLab that lets you manage repositories directly from the command line.
 - **`git` commands**: Initializes a repository, stages changes, commits them, and pushes to a remote repository.
 

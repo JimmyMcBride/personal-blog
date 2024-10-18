@@ -2,6 +2,7 @@
 title: "Bash-n-Dash: Fast-Track Your Way to Shell Mastery"
 description: "In this post, we dive deep into the core shell commands every aspiring shell wizard should know. From file manipulation to text processing, and managing file permissions, these commands are the foundation of mastering the command line. Let’s level up your shell skills with practical examples and powerful one-liners!"
 date: "2024-9-20"
+updated: "2024-9-20"
 image: /bash-n-dash-banner.webp
 categories:
   - bash

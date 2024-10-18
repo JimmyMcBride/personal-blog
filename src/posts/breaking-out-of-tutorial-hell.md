@@ -2,6 +2,7 @@
 title: "Breaking Out of Tutorial Hell: Why It's Time to Start Your Own Projects"
 description: "In this blog post, I explore the pitfalls of getting stuck in 'tutorial hell,' the importance of starting your own projects as you grow as a developer, and how to effectively use tutorials for specific challenges while building your skills independently."
 date: "2024-9-11"
+updated: "2024-9-11"
 image: /tutorial-hell-banner.webp
 categories:
   - advice
@@ -54,4 +55,3 @@ So, go ahead—plan your own project, dive into docs, and tackle problems on you
 ---
 
 **Ready to break out of tutorial hell?** Plan your next project from scratch and start building your way. You’ll thank yourself later.
-

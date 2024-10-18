@@ -59,9 +59,9 @@
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:widgets:new-embed-design" content="on" />
 
-	<meta property="article:published_time" content={meta.date} />
-	<meta property="article:modified_time" content={meta.date} />
-	<meta name="date" content={meta.date} />
+	<meta property="article:published_time" content={meta.updated} />
+	<meta property="article:modified_time" content={meta.updated} />
+	<meta name="date" content={meta.updated} />
 
 	<meta property="og:image" content={meta.image} />
 	<meta name="twitter:image:src" content={meta.image} />

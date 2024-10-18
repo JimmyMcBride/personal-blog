@@ -2,6 +2,7 @@
 title: "Cat, Grep, and Go: Leveling Up Your Text Manipulation"
 description: "This post is your ultimate guide to leveling up your command-line game! We’re diving deep into the most commonly used text manipulation tools—cat, grep, and the magic of pipes and redirection. Learn how to efficiently search through text, manipulate files, and combine these tools like a pro. Plus, we’ve included a pro tip on how to use grep --color to make your searches even easier."
 date: "2024-9-21"
+updated: "2024-9-21"
 image: /cat-grep-and-go-banner.webp
 categories:
   - bash

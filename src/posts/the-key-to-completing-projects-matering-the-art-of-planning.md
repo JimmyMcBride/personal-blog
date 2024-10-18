@@ -2,6 +2,7 @@
 title: "The Key to Completing Projects: Mastering the Art of Planning 🗝️"
 description: "Your projects are left unfinished not because of your technical abilities, but because you haven't learned how to plan properly. The imposter syndrome might whisper that you lack the skills, but in reality, you simply need a clear and organized approach."
 date: "2023-5-17"
+updated: "2023-5-17"
 image: https://res.cloudinary.com/practicaldev/image/fetch/s--2qEVqBGW--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/a2kaxz96tah7qwuvt3y4.png
 categories:
   - tutorial

@@ -2,6 +2,7 @@
 title: "Choosing the Right Framework: Should You Follow the Hype?"
 description: "In this blog, I discuss the never-ending hype of new frameworks, the dangers of shiny object syndrome, and how to focus on building with the tools you already know. Whether you're a builder or a tinkerer, I offer advice on how to stay true to your goals and choose the right technology stack for your projects."
 date: "2024-9-12"
+updated: "2024-9-12"
 image: /choosing-the-right-framework-banner.webp
 categories:
   - advice
@@ -30,7 +31,9 @@ But, let’s be clear—there are people who thrive on tinkering and learning fo
 ### Finding Your Focus: Builder or Tinkerer?
 
 #### For Builders:
+
 If you have a project in mind, ask yourself:
+
 - **What stack do I know best?**
 - **Is this stack enough to build what I want to build?**
 - **What are the smallest, most necessary changes or additions I could make to this stack to bring my vision to life?**
@@ -38,6 +41,7 @@ If you have a project in mind, ask yourself:
 Once you have those answers, put on your blinders and focus. Shiny object syndrome will only distract you from reaching your goals. The best path to success is using the tools you’re already proficient with, and tweaking only when absolutely necessary.
 
 #### For Tinkerers:
+
 If you don’t have a dream project yet, or if you simply enjoy experimenting, then tinkering can be incredibly rewarding. Try out the latest frameworks, build the same app in 10 different stacks, compare them, and share your insights. The world needs tinkerers too. You might find your passion in experimentation and even turn it into a blog, YouTube channel, or consulting business.
 
 For both groups, the key is balance. If you’re early in your career, you need to experiment to discover what you like, but you also need to focus deeply on one thing to establish expertise and find your place in the job market.
@@ -55,4 +59,3 @@ Whether you’re a builder or a tinkerer, the key to success is understanding yo
 So, what kind of developer are you? Builder or tinkerer? Have any tips for avoiding shiny object syndrome? Share your thoughts in the comments below—I'd love to hear them!
 
 Until next time, happy coding!
-

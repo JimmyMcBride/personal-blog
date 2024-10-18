@@ -2,6 +2,7 @@
 title: "Why Writing Your Own Tools is More Important Than You Think"
 description: "In this blog post, I discuss the dangers of over-relying on third-party tools, the advantages of writing your own, and when it might be more practical to rely on a third-party tool."
 date: "2024-9-10"
+updated: "2024-9-10"
 image: /writing-your-own-tools-banner.webp
 categories:
   - advice
@@ -75,4 +76,3 @@ By answering these questions, you can strike the right balance between speed and
 Writing your own tools gives you control, flexibility, and peace of mind, especially for critical components of your project. However, not every problem warrants building a solution from scratch. Use third-party libraries judiciously—stick to well-maintained, minimal-dependency libraries for non-core functionality and write your own tools for everything else. By finding this balance, you can create robust, secure software that stands the test of time.
 
 Happy coding!
-

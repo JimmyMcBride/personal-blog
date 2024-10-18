@@ -3,6 +3,7 @@ title: "Be Real: How to Use AI Writing Tools and Stay Authentic"
 description: "In this blog, I go over my experience using AI writing tools, the mistakes I made along the way, and how I’ve found a better balance between saving time and staying true to my authentic voice. If you want to use AI without losing that unique, human touch in your content, this one’s for you!"
 short: "Discover how to use AI writing tools without losing your authentic voice as a content creator."
 date: "2024-10-10"
+updated: "2024-10-10"
 image: /how-to-use-ai-writing-tools-banner.webp
 categories:
   - ai

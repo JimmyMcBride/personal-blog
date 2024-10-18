@@ -61,7 +61,7 @@
 			document.cookie = pb.authStore.exportToCookie({
 				httpOnly: false,
 				secure: !dev,
-				sameSite: "Lax",
+				sameSite: "None",
 				credentials: "include",
 			})
 

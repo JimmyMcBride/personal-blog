@@ -35,6 +35,7 @@
 	const uploadAvatarAndName = async (userId: string, avatarFile: File, name: string) => {
 		const formData = new FormData()
 		formData.append("avatar", avatarFile)
+		formData.append("name", name)
 
 		// Update the user record with the uploaded avatar
 		await pb.collection("users").update(userId, formData)
@@ -55,9 +56,6 @@
 			const authData = await pb
 				.collection("users")
 				.authWithOAuth2Code("discord", code, codeVerifier, redirectUri)
-
-			console.log("auth data:")
-			console.dir(authData.record)
 
 			user.set(pb.authStore.model)
 
@@ -87,7 +85,7 @@
 				const avatarFile = await downloadAvatar(avatarUrl)
 
 				// Upload the avatar to PocketBase
-				await uploadAvatarAndName(authData.record.id, avatarFile, "")
+				await uploadAvatarAndName(authData.record.id, avatarFile, authData.record.global_name)
 			}
 
 			// On success, redirect to the homepage or any desired page

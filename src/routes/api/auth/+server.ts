@@ -10,9 +10,6 @@ export const GET: RequestHandler = async ({ request }) => {
     // Get the authenticated user
     const user = pb.authStore.isValid ? pb.authStore.model : null
 
-    console.log("user:")
-    console.dir(user)
-
     return json({ user })
   } catch (err) {
     // In case of cookie tampering or invalid session

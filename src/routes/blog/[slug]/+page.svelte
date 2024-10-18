@@ -14,6 +14,7 @@
 
 	async function addComment() {
 		if ($user) {
+			console.log("user true")
 			try {
 				const comment = {
 					message: newComment,
@@ -21,6 +22,7 @@
 					slug: slug,
 				}
 				const record = await pb.collection("comments").create(comment)
+				console.dir(record)
 				if (record) {
 					comments = [...comments, comment]
 					newComment = "" // Clear input
@@ -30,6 +32,8 @@
 			} catch (e) {
 				console.error(e)
 			}
+		} else {
+			console.log("user false")
 		}
 	}
 

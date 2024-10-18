@@ -2,7 +2,7 @@
 title: "Build The Perfect Tech Blog With SvelteKit"
 description: "In this blog, we dive into building a modern blog platform using SvelteKit, Tailwind CSS, and Shiki for syntax highlighting. We’ll cover everything from setting up your project, working with markdown using mdsvex, to implementing SEO and prerendering for maximum performance. By the end, you'll have a fast, scalable blog ready to handle beautiful code snippets and more!"
 date: "2024-10-1"
-updated: "2024-10-1"
+updated: "2024-10-17"
 image: /sveltekit-blog-banner.webp
 categories:
   - svelte
@@ -34,7 +34,7 @@ npm install
 Next, let’s integrate **Tailwind CSS** for styling. Tailwind is perfect for building responsive and aesthetically pleasing layouts for blogs.
 
 ```bash
-npm install -D tailwindcss postcss autoprefixer
+npm install -D tailwindcss postcss autoprefixer @tailwindcss/typogrophy
 npx tailwindcss init tailwind.config.cjs -p
 ```
 
@@ -101,7 +101,7 @@ Here’s the full `svelte.config.js` setup to enable **mdsvex**, **Shiki**, and 
 import adapter from "@sveltejs/adapter-auto"
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte"
 import { mdsvex, escapeSvelte } from "mdsvex"
-import { bundledLanguages, createHighlighter } from "shiki"
+import { bundledLanguages, getSingletonHighlighter } from "shiki"
 import remarkUnwrapImages from "remark-unwrap-images"
 import remarkToc from "remark-toc"
 import rehypeSlug from "rehype-slug"
@@ -111,9 +111,8 @@ const mdsvexOptions = {
 	extensions: [".md"],
 	highlight: {
 		highlighter: async (code, lang = "text") => {
-			const highlighter = await createHighlighter({
+			const highlighter = await getSingletonHighlighter({
 				themes: ["one-dark-pro"],
-				// this loads ALL languages. Will get better preformance by only calling what you need. Example: ["css", "javascript"]
 				langs: Object.keys(bundledLanguages),
 			})
 			const html = escapeSvelte(highlighter.codeToHtml(code, { lang, theme: "one-dark-pro" }))
@@ -135,6 +134,8 @@ export default {
 
 This setup enables markdown (`.md`) support and syntax highlighting with the **One Dark Pro** theme from Shiki.
 
+> Note: I'm using `getSingletonHighlighter` and not `getHighlighter`. When your statically generating your site, `getHighlighter` will create a new instance of itself for each codeblock in every blog and they will not be deleted. This causes a huge preformace issue when it comes to building your site. When I switched to `getSingletonHighlighter` my 20 blog build time went from 3 minutes to 1 minute!
+
 ---
 
 ### **Step 3: Creating Blog Posts in Markdown**
@@ -155,6 +156,10 @@ categories:
 published: true
 ---
 
+## Contents
+
+## Intro
+
 This is my first post!
 
 ## Let's get started
@@ -163,6 +168,8 @@ Lorem ipsum dolor sit amet...
 ```
 
 This metadata in the frontmatter helps populate information like the title, description, date, and categories for each post. **Important**, to make sure images are working, please add an image in your `/static` folder named `first-post-banner.webp` so you can verify it works and nothing breaks.
+
+Also, you may have nocticed the `## Contents` here. That's where remark-toc comes in! It will take that `## Contents` and generate and actual table of contents (toc).
 
 ---
 

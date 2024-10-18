@@ -1,6 +1,7 @@
 import { error } from "@sveltejs/kit"
 import { pb } from "$lib/pocketbase"
 import type { LoadEvent } from "@sveltejs/kit"
+import type { ListResult, RecordModel } from "pocketbase"
 
 export const load = async ({ params, fetch }: LoadEvent) => {
   try {
@@ -16,11 +17,16 @@ export const load = async ({ params, fetch }: LoadEvent) => {
     const views = data.views
     const readers = data.readers
 
-    const commentsData = await pb.collection("comments").getList(0, 50, {
-      filter: `slug = "${slug}"`,
-      sort: "-created", // Order by newest comments first
-      expand: "user",
-    })
+    // Fetch comments dynamically when the page is loaded, not during prerendering
+    let commentsData: ListResult<RecordModel> | null = null
+    if (!import.meta.env.SSR) {
+      // Only fetch comments on the client-side after rendering
+      commentsData = await pb.collection("comments").getList(0, 50, {
+        filter: `slug = "${slug}"`,
+        sort: "-created", // Order by newest comments first
+        expand: "user",
+      })
+    }
 
     // Return the markdown component and serializable data
     return {
@@ -28,10 +34,12 @@ export const load = async ({ params, fetch }: LoadEvent) => {
       meta: post.metadata,
       views,
       readers,
-      comments: commentsData.items,
+      comments: commentsData?.items || [],
     }
   } catch (e) {
     console.error(e)
     throw error(404, `Could not find ${params.slug}`)
   }
 }
+
+export const prerender = true

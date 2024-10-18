@@ -44,7 +44,7 @@
     }
 	})
 
-  $: avatarUrl = $user ? getAvatarUrl($user.id, $user.avatar) : null
+  $: avatarUrl = $user ? getAvatarUrl($user.id, $user.avatar) : "/me-anime.webp"
 
 	initializeStores()
 
@@ -90,7 +90,7 @@
 			<nav class="container mx-auto my-8 flex justify-between items-center">
 				<Avatar
 					class="ml-2"
-					src={$avatarUrl ? $avatarUrl : "/me-anime.webp"}
+					src={$avatarUrl}
 					width="w-12"
 					rounded="rounded-full"
 					alt="Jimmy's Profile Pic"

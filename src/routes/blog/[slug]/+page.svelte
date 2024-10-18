@@ -8,9 +8,10 @@
 	import { pb, getAvatarUrl } from "$lib/pocketbase"
 
 	let slug = $page.params.slug
-	let newComment = ""
 	export let data
-	let { content, meta, views, comments } = data
+	let { content, meta, views } = data
+	$: newComment = ""
+	$: comments = data.comments
 
 	async function addComment() {
 		if ($user) {
@@ -24,7 +25,7 @@
 				const record = await pb.collection("comments").create(comment)
 				console.dir(record)
 				if (record) {
-					comments = [...comments, comment]
+					comments = [...comments, record]
 					newComment = "" // Clear input
 				} else {
 					console.error("Failed to add comment")
@@ -106,7 +107,7 @@
 		<h2>Comments</h2>
 
 		{#if comments?.length > 0}
-			{#each comments as comment}
+			{#each $comments as comment}
 				<div class="grid grid-cols-[auto_1fr] gap-2 mb-4">
 					<Avatar
 						src={getAvatarUrl(comment.expand.user.id, comment.expand.user.avatar)}
@@ -136,7 +137,7 @@
 					>
 						<button class="input-group-shim">+</button>
 						<textarea
-							bind:value={newComment}
+							bind:value={$newComment}
 							class="bg-transparent border-0 ring-0"
 							name="prompt"
 							id="prompt"

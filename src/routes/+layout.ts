@@ -13,5 +13,3 @@ export async function load({ url, fetch }: ServerLoadEvent) {
     user: data.user,
   }
 }
-
-export const prerender = false

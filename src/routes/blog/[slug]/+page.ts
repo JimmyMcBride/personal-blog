@@ -2,6 +2,7 @@ import { error } from "@sveltejs/kit"
 import { pb } from "$lib/pocketbase"
 import type { LoadEvent } from "@sveltejs/kit"
 import type { ListResult, RecordModel } from "pocketbase"
+import { argv0 } from "process"
 
 export const load = async ({ params, fetch }: LoadEvent) => {
   try {
@@ -11,15 +12,18 @@ export const load = async ({ params, fetch }: LoadEvent) => {
     // Fetch Plausible analytics data
     const slug = params.slug
 
-    const res = await fetch(`/api/views/${slug}`)
-
-    const data = await res.json()
-    const views = data.views
-    const readers = data.readers
-
-    // Fetch comments dynamically when the page is loaded, not during prerendering
+    // Fetch data dynamically when the page is loaded, not during prerendering
     let commentsData: ListResult<RecordModel> | null = null
+    let views = 0
+    let readers = 0
+
     if (!import.meta.env.SSR) {
+      const res = await fetch(`/api/views/${slug}`)
+
+      const data = await res.json()
+      views = data.views
+      readers = data.readers
+
       // Only fetch comments on the client-side after rendering
       commentsData = await pb.collection("comments").getList(0, 50, {
         filter: `slug = "${slug}"`,

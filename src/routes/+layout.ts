@@ -1,15 +1,16 @@
 import type { ServerLoadEvent } from "@sveltejs/kit"
 
 export async function load({ url, fetch }: ServerLoadEvent) {
-  let data = {
-    user: null,
-  }
+  let user = null
   if (!import.meta.env.SSR) {
     const res = await fetch("/api/auth")
-    data = await res.json()
+    const data = await res.json()
+    user = data.user
   }
   return {
     url: url.pathname,
-    user: data.user,
+    user,
   }
 }
+
+export const prerender = true

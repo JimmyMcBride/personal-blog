@@ -92,7 +92,7 @@
         <Avatar
 					class="ml-2"
 					src={getAvatarUrl($user.id, $user.avatar)}
-					width="w-13"
+					width="w-12"
 					rounded="rounded-full"
 					alt="Jimmy's Profile Pic"
 				/>
@@ -100,7 +100,7 @@
         <Avatar
 					class="ml-2"
 					src="/me-anime.webp"
-					width="w-13"
+					width="w-12"
 					rounded="rounded-full"
 					alt="Jimmy's Profile Pic"
 				/>

@@ -23,9 +23,12 @@
 					slug: slug,
 				}
 				const record = await pb.collection("comments").create(comment)
+				const expandedComment = await pb.collection("comments").getOne(record.id, {
+					expand: "user",
+				})
 				console.dir(record)
 				if (record) {
-					comments = [...comments, record]
+					comments = [...comments, expandedComment]
 					newComment = "" // Clear input
 				} else {
 					console.error("Failed to add comment")

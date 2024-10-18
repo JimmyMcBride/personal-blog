@@ -7,8 +7,6 @@ export async function load({ url, fetch }: ServerLoadEvent) {
   if (!import.meta.env.SSR) {
     const res = await fetch("/api/auth")
     data = await res.json()
-    console.log("user:")
-    console.dir(data.user)
   }
   return {
     url: url.pathname,

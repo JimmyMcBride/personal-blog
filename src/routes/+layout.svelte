@@ -90,7 +90,7 @@
 			<nav class="container mx-auto my-8 flex justify-between items-center">
       {#if $user}
         <Avatar
-					class="ml-3"
+					class="ml-2"
 					src={getAvatarUrl($user.id, $user.avatar)}
 					width="w-13"
 					rounded="rounded-full"
@@ -98,7 +98,7 @@
 				/>
       {:else}
         <Avatar
-					class="ml-3"
+					class="ml-2"
 					src="/me-anime.webp"
 					width="w-13"
 					rounded="rounded-full"

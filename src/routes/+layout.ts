@@ -14,4 +14,4 @@ export async function load({ url, fetch }: ServerLoadEvent) {
   }
 }
 
-export const prerender = true
+export const prerender = false

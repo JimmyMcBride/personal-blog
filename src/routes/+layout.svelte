@@ -33,6 +33,7 @@
 	onMount(() => {
 		// Register the auth change listener
 		const unsubscribeAuthStore = pb.authStore.onChange((_, model) => {
+      console.dir($user)
       if (!model) {
         document.cookie = "pb_auth=; Max-Age=0; path=/;"
         user.set(null)

@@ -15,7 +15,6 @@
 
 	async function addComment() {
 		if ($user) {
-			console.log("user true")
 			try {
 				const comment = {
 					message: newComment,
@@ -26,18 +25,15 @@
 				const expandedComment = await pb.collection("comments").getOne(record.id, {
 					expand: "user",
 				})
-				console.dir(record)
 				if (record) {
 					comments = [...comments, expandedComment]
-					newComment = "" // Clear input
+					newComment = ""
 				} else {
 					console.error("Failed to add comment")
 				}
 			} catch (e) {
 				console.error(e)
 			}
-		} else {
-			console.log("user false")
 		}
 	}
 

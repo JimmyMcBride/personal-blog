@@ -44,8 +44,6 @@
     }
 	})
 
-  // $: avatarUrl = $user ?? 
-
 	initializeStores()
 
 	// Scroll heading into view
@@ -88,7 +86,7 @@
 	<AppShell>
 		<svelte:fragment slot="header">
 			<nav class="container mx-auto my-8 flex justify-between items-center">
-      {#if $user}
+      {#if $user && $user.avatar}
         <Avatar
 					class="ml-2"
 					src={getAvatarUrl($user.id, $user.avatar)}

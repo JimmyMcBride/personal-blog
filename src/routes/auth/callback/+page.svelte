@@ -74,12 +74,8 @@
 				// Fetch user data from Discord using the access token
 				const discordUser = await fetchDiscordUserData(authData.meta.accessToken)
 
-				console.log("discord user:")
-				console.dir(discordUser)
-
 				// Construct the avatar URL
 				const avatarUrl = `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`
-				console.log(`avatar url: ${avatarUrl}`)
 
 				// Download the avatar as a file
 				const avatarFile = await downloadAvatar(avatarUrl)

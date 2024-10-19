@@ -28,6 +28,5 @@ export const handleDiscordLogin = async () => {
 
 export const getAvatarUrl = (userId: string, userAvatar: string): string => {
   const avatarUrl = `${pocketbaseUrl}/api/files/_pb_users_auth_/${userId}/${userAvatar}`
-  console.log(`avatar url: ${avatarUrl}`)
   return avatarUrl
 }

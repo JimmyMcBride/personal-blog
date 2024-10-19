@@ -33,7 +33,6 @@
 
 	// Function to upload the avatar to PocketBase
 	const uploadAvatarAndName = async (userId: string, avatarFile: File, name: string) => {
-		console.log(`userId: ${userId}, avatarFile: ${avatarFile}, name: ${name}`)
 		const formData = new FormData()
 		formData.append("avatar", avatarFile)
 		formData.append("name", name)
@@ -72,8 +71,6 @@
 			if (authData.meta.isNew) {
 				// Fetch user data from Discord using the access token
 				const discordUser = await fetchDiscordUserData(authData.meta.accessToken)
-				console.log("discord user:")
-				console.dir(discordUser)
 
 				// Construct the avatar URL
 				const avatarUrl = `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`
@@ -87,6 +84,8 @@
 					avatarFile,
 					discordUser.global_name
 				)
+				console.log("updated user")
+				console.dir(updatedUser)
 				user.set(updatedUser)
 			} else {
 				user.set(pb.authStore.model)

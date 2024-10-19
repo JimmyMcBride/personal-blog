@@ -33,15 +33,15 @@
 	onMount(() => {
 		// Register the auth change listener
 		const unsubscribeAuthStore = pb.authStore.onChange((_, model) => {
-      if (!model) {
-        document.cookie = "pb_auth=; Max-Age=0; path=/;"
-        user.set(null)
-      }
+			if (!model) {
+				document.cookie = "pb_auth=; Max-Age=0; path=/;"
+				user.set(null)
+			}
 		})
 
-    return () => {
-      unsubscribeAuthStore()
-    }
+		return () => {
+			unsubscribeAuthStore()
+		}
 	})
 
 	initializeStores()
@@ -76,68 +76,68 @@
 </script>
 
 <svelte:head>
-	{@html "<script>(" + autoModeWatcher.toString() + ")();</script>"}
+	{@html "<script>(" + autoModeWatcher().toString() + ")();</script>"}
 	<meta name="google-site-verification" content="CseTqMt48Lh5608yesp0xuVuqTa6Y_Q1yWUe6rC5gSU" />
-  <script defer data-domain="jimmymcbride.dev" src="https://plausible.jimmymcbride.dev/js/script.outbound-links.pageview-props.tagged-events.js"></script>
+	<script
+		defer
+		data-domain="jimmymcbride.dev"
+		src="https://plausible.jimmymcbride.dev/js/script.outbound-links.pageview-props.tagged-events.js"
+	></script>
 </svelte:head>
 
 <Toast />
 
-	<AppShell>
-		<svelte:fragment slot="header">
-			<nav class="container mx-auto my-8 flex justify-between items-center">
-      {#if $user && $user.avatar}
-        <Avatar
+<AppShell>
+	<svelte:fragment slot="header">
+		<nav class="container mx-auto my-8 flex justify-between items-center">
+			{#if $user && $user.avatar}
+				<Avatar
 					class="ml-2"
 					src={getAvatarUrl($user.id, $user.avatar)}
 					width="w-12"
 					rounded="rounded-full"
 					alt="Jimmy's Profile Pic"
 				/>
-      {:else}
-        <Avatar
+			{:else}
+				<Avatar
 					class="ml-2"
 					src="/me-anime.webp"
 					width="w-12"
 					rounded="rounded-full"
 					alt="Jimmy's Profile Pic"
 				/>
-      {/if}
-				
-				<RadioGroup
-					active="variant-filled-primary"
-					hover="hover:variant-soft-primary"
-					class="items-center"
-				>
-					<RadioItem on:click={handleNavigation} name="route" bind:group={route} value="/">
-						Home
-					</RadioItem>
-					<RadioItem on:change={handleNavigation} name="route" bind:group={route} value="/blog">
-						Blog
-					</RadioItem>
-				</RadioGroup>
-				<LightSwitch />
-			</nav>
-		</svelte:fragment>
-		<PageTransition url={route}>
-			<main class="container mx-auto h-full">
-				<slot />
-			</main>
-		</PageTransition>
+			{/if}
 
-		<svelte:fragment slot="pageFooter">
-			<AppBar
-				gridColumns="grid-cols-1"
-				slotDefault="place-self-center"
-				slotTrail="place-content-end"
+			<RadioGroup
+				active="variant-filled-primary"
+				hover="hover:variant-soft-primary"
+				class="items-center"
 			>
-				<div class="flex flex-col gap-4 items-center">
-					<MyLinks />
-					<Subscribe />
-				</div>
-				<svelte:fragment slot="headline">
-					<div class="text-center">&copy; Copyright 2023. All rights reserved.</div>
-				</svelte:fragment>
-			</AppBar>
-		</svelte:fragment>
-	</AppShell>
+				<RadioItem on:click={handleNavigation} name="route" bind:group={route} value="/">
+					Home
+				</RadioItem>
+				<RadioItem on:change={handleNavigation} name="route" bind:group={route} value="/blog">
+					Blog
+				</RadioItem>
+			</RadioGroup>
+			<LightSwitch />
+		</nav>
+	</svelte:fragment>
+	<PageTransition url={route}>
+		<main class="container mx-auto h-full">
+			<slot />
+		</main>
+	</PageTransition>
+
+	<svelte:fragment slot="pageFooter">
+		<AppBar gridColumns="grid-cols-1" slotDefault="place-self-center" slotTrail="place-content-end">
+			<div class="flex flex-col gap-4 items-center">
+				<MyLinks />
+				<Subscribe />
+			</div>
+			<svelte:fragment slot="headline">
+				<div class="text-center">&copy; Copyright 2023. All rights reserved.</div>
+			</svelte:fragment>
+		</AppBar>
+	</svelte:fragment>
+</AppShell>

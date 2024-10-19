@@ -43,6 +43,7 @@
 	},
 	"dependencies": {
 		"@tiptap/starter-kit": "^2.8.0",
+		"dompurify": "^3.1.7",
 		"flowbite": "^2.5.2",
 		"flowbite-svelte": "^0.46.23",
 		"pocketbase": "^0.21.5",

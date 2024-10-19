@@ -9,34 +9,34 @@ import { myCustomTheme } from "./theme"
 import { skeleton } from "@skeletonlabs/tw-plugin"
 
 const config = {
-  // 2. Opt for dark mode to be handled via the class method
-  darkMode: "class",
-  content: [
-    "./src/**/*.{html,js,svelte,ts}",
-    // 3. Append the path to the Skeleton package
-    join(require.resolve("@skeletonlabs/skeleton"), "../**/*.{html,js,svelte,ts}"),
-  ],
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ["Inter", ...defaultTheme.fontFamily.sans],
-      },
-    },
-  },
-  plugins: [
-    forms,
-    typography,
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    require("flowbite/plugin")({
-      wysiwyg: true,
-    }),
-    // 4. Append the Skeleton plugin (after other plugins)
-    skeleton({
-      themes: {
-        custom: [myCustomTheme],
-      },
-    }),
-  ],
+	// 2. Opt for dark mode to be handled via the class method
+	darkMode: "class",
+	content: [
+		"./src/**/*.{html,js,svelte,ts}",
+		// 3. Append the path to the Skeleton package
+		join(require.resolve("@skeletonlabs/skeleton"), "../**/*.{html,js,svelte,ts}"),
+	],
+	theme: {
+		extend: {
+			fontFamily: {
+				sans: ["Inter", ...defaultTheme.fontFamily.sans],
+			},
+		},
+	},
+	plugins: [
+		forms,
+		typography,
+		// eslint-disable-next-line @typescript-eslint/no-var-requires
+		require("flowbite/plugin")({
+			wysiwyg: true,
+		}),
+		// 4. Append the Skeleton plugin (after other plugins)
+		skeleton({
+			themes: {
+				custom: [myCustomTheme],
+			},
+		}),
+	],
 } satisfies Config
 
 export default config

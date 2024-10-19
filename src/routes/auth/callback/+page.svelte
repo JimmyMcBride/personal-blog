@@ -57,13 +57,6 @@
 				.collection("users")
 				.authWithOAuth2Code("discord", code, codeVerifier, redirectUri)
 
-			document.cookie = pb.authStore.exportToCookie({
-				httpOnly: false,
-				secure: !dev,
-				sameSite: false,
-				credentials: "include",
-			})
-
 			// Remove the codeVerifier
 			sessionStorage.removeItem("discord_codeVerifier")
 
@@ -84,12 +77,17 @@
 					avatarFile,
 					discordUser.global_name
 				)
-				console.log("updated user")
-				console.dir(updatedUser)
 				user.set(updatedUser)
 			} else {
 				user.set(pb.authStore.model)
 			}
+
+			document.cookie = pb.authStore.exportToCookie({
+				httpOnly: false,
+				secure: !dev,
+				sameSite: false,
+				credentials: "include",
+			})
 
 			// On success, redirect to the homepage or any desired page
 			const lastPage = sessionStorage.getItem("last_page")

@@ -78,6 +78,8 @@
 			if (authData.meta.isNew) {
 				// Fetch user data from Discord using the access token
 				const discordUser = await fetchDiscordUserData(authData.meta.accessToken)
+				console.log("discord user:")
+				console.dir(discordUser)
 
 				// Construct the avatar URL
 				const avatarUrl = `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`

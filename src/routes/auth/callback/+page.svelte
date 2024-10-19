@@ -33,6 +33,7 @@
 
 	// Function to upload the avatar to PocketBase
 	const uploadAvatarAndName = async (userId: string, avatarFile: File, name: string) => {
+		console.log(`userId: ${userId}, avatarFile: ${avatarFile}, name: ${name}`)
 		const formData = new FormData()
 		formData.append("avatar", avatarFile)
 		formData.append("name", name)
@@ -56,8 +57,12 @@
 			const authData = await pb
 				.collection("users")
 				.authWithOAuth2Code("discord", code, codeVerifier, redirectUri)
+			console.log("auth data:")
+			console.dir(authData)
 
 			user.set(pb.authStore.model)
+			console.log("user set:")
+			console.dir(pb.authStore.model)
 
 			document.cookie = pb.authStore.exportToCookie({
 				httpOnly: false,

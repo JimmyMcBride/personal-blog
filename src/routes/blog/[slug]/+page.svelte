@@ -8,9 +8,10 @@
 	import { pb, getAvatarUrl } from "$lib/pocketbase"
 
 	let slug = $page.params.slug
-	let newComment = ""
 	export let data
-	let { content, meta, views, comments } = data
+	let { content, meta, views } = data
+	let newComment = ""
+	let comments = data.comments || []
 
 	async function addComment() {
 		if ($user) {
@@ -21,9 +22,12 @@
 					slug: slug,
 				}
 				const record = await pb.collection("comments").create(comment)
+				const expandedComment = await pb.collection("comments").getOne(record.id, {
+					expand: "user",
+				})
 				if (record) {
-					comments = [...comments, comment]
-					newComment = "" // Clear input
+					comments = [...comments, expandedComment]
+					newComment = ""
 				} else {
 					console.error("Failed to add comment")
 				}
@@ -146,7 +150,7 @@
 			</div>
 		{:else}
 			<p>You must be logged in to add a comment.</p>
-			<button class="btn variant-filled-primary" on:click={login} disabled>
+			<button class="btn variant-filled-primary" on:click={login}>
 				Log in with Discord (Coming soon)
 			</button>
 		{/if}

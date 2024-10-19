@@ -32,12 +32,13 @@
 	}
 
 	// Function to upload the avatar to PocketBase
-	const uploadAvatar = async (userId: string, avatarFile: File) => {
+	const uploadAvatarAndName = async (userId: string, avatarFile: File, name: string) => {
 		const formData = new FormData()
 		formData.append("avatar", avatarFile)
+		formData.append("name", name)
 
 		// Update the user record with the uploaded avatar
-		await pb.collection("users").update(userId, formData)
+		return await pb.collection("users").update(userId, formData)
 	}
 
 	onMount(async () => {
@@ -56,15 +57,6 @@
 				.collection("users")
 				.authWithOAuth2Code("discord", code, codeVerifier, redirectUri)
 
-			user.set(pb.authStore.model)
-
-			document.cookie = pb.authStore.exportToCookie({
-				httpOnly: false,
-				secure: !dev,
-				sameSite: "Lax",
-				credentials: "include",
-			})
-
 			// Remove the codeVerifier
 			sessionStorage.removeItem("discord_codeVerifier")
 
@@ -80,8 +72,22 @@
 				const avatarFile = await downloadAvatar(avatarUrl)
 
 				// Upload the avatar to PocketBase
-				await uploadAvatar(authData.record.id, avatarFile)
+				const updatedUser = await uploadAvatarAndName(
+					authData.record.id,
+					avatarFile,
+					discordUser.global_name
+				)
+				user.set(updatedUser)
+			} else {
+				user.set(pb.authStore.model)
 			}
+
+			document.cookie = pb.authStore.exportToCookie({
+				httpOnly: false,
+				secure: !dev,
+				sameSite: false,
+				credentials: "include",
+			})
 
 			// On success, redirect to the homepage or any desired page
 			const lastPage = sessionStorage.getItem("last_page")
@@ -92,7 +98,7 @@
 			sessionStorage.removeItem("discord_codeVerifier")
 
 			console.error("OAuth authentication failed:", error)
-			// Handle errors, redirect to login page
+			// TODO: Show toast message letting the user know that auth failed
 			goto("/")
 		}
 	})

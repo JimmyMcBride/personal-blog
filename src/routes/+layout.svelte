@@ -86,13 +86,24 @@
 	<AppShell>
 		<svelte:fragment slot="header">
 			<nav class="container mx-auto my-8 flex justify-between items-center">
-				<Avatar
+      {#if $user && $user.avatar}
+        <Avatar
 					class="ml-2"
-					src={$user ? getAvatarUrl($user.id, $user.avatar) : "/me-anime.webp"}
+					src={getAvatarUrl($user.id, $user.avatar)}
 					width="w-12"
 					rounded="rounded-full"
 					alt="Jimmy's Profile Pic"
 				/>
+      {:else}
+        <Avatar
+					class="ml-2"
+					src="/me-anime.webp"
+					width="w-12"
+					rounded="rounded-full"
+					alt="Jimmy's Profile Pic"
+				/>
+      {/if}
+				
 				<RadioGroup
 					active="variant-filled-primary"
 					hover="hover:variant-soft-primary"

@@ -98,7 +98,7 @@
 			sessionStorage.removeItem("discord_codeVerifier")
 
 			console.error("OAuth authentication failed:", error)
-			// Handle errors, redirect to login page
+			// TODO: Show toast message letting the user know that auth failed
 			goto("/")
 		}
 	})

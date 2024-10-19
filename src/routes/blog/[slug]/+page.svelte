@@ -150,9 +150,7 @@
 			</div>
 		{:else}
 			<p>You must be logged in to add a comment.</p>
-			<button class="btn variant-filled-primary" on:click={login}>
-				Log in with Discord (Coming soon)
-			</button>
+			<button class="btn variant-filled-primary" on:click={login}>Log in with Discord</button>
 		{/if}
 	</section>
 </article>

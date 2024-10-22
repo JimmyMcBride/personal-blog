@@ -4,9 +4,11 @@
 		AppBar,
 		AppShell,
 		Avatar,
+    LightSwitch,
 		RadioGroup,
 		RadioItem,
 		Toast,
+    autoModeWatcher,
 		initializeStores,
 	} from "@skeletonlabs/skeleton"
 	import MyLinks from "$lib/components/MyLinks.svelte"
@@ -74,6 +76,7 @@
 </script>
 
 <svelte:head>
+  {@html "<script>(" + autoModeWatcher.toString() + ")();</script>"}
 	<meta name="google-site-verification" content="CseTqMt48Lh5608yesp0xuVuqTa6Y_Q1yWUe6rC5gSU" />
 	<script
 		defer
@@ -118,7 +121,11 @@
 						Blog
 					</RadioItem>
 				</RadioGroup>
+        
 			</div>
+      <div class="flex justify-end items-center mr-2">
+        <LightSwitch />
+      </div>
 		</nav>
 	</svelte:fragment>
 	<PageTransition url={route}>

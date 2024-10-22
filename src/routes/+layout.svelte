@@ -4,11 +4,9 @@
 		AppBar,
 		AppShell,
 		Avatar,
-		LightSwitch,
 		RadioGroup,
 		RadioItem,
 		Toast,
-		autoModeWatcher,
 		initializeStores,
 	} from "@skeletonlabs/skeleton"
 	import MyLinks from "$lib/components/MyLinks.svelte"
@@ -76,7 +74,6 @@
 </script>
 
 <svelte:head>
-	{@html "<script>(" + autoModeWatcher().toString() + ")();</script>"}
 	<meta name="google-site-verification" content="CseTqMt48Lh5608yesp0xuVuqTa6Y_Q1yWUe6rC5gSU" />
 	<script
 		defer
@@ -89,7 +86,7 @@
 
 <AppShell>
 	<svelte:fragment slot="header">
-		<nav class="container mx-auto my-8 flex justify-between items-center">
+		<nav class="container mx-auto my-8 grid grid-cols-3">
 			{#if $user && $user.avatar}
 				<Avatar
 					class="ml-2"
@@ -108,19 +105,20 @@
 				/>
 			{/if}
 
-			<RadioGroup
-				active="variant-filled-primary"
-				hover="hover:variant-soft-primary"
-				class="items-center"
-			>
-				<RadioItem on:click={handleNavigation} name="route" bind:group={route} value="/">
-					Home
-				</RadioItem>
-				<RadioItem on:change={handleNavigation} name="route" bind:group={route} value="/blog">
-					Blog
-				</RadioItem>
-			</RadioGroup>
-			<LightSwitch />
+			<div class="flex justify-center">
+				<RadioGroup
+					active="variant-filled-primary"
+					hover="hover:variant-soft-primary"
+					class="items-center"
+				>
+					<RadioItem on:click={handleNavigation} name="route" bind:group={route} value="/">
+						Home
+					</RadioItem>
+					<RadioItem on:change={handleNavigation} name="route" bind:group={route} value="/blog">
+						Blog
+					</RadioItem>
+				</RadioGroup>
+			</div>
 		</nav>
 	</svelte:fragment>
 	<PageTransition url={route}>

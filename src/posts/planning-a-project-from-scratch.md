@@ -3,7 +3,7 @@ title: "Planning a Project from Scratch: The Ultimate Guide for Success 🏆"
 description: Hey there, ambitious developers! 🚀 Are you excited about starting a new project, but not sure where to begin? Don't worry; I've got you covered!
 date: "2023-5-10"
 updated: "2023-5-10"
-image: planning-a-project-from-scratch-banner.webp
+image: /planning-a-project-from-scratch-banner.webp
 categories:
   - career
   - careerdevelopment

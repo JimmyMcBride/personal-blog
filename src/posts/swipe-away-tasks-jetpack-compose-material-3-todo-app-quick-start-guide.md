@@ -3,7 +3,7 @@ title: "Swipe Away Tasks: Jetpack Compose & Material 3 Todo App Quick-Start Guid
 description: Welcome to this fantastic journey into the world of Jetpack Compose, Material 3, and animations! If you've been looking for a comprehensive guide to help you create a task app using these cutting-edge technologies, you've come to the right place.
 date: "2023-5-3"
 updated: "2023-5-3"
-image: swipe-away-tasks-banner.webp
+image: /swipe-away-tasks-banner.webp
 categories:
   - kotlin
   - android

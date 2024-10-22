@@ -99,7 +99,9 @@
 	</div>
 
 	<!-- Post -->
-	<svelte:component this={content} />
+	<div class="flex flex-col items-center markdown">
+		<svelte:component this={content} />
+	</div>
 
 	<!-- Comments Section -->
 	<section class="comments mt-10">

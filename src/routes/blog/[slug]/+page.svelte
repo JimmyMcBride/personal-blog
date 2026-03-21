@@ -1,17 +1,23 @@
-<script lang="ts" defer>
+<script lang="ts">
 	import { formatDate } from "$lib/utils"
 	import { url, title } from "$lib/config"
 	import { page } from "$app/stores"
 	import { handleDiscordLogin, handleLogout } from "$lib/pocketbase"
 	import { user } from "$lib/stores/user"
-	import { Avatar } from "@skeletonlabs/skeleton"
 	import { pb, getAvatarUrl } from "$lib/pocketbase"
 
+	let { data } = $props()
+
 	let slug = $page.params.slug
-	export let data
-	let { content, meta, views } = data
-	let newComment = ""
-	let comments = data.comments || []
+	let content = $derived(data.content)
+	let meta = $derived(data.meta)
+	let views = $derived(data.views)
+	let newComment = $state("")
+	let comments = $state<unknown[]>([])
+
+	$effect(() => {
+		comments = data.comments || []
+	})
 
 	async function addComment() {
 		if ($user) {
@@ -92,7 +98,7 @@
 	<!-- Tags -->
 	<div class="flex flex-wrap gap-4 mb-6">
 		{#each meta.categories as category}
-			<a href={`/blog/categories/${category}`} class="chip variant-filled-secondary no-underline"
+			<a href={`/blog/categories/${category}`} class="chip preset-filled-secondary-500 no-underline"
 				>&num;{category}</a
 			>
 		{/each}
@@ -100,7 +106,10 @@
 
 	<!-- Post -->
 	<div class="flex flex-col items-center markdown">
-		<svelte:component this={content} />
+		{#if content}
+			{@const PostContent = content}
+			<PostContent />
+		{/if}
 	</div>
 
 	<!-- Comments Section -->
@@ -108,16 +117,17 @@
 		<h2>Comments</h2>
 
 		{#if comments?.length > 0}
-			{#each comments as comment}
+			{#each comments as c}
+				{@const comment = c as { expand?: { user?: { id: string; avatar: string; username: string } }; created: string; message: string }}
 				<div class="grid grid-cols-[auto_1fr] gap-2 mb-4">
-					<Avatar
-						src={getAvatarUrl(comment.expand.user.id, comment.expand.user.avatar)}
-						width="w-12"
-						rounded="rounded-full"
+					<img
+						src={comment.expand?.user ? getAvatarUrl(comment.expand.user.id, comment.expand.user.avatar) : "/me-anime.webp"}
+						alt={comment.expand?.user?.username ?? "User"}
+						class="w-12 h-12 rounded-full object-cover"
 					/>
-					<div class="card p-4 variant-soft rounded-tl-none space-y-2">
+					<div class="card p-4 preset-tonal rounded-tl-none space-y-2">
 						<header class="flex justify-between">
-							<small class="font-bold text-lg">{comment.expand.user.username}</small>
+							<small class="font-bold text-lg">{comment.expand?.user?.username}</small>
 							<small class="opacity-50">
 								{formatDate(comment.created)}
 							</small>
@@ -132,27 +142,25 @@
 
 		{#if $user}
 			<div>
-				<form on:submit|preventDefault={addComment} class="mt-4">
-					<div
-						class="input-group input-group-divider grid-cols-[auto_1fr_auto] rounded-container-token"
-					>
-						<button class="input-group-shim">+</button>
+				<form onsubmit={(e) => { e.preventDefault(); addComment() }} class="mt-4">
+					<div class="input-group grid-cols-[auto_1fr_auto] rounded-[--radius-container]">
+						<button type="button" class="ig-cell">+</button>
 						<textarea
 							bind:value={newComment}
-							class="bg-transparent border-0 ring-0"
+							class="ig-input"
 							name="prompt"
 							id="prompt"
 							placeholder="Write a message..."
-							rows="1"
-						/>
-						<button class="variant-filled-primary">Send</button>
+							rows={1}
+						></textarea>
+						<button type="submit" class="btn preset-filled-primary-500">Send</button>
 					</div>
 				</form>
-				<button class="btn variant-filled-error mt-8" on:click={handleLogout}>Sign out</button>
+				<button class="btn preset-filled-error-500 mt-8" onclick={handleLogout}>Sign out</button>
 			</div>
 		{:else}
 			<p>You must be logged in to add a comment.</p>
-			<button class="btn variant-filled-primary" on:click={login}>Log in with Discord</button>
+			<button class="btn preset-filled-primary-500" onclick={login}>Log in with Discord</button>
 		{/if}
 	</section>
 </article>

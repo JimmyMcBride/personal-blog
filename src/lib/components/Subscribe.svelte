@@ -1,15 +1,8 @@
 <script lang="ts">
-	import { getToastStore, ProgressRadial } from "@skeletonlabs/skeleton"
-	import type { ToastSettings } from "@skeletonlabs/skeleton"
+	import { toaster } from "$lib/stores/toaster"
 
-	const toastStore = getToastStore()
-
-	let loading = false
-	let email = ""
-	const t: ToastSettings = {
-		message: "",
-		timeout: 5000,
-	}
+	let loading = $state(false)
+	let email = $state("")
 
 	async function subscribe() {
 		loading = true
@@ -21,32 +14,23 @@
 			body: JSON.stringify({ email }),
 		})
 		const data = await res.json()
-		if (res.status === 200) {
-			t.message = data.message
-		} else {
-			t.message = data.title
-		}
+		const message = res.status === 200 ? data.message : data.title
 		loading = false
 		email = ""
-		toastStore.trigger(t)
+		toaster.create({ title: message })
 	}
 </script>
 
-<div class="input-group input-group-divider flex w-max">
-	<div class="input-group-shim">
+<div class="input-group flex w-max">
+	<div class="ig-cell">
 		{#if loading}
-			<ProgressRadial
-				value={undefined}
-				stroke={100}
-				meter="stroke-primary-500"
-				track="stroke-primary-500/30"
-				width="w-8"
-				class="mx-auto"
-			/>
+			<span
+				class="animate-spin w-5 h-5 border-2 border-current border-t-transparent rounded-full inline-block"
+			></span>
 		{:else}
 			Subscribe
 		{/if}
 	</div>
-	<input type="email" bind:value={email} placeholder="Enter your email" />
-	<button class="variant-filled-primary" on:click={subscribe}>Submit</button>
+	<input class="ig-input" type="email" bind:value={email} placeholder="Enter your email" />
+	<button class="btn preset-filled-primary-500" onclick={subscribe}>Submit</button>
 </div>

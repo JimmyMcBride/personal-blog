@@ -1,8 +1,7 @@
 <script lang="ts">
 	import MyLinks from "$lib/components/MyLinks.svelte"
 	import { description, title, url } from "$lib/config"
-	import { Avatar } from "@skeletonlabs/skeleton"
-	import { Icon } from "flowbite-svelte-icons"
+	import { ScaleBalancedSolid, ComputerSpeakerSolid, BrainSolid } from "flowbite-svelte-icons"
 	import Subscribe from "$lib/components/Subscribe.svelte"
 </script>
 
@@ -31,7 +30,7 @@
 </svelte:head>
 
 <section class="flex justify-center mt-16 flex-wrap">
-	<Avatar src="/me.webp" width="w-96" rounded="rounded-full" class="m-8" />
+	<img src="/me.webp" alt="Jimmy McBride" class="w-96 h-96 rounded-full object-cover m-8" />
 	<div class="gap-y-8 flex flex-col max-w-full p-8">
 		<h1 class="h1">
 			<span
@@ -54,27 +53,27 @@
 <section class="mt-16">
 	<div class="flex justify-center flex-wrap gap-32 mx-32">
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">7k+</p>
-			<p class="text-primary-600-300-token">Contributions</p>
+			<p class="text-[--color-primary-500] text-8xl">7k+</p>
+			<p class="text-[--color-primary-600]">Contributions</p>
 		</div>
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">90+</p>
-			<p class="text-primary-600-300-token">Blogs</p>
+			<p class="text-[--color-primary-500] text-8xl">90+</p>
+			<p class="text-[--color-primary-600]">Blogs</p>
 		</div>
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">19k+</p>
-			<p class="text-primary-600-300-token">Followers</p>
+			<p class="text-[--color-primary-500] text-8xl">19k+</p>
+			<p class="text-[--color-primary-600]">Followers</p>
 		</div>
 		<div class="flex flex-col">
-			<p class="text-primary-900-50-token text-8xl">200k+</p>
-			<p class="text-primary-600-300-token">Blog Views</p>
+			<p class="text-[--color-primary-500] text-8xl">200k+</p>
+			<p class="text-[--color-primary-600]">Blog Views</p>
 		</div>
 	</div>
 </section>
 
 <section class="my-16 flex justify-center flex-wrap gap-4">
-	<div class="card variant-ringed-primary p-4 w-96 max-w-[90%]">
-		<Icon name="scale-balance-solid" class="h-12 w-12 mb-4 text-primary-500-400-token" />
+	<div class="card preset-outlined-primary-500 p-4 w-96 max-w-[90%]">
+		<ScaleBalancedSolid class="h-12 w-12 mb-4 text-[--color-primary-500]" />
 		<h3 class="h2">Scalable</h3>
 		<hr class="mb-4" />
 		<p>
@@ -84,8 +83,8 @@
 			reliability even under increasing loads.
 		</p>
 	</div>
-	<div class="card variant-ringed-primary p-4 w-96 max-w-[90%]">
-		<Icon name="computer-speaker-solid" class="h-12 w-12 mb-4 text-primary-500-400-token" />
+	<div class="card preset-outlined-primary-500 p-4 w-96 max-w-[90%]">
+		<ComputerSpeakerSolid class="h-12 w-12 mb-4 text-[--color-primary-500]" />
 		<h3 class="h2">Full Stack</h3>
 		<hr class="mb-4" />
 		<p>
@@ -95,8 +94,8 @@
 			deliver smooth, responsive experiences.
 		</p>
 	</div>
-	<div class="card variant-ringed-primary p-4 w-96 max-w-[90%]">
-		<Icon name="brain-solid" class="h-12 w-12 mb-4 text-primary-500-400-token" />
+	<div class="card preset-outlined-primary-500 p-4 w-96 max-w-[90%]">
+		<BrainSolid class="h-12 w-12 mb-4 text-[--color-primary-500]" />
 		<h3 class="h2">Simple By Design</h3>
 		<hr class="mb-4" />
 		<p>

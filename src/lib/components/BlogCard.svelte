@@ -1,8 +1,7 @@
-<script lang="ts" defer>
+<script lang="ts">
 	import { formatDate } from "$lib/utils.js"
-	import { Avatar } from "@skeletonlabs/skeleton"
 
-	export let post
+	let { post } = $props()
 </script>
 
 {#key post.slug}
@@ -23,7 +22,7 @@
 		</div>
 		<hr class="opacity-50" />
 		<footer class="p-4 flex justify-start items-center space-x-4">
-			<Avatar src="/me-anime.webp" width="w-8" loading="lazy" />
+			<img src="/me-anime.webp" alt="Jimmy McBride" class="w-8 h-8 rounded-full" loading="lazy" />
 			<div class="flex-auto flex justify-between items-center">
 				<h6 class="font-bold" data-toc-ignore>By Jimmy McBride</h6>
 				<small>On {formatDate(post.date)}</small>

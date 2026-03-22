@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["nodejs_22", "pnpm"] # Use Node.js and pnpm
+nixPkgs = ["nodejs_24", "pnpm"] # Use Node.js and pnpm
 
 [start]
 cmd = "pnpm preview" # Start the app using Vite preview

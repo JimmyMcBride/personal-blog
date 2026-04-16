@@ -5,7 +5,7 @@
 </script>
 
 {#key post.slug}
-	<a class="card card-hover overflow-hidden w-full max-w-4xl mt-4 mx-4" href={`/blog/${post.slug}`}>
+	<a class="rounded-lg bg-card text-card-foreground overflow-hidden w-full max-w-4xl mt-4 mx-4 transition-colors hover:bg-accent border border-border" href={`/blog/${post.slug}`}>
 		<header class="mb-4">
 			{#if post.image}
 				<img src={post.image} alt="blog banner" width="1000px" loading="lazy" />
@@ -13,7 +13,7 @@
 		</header>
 
 		<div class="p-4 space-y-4">
-			<h3 class="h3" data-toc-ignore>{post.title}</h3>
+			<h3 class="text-2xl font-bold" data-toc-ignore>{post.title}</h3>
 			<article>
 				<p>
 					{post.description}

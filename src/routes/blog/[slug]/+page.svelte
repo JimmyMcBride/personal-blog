@@ -5,6 +5,8 @@
 	import { handleDiscordLogin, handleLogout } from "$lib/pocketbase"
 	import { user } from "$lib/stores/user"
 	import { pb, getAvatarUrl } from "$lib/pocketbase"
+	import { Button } from "$lib/components/ui/button"
+	import { Badge } from "$lib/components/ui/badge"
 
 	let { data } = $props()
 
@@ -98,9 +100,9 @@
 	<!-- Tags -->
 	<div class="flex flex-wrap gap-4 mb-6">
 		{#each meta.categories as category}
-			<a href={`/blog/categories/${category}`} class="chip preset-filled-secondary-500 no-underline"
-				>&num;{category}</a
-			>
+			<a href={`/blog/categories/${category}`} class="no-underline">
+				<Badge variant="secondary">&num;{category}</Badge>
+			</a>
 		{/each}
 	</div>
 
@@ -125,7 +127,7 @@
 						alt={comment.expand?.user?.username ?? "User"}
 						class="w-12 h-12 rounded-full object-cover"
 					/>
-					<div class="card p-4 preset-tonal rounded-tl-none space-y-2">
+					<div class="rounded-md bg-muted p-4 rounded-tl-none space-y-2">
 						<header class="flex justify-between">
 							<small class="font-bold text-lg">{comment.expand?.user?.username}</small>
 							<small class="opacity-50">
@@ -143,24 +145,24 @@
 		{#if $user}
 			<div>
 				<form onsubmit={(e) => { e.preventDefault(); addComment() }} class="mt-4">
-					<div class="input-group grid-cols-[auto_1fr_auto] rounded-[--radius-container]">
-						<button type="button" class="ig-cell">+</button>
+					<div class="grid grid-cols-[auto_1fr_auto] rounded-md ring-1 ring-border overflow-hidden">
+						<button type="button" class="flex items-center justify-center px-4 text-sm bg-muted">+</button>
 						<textarea
 							bind:value={newComment}
-							class="ig-input"
+							class="bg-transparent w-full px-3 py-2 text-base border-0 border-l border-border outline-none focus:ring-0"
 							name="prompt"
 							id="prompt"
 							placeholder="Write a message..."
 							rows={1}
 						></textarea>
-						<button type="submit" class="btn preset-filled-primary-500">Send</button>
+						<Button type="submit" class="rounded-none">Send</Button>
 					</div>
 				</form>
-				<button class="btn preset-filled-error-500 mt-8" onclick={handleLogout}>Sign out</button>
+				<Button variant="destructive" class="mt-8" onclick={handleLogout}>Sign out</Button>
 			</div>
 		{:else}
 			<p>You must be logged in to add a comment.</p>
-			<button class="btn preset-filled-primary-500" onclick={login}>Log in with Discord</button>
+			<Button onclick={login}>Log in with Discord</Button>
 		{/if}
 	</section>
 </article>

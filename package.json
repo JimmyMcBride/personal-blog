@@ -13,8 +13,6 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
-		"@skeletonlabs/skeleton": "^4.13.0",
-		"@skeletonlabs/skeleton-svelte": "^4.13.0",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/kit": "^2.55.0",
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
@@ -43,6 +41,8 @@
 		"node": "^20.19 || ^22.12 || >=24"
 	},
 	"dependencies": {
+		"bits-ui": "^2.16.3",
+		"clsx": "^2.1.1",
 		"dompurify": "^3.1.7",
 		"pocketbase": "^0.21.5",
 		"rehype-slug": "^6.0.0",
@@ -50,6 +50,7 @@
 		"remark-toc": "^9.0.0",
 		"shiki": "^1.21.0",
 		"sitemap": "^8.0.0",
+		"svelte-sonner": "^1.1.0",
 		"tailwind-merge": "^1.14.0",
 		"uuid": "^9.0.1"
 	}

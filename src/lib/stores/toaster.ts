@@ -1,3 +1,1 @@
-import { createToaster } from "@skeletonlabs/skeleton-svelte"
-
-export const toaster = createToaster()
+export { toast } from "svelte-sonner"

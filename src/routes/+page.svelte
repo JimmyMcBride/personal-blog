@@ -32,7 +32,7 @@
 <section class="flex justify-center mt-16 flex-wrap">
 	<img src="/me.webp" alt="Jimmy McBride" class="w-96 h-96 rounded-full object-cover m-8" />
 	<div class="gap-y-8 flex flex-col max-w-full p-8">
-		<h1 class="h1">
+		<h1 class="text-5xl font-bold">
 			<span
 				class="bg-gradient-to-br dark:from-tertiary-300 dark:to-primary-500 from-secondary-500 to-primary-500 bg-clip-text text-transparent box-decoration-clone"
 			>
@@ -53,28 +53,28 @@
 <section class="mt-16">
 	<div class="flex justify-center flex-wrap gap-32 mx-32">
 		<div class="flex flex-col">
-			<p class="text-[--color-primary-500] text-8xl">7k+</p>
-			<p class="text-[--color-primary-600]">Contributions</p>
+			<p class="text-primary-500 text-8xl">7k+</p>
+			<p class="text-primary-600">Contributions</p>
 		</div>
 		<div class="flex flex-col">
-			<p class="text-[--color-primary-500] text-8xl">90+</p>
-			<p class="text-[--color-primary-600]">Blogs</p>
+			<p class="text-primary-500 text-8xl">90+</p>
+			<p class="text-primary-600">Blogs</p>
 		</div>
 		<div class="flex flex-col">
-			<p class="text-[--color-primary-500] text-8xl">19k+</p>
-			<p class="text-[--color-primary-600]">Followers</p>
+			<p class="text-primary-500 text-8xl">19k+</p>
+			<p class="text-primary-600">Followers</p>
 		</div>
 		<div class="flex flex-col">
-			<p class="text-[--color-primary-500] text-8xl">200k+</p>
-			<p class="text-[--color-primary-600]">Blog Views</p>
+			<p class="text-primary-500 text-8xl">200k+</p>
+			<p class="text-primary-600">Blog Views</p>
 		</div>
 	</div>
 </section>
 
 <section class="my-16 flex justify-center flex-wrap gap-4">
-	<div class="card preset-outlined-primary-500 p-4 w-96 max-w-[90%]">
-		<ScaleBalancedSolid class="h-12 w-12 mb-4 text-[--color-primary-500]" />
-		<h3 class="h2">Scalable</h3>
+	<div class="rounded-lg border border-primary-500 bg-card text-card-foreground p-4 w-96 max-w-[90%]">
+		<ScaleBalancedSolid class="h-12 w-12 mb-4 text-primary-500" />
+		<h3 class="text-3xl font-bold">Scalable</h3>
 		<hr class="mb-4" />
 		<p>
 			Dedicated to excellence in scalability, I specialize in designing and deploying solutions that
@@ -83,9 +83,9 @@
 			reliability even under increasing loads.
 		</p>
 	</div>
-	<div class="card preset-outlined-primary-500 p-4 w-96 max-w-[90%]">
-		<ComputerSpeakerSolid class="h-12 w-12 mb-4 text-[--color-primary-500]" />
-		<h3 class="h2">Full Stack</h3>
+	<div class="rounded-lg border border-primary-500 bg-card text-card-foreground p-4 w-96 max-w-[90%]">
+		<ComputerSpeakerSolid class="h-12 w-12 mb-4 text-primary-500" />
+		<h3 class="text-3xl font-bold">Full Stack</h3>
 		<hr class="mb-4" />
 		<p>
 			With a holistic approach to web development, I bridge the gap between front-end elegance and
@@ -94,9 +94,9 @@
 			deliver smooth, responsive experiences.
 		</p>
 	</div>
-	<div class="card preset-outlined-primary-500 p-4 w-96 max-w-[90%]">
-		<BrainSolid class="h-12 w-12 mb-4 text-[--color-primary-500]" />
-		<h3 class="h2">Simple By Design</h3>
+	<div class="rounded-lg border border-primary-500 bg-card text-card-foreground p-4 w-96 max-w-[90%]">
+		<BrainSolid class="h-12 w-12 mb-4 text-primary-500" />
+		<h3 class="text-3xl font-bold">Simple By Design</h3>
 		<hr class="mb-4" />
 		<p>
 			Adhering to the principle of 'Simple By Design', I prioritize clarity and user-centricity in

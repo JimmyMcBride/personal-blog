@@ -1,5 +1,6 @@
 <script lang="ts">
 	import BlogCard from "$lib/components/BlogCard.svelte"
+	import { Button } from "$lib/components/ui/button"
 	import { title, description, url } from "$lib/config"
 
 	let { data } = $props()
@@ -57,25 +58,25 @@
 			name="search"
 			bind:value={searchTerm}
 			placeholder="Search blogs..."
-			class="input border p-2 w-full max-w-lg"
+			class="flex h-10 w-full max-w-lg rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
 		/>
 	</div>
 
 	<!-- Pagination (top) -->
 	<div class="flex justify-center items-center space-x-4 mt-4">
 		{#if currentPage > 1}
-			<button onclick={() => currentPage--} class="btn preset-filled-primary-500">
+			<Button onclick={() => currentPage--}>
 				Previous
-			</button>
+			</Button>
 		{/if}
 
 		{#if currentPage < totalPages}
-			<button onclick={() => currentPage++} class="btn preset-filled-primary-500">
+			<Button onclick={() => currentPage++}>
 				Next
-			</button>
+			</Button>
 		{/if}
 
-		<p class="code">Page: {currentPage}/{totalPages}</p>
+		<p class="font-mono text-sm">Page: {currentPage}/{totalPages}</p>
 	</div>
 
 	<!-- Blog List -->
@@ -88,17 +89,17 @@
 	<!-- Pagination (bottom) -->
 	<div class="flex justify-center items-center space-x-4 mt-4">
 		{#if currentPage > 1}
-			<button onclick={() => currentPage--} class="btn preset-filled-primary-500">
+			<Button onclick={() => currentPage--}>
 				Previous
-			</button>
+			</Button>
 		{/if}
 
 		{#if currentPage < totalPages}
-			<button onclick={() => currentPage++} class="btn preset-filled-primary-500">
+			<Button onclick={() => currentPage++}>
 				Next
-			</button>
+			</Button>
 		{/if}
 
-		<p class="code">Page: {currentPage}/{totalPages}</p>
+		<p class="font-mono text-sm">Page: {currentPage}/{totalPages}</p>
 	</div>
 </section>

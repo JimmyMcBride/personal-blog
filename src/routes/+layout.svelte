@@ -1,6 +1,8 @@
 <script lang="ts">
 	import "../app.pcss"
-	import { Avatar, Toast } from "@skeletonlabs/skeleton-svelte"
+	import * as Avatar from "$lib/components/ui/avatar"
+	import { Toaster } from "svelte-sonner"
+	import { Button } from "$lib/components/ui/button"
 	import MyLinks from "$lib/components/MyLinks.svelte"
 	import PageTransition from "$lib/components/transition.svelte"
 	import Subscribe from "$lib/components/Subscribe.svelte"
@@ -8,7 +10,6 @@
 	import { page } from "$app/stores"
 	import { pb, getAvatarUrl } from "$lib/pocketbase"
 	import { user } from "$lib/stores/user"
-	import { toaster } from "$lib/stores/toaster"
 	import { onMount } from "svelte"
 
 	let { data, children } = $props()
@@ -74,14 +75,7 @@
 </svelte:head>
 
 <!-- Toast notifications -->
-<Toast.Group {toaster}>
-	{#snippet children(toast)}
-		<Toast {toast} class="card preset-filled p-4 shadow-lg flex items-start gap-4 min-w-64">
-			<Toast.Title class="font-semibold flex-1">{toast.title}</Toast.Title>
-			<Toast.CloseTrigger class="btn btn-sm preset-tonal">✕</Toast.CloseTrigger>
-		</Toast>
-	{/snippet}
-</Toast.Group>
+<Toaster richColors position="top-right" theme={isDark ? 'dark' : 'light'} />
 
 <!-- App layout -->
 <div class="flex flex-col h-full">
@@ -91,23 +85,23 @@
 			<!-- Avatar -->
 			<div class="ml-2">
 				{#if $user && $user.avatar}
-					<Avatar class="w-12 h-12 rounded-full">
+					<Avatar.Root class="h-12 w-12">
 						<Avatar.Image
 							src={getAvatarUrl($user.id, $user.avatar)}
 							alt="Jimmy's Profile Pic"
-							class="w-12 h-12 rounded-full object-cover"
+							class="object-cover"
 						/>
-						<Avatar.Fallback class="w-12 h-12 rounded-full flex items-center justify-center preset-filled-primary-500">J</Avatar.Fallback>
-					</Avatar>
+						<Avatar.Fallback class="bg-primary text-primary-foreground">J</Avatar.Fallback>
+					</Avatar.Root>
 				{:else}
-					<Avatar class="w-12 h-12 rounded-full">
+					<Avatar.Root class="h-12 w-12">
 						<Avatar.Image
 							src="/me-anime.webp"
 							alt="Jimmy's Profile Pic"
-							class="w-12 h-12 rounded-full object-cover"
+							class="object-cover"
 						/>
-						<Avatar.Fallback class="w-12 h-12 rounded-full flex items-center justify-center preset-filled-primary-500">J</Avatar.Fallback>
-					</Avatar>
+						<Avatar.Fallback class="bg-primary text-primary-foreground">J</Avatar.Fallback>
+					</Avatar.Root>
 				{/if}
 			</div>
 
@@ -115,27 +109,32 @@
 			<div class="flex justify-center gap-1">
 				<a
 					href="/"
-					class="btn {route === '/' ? 'preset-filled-primary-500' : 'preset-tonal'}"
+					class="no-underline"
 				>
-					Home
+					<Button variant={route === '/' ? 'default' : 'ghost'}>
+						Home
+					</Button>
 				</a>
 				<a
 					href="/blog"
-					class="btn {route.startsWith('/blog') ? 'preset-filled-primary-500' : 'preset-tonal'}"
+					class="no-underline"
 				>
-					Blog
+					<Button variant={route.startsWith('/blog') ? 'default' : 'ghost'}>
+						Blog
+					</Button>
 				</a>
 			</div>
 
 			<!-- Dark mode toggle -->
 			<div class="flex justify-end items-center mr-2">
-				<button
+				<Button
 					onclick={toggleDark}
-					class="btn preset-tonal w-10 h-10 flex items-center justify-center"
+					variant="ghost"
+					size="icon"
 					aria-label="Toggle dark mode"
 				>
 					{isDark ? "☀️" : "🌙"}
-				</button>
+				</Button>
 			</div>
 		</nav>
 	</header>
@@ -150,7 +149,7 @@
 	</main>
 
 	<!-- Footer -->
-	<footer class="py-6 border-t border-surface-200-800">
+	<footer class="py-6 border-t border-border">
 		<div class="flex flex-col gap-4 items-center">
 			<MyLinks />
 			<Subscribe />

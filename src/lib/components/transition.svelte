@@ -6,7 +6,7 @@
 </script>
 
 {#key url}
-	<div class="h-full" in:fade>
+	<div in:fade>
 		{@render children()}
 	</div>
 {/key}

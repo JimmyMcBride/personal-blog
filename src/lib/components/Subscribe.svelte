@@ -22,21 +22,39 @@
 	}
 </script>
 
-<div class="flex w-max rounded-md ring-1 ring-border overflow-hidden">
-	<div class="flex items-center justify-center px-4 text-sm bg-muted text-muted-foreground">
+<form
+	class="flex w-max overflow-hidden rounded-md ring-1 ring-border focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background"
+	onsubmit={(event) => {
+		event.preventDefault()
+		subscribe()
+	}}
+>
+	<label class="sr-only" for="subscribe-email">Email address</label>
+	<div
+		class="flex items-center justify-center bg-muted px-4 text-sm text-muted-foreground"
+		aria-live="polite"
+		aria-atomic="true"
+	>
 		{#if loading}
 			<span
-				class="animate-spin w-5 h-5 border-2 border-current border-t-transparent rounded-full inline-block"
+				class="animate-spin inline-block h-5 w-5 rounded-full border-2 border-current border-t-transparent"
 			></span>
+			<span class="sr-only">Subscribing</span>
 		{:else}
 			Subscribe
 		{/if}
 	</div>
 	<input
-		class="bg-transparent px-3 py-1 text-base border-0 border-l border-border outline-none focus:ring-0"
+		id="subscribe-email"
+		name="email"
+		class="border-0 border-l border-border bg-transparent px-3 py-1 text-base focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
 		type="email"
 		bind:value={email}
+		autocomplete="email"
+		inputmode="email"
 		placeholder="Enter your email"
+		required
+		disabled={loading}
 	/>
-	<Button onclick={subscribe} class="rounded-none">Submit</Button>
-</div>
+	<Button type="submit" class="rounded-none" disabled={loading}>Submit</Button>
+</form>

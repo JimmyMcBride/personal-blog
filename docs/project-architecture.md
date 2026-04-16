@@ -20,6 +20,8 @@ Use this file for the structural shape of the repository.
 - Keep explicit `width: 100%` rules for markdown list containers in `src/app.css` alongside headings, paragraphs, and code blocks, or unordered and ordered lists will shrink and appear centered.
 - Tailwind v4 theme setup in `src/app.css` must keep the semantic token bridge (`@theme inline` mappings like `--color-card`, `--color-background`, `--color-border`, and related radius tokens) so shadcn-style component classes such as `bg-card`, `border-border`, and `text-muted-foreground` compile correctly.
 - The shared avatar components in `src/lib/components/ui/avatar/` should stay backed by `bits-ui` primitives so image loading state hides the fallback correctly instead of rendering the image and fallback side by side.
+- The app shell now uses normal document scrolling instead of an internal scrollable `main`, so the footer stays after content and route scroll reset logic should target `window` plus hash anchors rather than a `#page` container.
+- The header theme control is a local `bits-ui` switch in `src/lib/components/ThemeToggle.svelte`, not a Skeleton component.
 - Coolify production should use the Node server build via `@sveltejs/adapter-node` and `HOST=0.0.0.0 node build` from `nixpacks.toml`.
 - Do not use `@sveltejs/adapter-vercel` or `vite preview` for Coolify production.
 - GitHub PR previews are handled by Coolify, not Vercel. The repository webhook must send both `push` and `pull_request` events to Coolify's manual GitHub webhook endpoint for the blog app.

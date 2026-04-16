@@ -53,7 +53,9 @@
 <section class="mb-16">
 	<!-- Search Input -->
 	<div class="flex justify-center mb-4 mx-4">
+		<label class="sr-only" for="blog-search">Search blog posts</label>
 		<input
+			id="blog-search"
 			type="search"
 			name="search"
 			bind:value={searchTerm}
@@ -65,15 +67,11 @@
 	<!-- Pagination (top) -->
 	<div class="flex justify-center items-center space-x-4 mt-4">
 		{#if currentPage > 1}
-			<Button onclick={() => currentPage--}>
-				Previous
-			</Button>
+			<Button aria-label="Previous page" onclick={() => currentPage--}>Previous</Button>
 		{/if}
 
 		{#if currentPage < totalPages}
-			<Button onclick={() => currentPage++}>
-				Next
-			</Button>
+			<Button aria-label="Next page" onclick={() => currentPage++}>Next</Button>
 		{/if}
 
 		<p class="font-mono text-sm">Page: {currentPage}/{totalPages}</p>
@@ -89,15 +87,11 @@
 	<!-- Pagination (bottom) -->
 	<div class="flex justify-center items-center space-x-4 mt-4">
 		{#if currentPage > 1}
-			<Button onclick={() => currentPage--}>
-				Previous
-			</Button>
+			<Button aria-label="Previous page" onclick={() => currentPage--}>Previous</Button>
 		{/if}
 
 		{#if currentPage < totalPages}
-			<Button onclick={() => currentPage++}>
-				Next
-			</Button>
+			<Button aria-label="Next page" onclick={() => currentPage++}>Next</Button>
 		{/if}
 
 		<p class="font-mono text-sm">Page: {currentPage}/{totalPages}</p>

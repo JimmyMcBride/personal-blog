@@ -5,10 +5,13 @@
 </script>
 
 {#key post.slug}
-	<a class="rounded-lg bg-card text-card-foreground overflow-hidden w-full max-w-4xl mt-4 mx-4 transition-colors hover:bg-accent border border-border" href={`/blog/${post.slug}`}>
+	<a
+		class="rounded-lg bg-card text-card-foreground overflow-hidden w-full max-w-4xl mt-4 mx-4 transition-colors hover:bg-accent border border-border"
+		href={`/blog/${post.slug}`}
+	>
 		<header class="mb-4">
 			{#if post.image}
-				<img src={post.image} alt="blog banner" width="1000px" loading="lazy" />
+				<img src={post.image} alt="" width="1000px" loading="lazy" />
 			{/if}
 		</header>
 

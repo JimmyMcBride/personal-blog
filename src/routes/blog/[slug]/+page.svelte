@@ -86,7 +86,7 @@
 	<!-- Title -->
 	<hgroup class="flex flex-col items-end">
 		<h1 class="">{meta.title}</h1>
-		<img src={meta.image} alt="blog banner" class="rounded-md" width="800px" title="Blog banner" />
+		<img src={meta.image} alt={`Cover image for ${meta.title}`} class="rounded-md" width="800px" />
 		<p class="text-end text-sm">
 			Published at {formatDate(meta.date)}
 			<br />
@@ -120,10 +120,16 @@
 
 		{#if comments?.length > 0}
 			{#each comments as c}
-				{@const comment = c as { expand?: { user?: { id: string; avatar: string; username: string } }; created: string; message: string }}
+				{@const comment = c as {
+					expand?: { user?: { id: string; avatar: string; username: string } }
+					created: string
+					message: string
+				}}
 				<div class="grid grid-cols-[auto_1fr] gap-2 mb-4">
 					<img
-						src={comment.expand?.user ? getAvatarUrl(comment.expand.user.id, comment.expand.user.avatar) : "/me-anime.webp"}
+						src={comment.expand?.user
+							? getAvatarUrl(comment.expand.user.id, comment.expand.user.avatar)
+							: "/me-anime.webp"}
 						alt={comment.expand?.user?.username ?? "User"}
 						class="w-12 h-12 rounded-full object-cover"
 					/>
@@ -144,14 +150,22 @@
 
 		{#if $user}
 			<div>
-				<form onsubmit={(e) => { e.preventDefault(); addComment() }} class="mt-4">
-					<div class="grid grid-cols-[auto_1fr_auto] rounded-md ring-1 ring-border overflow-hidden">
-						<button type="button" class="flex items-center justify-center px-4 text-sm bg-muted">+</button>
+				<form
+					onsubmit={(e) => {
+						e.preventDefault()
+						addComment()
+					}}
+					class="mt-4"
+				>
+					<label class="sr-only" for="comment-message">Write a comment</label>
+					<div
+						class="grid grid-cols-[1fr_auto] overflow-hidden rounded-md ring-1 ring-border focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background"
+					>
 						<textarea
+							id="comment-message"
 							bind:value={newComment}
-							class="bg-transparent w-full px-3 py-2 text-base border-0 border-l border-border outline-none focus:ring-0"
+							class="w-full resize-y border-0 bg-transparent px-3 py-2 text-base focus:outline-none"
 							name="prompt"
-							id="prompt"
 							placeholder="Write a message..."
 							rows={1}
 						></textarea>

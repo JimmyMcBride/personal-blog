@@ -2,7 +2,8 @@
 	import "../app.css"
 	import * as Avatar from "$lib/components/ui/avatar"
 	import { Toaster } from "svelte-sonner"
-	import { Button } from "$lib/components/ui/button"
+	import ThemeToggle from "$lib/components/ThemeToggle.svelte"
+	import { buttonVariants, type ButtonVariant } from "$lib/components/ui/button"
 	import MyLinks from "$lib/components/MyLinks.svelte"
 	import PageTransition from "$lib/components/transition.svelte"
 	import Subscribe from "$lib/components/Subscribe.svelte"
@@ -10,18 +11,13 @@
 	import { page } from "$app/stores"
 	import { pb, getAvatarUrl } from "$lib/pocketbase"
 	import { user } from "$lib/stores/user"
-	import { onMount } from "svelte"
+	import { cn } from "$lib/utils.js"
+	import { onMount, tick } from "svelte"
 
 	let { data, children } = $props()
 
 	// Dark mode
 	let isDark = $state(false)
-
-	function toggleDark() {
-		isDark = !isDark
-		document.documentElement.classList.toggle("dark", isDark)
-		localStorage.setItem("theme", isDark ? "dark" : "light")
-	}
 
 	// Sync user store from server data
 	$effect(() => {
@@ -29,6 +25,13 @@
 		if (!data.user) {
 			pb.authStore.clear()
 		}
+	})
+
+	$effect(() => {
+		if (typeof window === "undefined") return
+
+		document.documentElement.classList.toggle("dark", isDark)
+		localStorage.setItem("theme", isDark ? "dark" : "light")
 	})
 
 	onMount(() => {
@@ -51,18 +54,31 @@
 		}
 	})
 
-	afterNavigate(() => {
-		const elemPage = document.querySelector("#page")
-		if (elemPage !== null) {
-			elemPage.scrollTop = 0
+	afterNavigate(async () => {
+		await tick()
+
+		const hash = window.location.hash.slice(1)
+		if (hash) {
+			requestAnimationFrame(() => {
+				const elemTarget = document.getElementById(decodeURIComponent(hash))
+				if (elemTarget) elemTarget.scrollIntoView({ behavior: "smooth", block: "start" })
+			})
+			return
 		}
-		if (window.location.hash) {
-			const elemTarget = document.querySelector(window.location.hash) as HTMLElement | null
-			if (elemTarget) elemTarget.scrollIntoView({ behavior: "smooth" })
-		}
+
+		window.scrollTo({ top: 0, behavior: "auto" })
 	})
 
 	let route = $derived($page.url.pathname)
+	let isHomeRoute = $derived(route === "/")
+	let isBlogIndexRoute = $derived(route === "/blog")
+	let isBlogChildRoute = $derived(route.startsWith("/blog/"))
+	let blogButtonVariant = $derived.by((): ButtonVariant => {
+		if (isBlogIndexRoute) return "default"
+		if (isBlogChildRoute) return "outline"
+		return "ghost"
+	})
+	let currentPostTitle = $derived(isBlogChildRoute ? ($page.data.meta?.title ?? "") : "")
 </script>
 
 <svelte:head>
@@ -75,13 +91,13 @@
 </svelte:head>
 
 <!-- Toast notifications -->
-<Toaster richColors position="top-right" theme={isDark ? 'dark' : 'light'} />
+<Toaster richColors position="top-right" theme={isDark ? "dark" : "light"} />
 
 <!-- App layout -->
-<div class="flex flex-col h-full">
+<div class="flex min-h-screen flex-col">
 	<!-- Header -->
 	<header>
-		<nav class="container mx-auto my-8 grid grid-cols-3 items-center">
+		<nav class="container mx-auto my-8 grid grid-cols-[auto_1fr_auto] items-center gap-4 px-2">
 			<!-- Avatar -->
 			<div class="ml-2">
 				{#if $user && $user.avatar}
@@ -95,53 +111,48 @@
 					</Avatar.Root>
 				{:else}
 					<Avatar.Root class="h-12 w-12">
-						<Avatar.Image
-							src="/me-anime.webp"
-							alt="Jimmy's Profile Pic"
-							class="object-cover"
-						/>
+						<Avatar.Image src="/me-anime.webp" alt="Jimmy's Profile Pic" class="object-cover" />
 						<Avatar.Fallback class="bg-primary text-primary-foreground">J</Avatar.Fallback>
 					</Avatar.Root>
 				{/if}
 			</div>
 
 			<!-- Navigation -->
-			<div class="flex justify-center gap-1">
+			<div class="flex min-w-0 items-center justify-center gap-2">
 				<a
 					href="/"
-					class="no-underline"
+					aria-current={isHomeRoute ? "page" : undefined}
+					class={cn(buttonVariants(isHomeRoute ? "default" : "ghost"), "no-underline")}
 				>
-					<Button variant={route === '/' ? 'default' : 'ghost'}>
-						Home
-					</Button>
+					Home
 				</a>
 				<a
 					href="/blog"
-					class="no-underline"
+					aria-current={isBlogIndexRoute ? "page" : undefined}
+					class={cn(buttonVariants(blogButtonVariant), "no-underline")}
 				>
-					<Button variant={route.startsWith('/blog') ? 'default' : 'ghost'}>
-						Blog
-					</Button>
+					Blog
 				</a>
+				{#if currentPostTitle}
+					<span
+						class="hidden h-10 min-w-0 max-w-[14rem] items-center rounded-md border border-border bg-muted/50 px-3 text-sm text-muted-foreground sm:inline-flex md:max-w-[20rem] lg:max-w-[26rem]"
+						title={currentPostTitle}
+					>
+						<span class="truncate whitespace-nowrap">{currentPostTitle}</span>
+					</span>
+				{/if}
 			</div>
 
 			<!-- Dark mode toggle -->
-			<div class="flex justify-end items-center mr-2">
-				<Button
-					onclick={toggleDark}
-					variant="ghost"
-					size="icon"
-					aria-label="Toggle dark mode"
-				>
-					{isDark ? "☀️" : "🌙"}
-				</Button>
+			<div class="mr-2 flex items-center justify-end">
+				<ThemeToggle bind:checked={isDark} />
 			</div>
 		</nav>
 	</header>
 
-	<!-- Main scrollable content -->
-	<main class="flex-1 overflow-y-auto" id="page">
-		<div class="container mx-auto h-full">
+	<!-- Main content -->
+	<main class="flex-1">
+		<div class="container mx-auto">
 			<PageTransition url={route}>
 				{@render children()}
 			</PageTransition>

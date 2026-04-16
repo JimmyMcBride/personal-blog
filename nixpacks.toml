@@ -1,5 +1,11 @@
 [phases.setup]
-nixPkgs = ["nodejs_22", "pnpm"] # Use Node.js and pnpm
+nixPkgs = ["nodejs_20", "pnpm"]
+
+[phases.install]
+cmds = ["pnpm install --frozen-lockfile"]
+
+[phases.build]
+cmds = ["pnpm run build"]
 
 [start]
-cmd = "pnpm preview" # Start the app using Vite preview
+cmd = "HOST=0.0.0.0 node build"

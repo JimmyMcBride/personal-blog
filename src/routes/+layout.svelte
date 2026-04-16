@@ -18,6 +18,7 @@
 
 	// Dark mode
 	let isDark = $state(false)
+	let themePreference = $state<"light" | "dark" | null>(null)
 
 	// Sync user store from server data
 	$effect(() => {
@@ -31,15 +32,28 @@
 		if (typeof window === "undefined") return
 
 		document.documentElement.classList.toggle("dark", isDark)
-		localStorage.setItem("theme", isDark ? "dark" : "light")
+
+		if (themePreference) {
+			localStorage.setItem("theme", themePreference)
+		} else {
+			localStorage.removeItem("theme")
+		}
 	})
 
 	onMount(() => {
-		// Initialize dark mode from localStorage or system preference
+		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
 		const saved = localStorage.getItem("theme")
-		isDark =
-			saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)
-		document.documentElement.classList.toggle("dark", isDark)
+
+		themePreference = saved === "light" || saved === "dark" ? saved : null
+		isDark = document.documentElement.classList.contains("dark")
+
+		const handleSystemThemeChange = (event: MediaQueryListEvent) => {
+			if (themePreference === null) {
+				isDark = event.matches
+			}
+		}
+
+		mediaQuery.addEventListener("change", handleSystemThemeChange)
 
 		// Auth change listener
 		const unsubscribeAuthStore = pb.authStore.onChange((_, model) => {
@@ -50,6 +64,7 @@
 		})
 
 		return () => {
+			mediaQuery.removeEventListener("change", handleSystemThemeChange)
 			unsubscribeAuthStore()
 		}
 	})
@@ -74,6 +89,11 @@
 	let isBlogIndexRoute = $derived(route === "/blog")
 	let isBlogChildRoute = $derived(route.startsWith("/blog/"))
 	let currentPostTitle = $derived(isBlogChildRoute ? ($page.data.meta?.title ?? "") : "")
+
+	function handleThemeChange(nextChecked: boolean) {
+		isDark = nextChecked
+		themePreference = nextChecked ? "dark" : "light"
+	}
 </script>
 
 <svelte:head>
@@ -145,7 +165,7 @@
 
 			<!-- Dark mode toggle -->
 			<div class="mr-2 flex items-center justify-end">
-				<ThemeToggle bind:checked={isDark} />
+				<ThemeToggle checked={isDark} onCheckedChange={handleThemeChange} />
 			</div>
 		</nav>
 	</header>

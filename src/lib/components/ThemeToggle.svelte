@@ -1,11 +1,18 @@
 <script lang="ts">
-	import { Switch } from "bits-ui"
+	import { Switch, type SwitchRootProps } from "bits-ui"
 
-	let { checked = $bindable(false) }: { checked?: boolean } = $props()
+	let {
+		checked = $bindable(false),
+		onCheckedChange,
+	}: {
+		checked?: boolean
+		onCheckedChange?: SwitchRootProps["onCheckedChange"]
+	} = $props()
 </script>
 
 <Switch.Root
 	bind:checked
+	{onCheckedChange}
 	aria-label="Toggle dark mode"
 	class={`relative inline-flex h-10 w-16 shrink-0 items-center rounded-full border px-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
 		checked

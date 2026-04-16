@@ -1,5 +1,5 @@
 ---
-updated: "2026-04-16T14:51:26Z"
+updated: "2026-04-16T15:16:14Z"
 ---
 # Project Architecture
 
@@ -16,3 +16,6 @@ Use this file for the structural shape of the repository.
 
 - Blog post markdown renders inside the `.markdown` container in `src/routes/blog/[slug]/+page.svelte`, which uses a centered flex column.
 - Keep explicit `width: 100%` rules for markdown list containers in `src/app.pcss` alongside headings, paragraphs, and code blocks, or unordered and ordered lists will shrink and appear centered.
+- Coolify production should use the Node server build via `@sveltejs/adapter-node` and `HOST=0.0.0.0 node build` from `nixpacks.toml`.
+- Do not use `@sveltejs/adapter-vercel` or `vite preview` for Coolify production.
+- mdsvex code highlighting is intentionally limited to the small set of languages used by the blog posts so Shiki does less work during builds.

@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { Avatar as AvatarPrimitive, type AvatarImageProps } from "bits-ui"
 	import { cn } from "$lib/utils.js"
-	import type { HTMLImgAttributes } from "svelte/elements"
 
-	let { class: className, ...restProps }: HTMLImgAttributes = $props()
+	let { class: className, ...restProps }: AvatarImageProps = $props()
 </script>
 
-<img class={cn("aspect-square h-full w-full", className)} {...restProps} />
+<AvatarPrimitive.Image class={cn("aspect-square h-full w-full object-cover", className)} {...restProps} />

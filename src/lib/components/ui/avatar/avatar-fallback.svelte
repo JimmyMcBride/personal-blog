@@ -1,16 +1,15 @@
 <script lang="ts">
+	import { Avatar as AvatarPrimitive, type AvatarFallbackProps } from "bits-ui"
 	import { cn } from "$lib/utils.js"
-	import type { Snippet } from "svelte"
-	import type { HTMLAttributes } from "svelte/elements"
 
 	let {
 		class: className,
 		children,
 		...restProps
-	}: HTMLAttributes<HTMLSpanElement> & { children?: Snippet } = $props()
+	}: AvatarFallbackProps = $props()
 </script>
 
-<span
+<AvatarPrimitive.Fallback
 	class={cn(
 		"flex h-full w-full items-center justify-center rounded-full bg-muted",
 		className
@@ -18,4 +17,4 @@
 	{...restProps}
 >
 	{@render children?.()}
-</span>
+</AvatarPrimitive.Fallback>

@@ -1,16 +1,15 @@
 <script lang="ts">
+	import { Avatar as AvatarPrimitive, type AvatarRootProps } from "bits-ui"
 	import { cn } from "$lib/utils.js"
-	import type { Snippet } from "svelte"
-	import type { HTMLAttributes } from "svelte/elements"
 
 	let {
 		class: className,
 		children,
 		...restProps
-	}: HTMLAttributes<HTMLSpanElement> & { children?: Snippet } = $props()
+	}: AvatarRootProps = $props()
 </script>
 
-<span
+<AvatarPrimitive.Root
 	class={cn(
 		"relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
 		className
@@ -18,4 +17,4 @@
 	{...restProps}
 >
 	{@render children?.()}
-</span>
+</AvatarPrimitive.Root>

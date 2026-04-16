@@ -5,31 +5,56 @@
 
 <div class="flex flex-wrap gap-4">
 	<IconWrapper>
-		<a href="https://www.linkedin.com/in/jimmy-mcbride-183072b6/" target="_blank">
+		<a
+			href="https://www.linkedin.com/in/jimmy-mcbride-183072b6/"
+			target="_blank"
+			rel="noreferrer"
+			aria-label="Jimmy McBride on LinkedIn"
+		>
 			<LinkedinSolid class="w-5 h-5" />
 		</a>
 	</IconWrapper>
 
 	<IconWrapper>
-		<a href="https://github.com/JimmyMcBride" target="_blank">
+		<a
+			href="https://github.com/JimmyMcBride"
+			target="_blank"
+			rel="noreferrer"
+			aria-label="Jimmy McBride on GitHub"
+		>
 			<GithubSolid class="w-5 h-5" />
 		</a>
 	</IconWrapper>
 
 	<IconWrapper>
-		<a href="https://twitter.com/McBride1105" target="_blank">
+		<a
+			href="https://twitter.com/McBride1105"
+			target="_blank"
+			rel="noreferrer"
+			aria-label="Jimmy McBride on X"
+		>
 			<TwitterSolid class="w-5 h-5" />
 		</a>
 	</IconWrapper>
 
 	<IconWrapper>
-		<a href="https://discord.gg/4PCy4Bz" target="_blank">
+		<a
+			href="https://discord.gg/4PCy4Bz"
+			target="_blank"
+			rel="noreferrer"
+			aria-label="Join Jimmy McBride on Discord"
+		>
 			<DiscordSolid class="w-5 h-5" />
 		</a>
 	</IconWrapper>
 
 	<IconWrapper>
-		<a href="https://dev.to/jimmymcbride" target="_blank">
+		<a
+			href="https://dev.to/jimmymcbride"
+			target="_blank"
+			rel="noreferrer"
+			aria-label="Jimmy McBride on DEV"
+		>
 			<svg
 				width="1.25rem"
 				height="1.25rem"
@@ -45,7 +70,7 @@
 	</IconWrapper>
 
 	<IconWrapper>
-		<a href="/rss.xml" target="_blank">
+		<a href="/rss.xml" target="_blank" rel="noreferrer" aria-label="RSS feed">
 			<svg
 				width="1.25rem"
 				height="1.25rem"

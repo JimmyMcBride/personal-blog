@@ -1,5 +1,5 @@
 ---
-updated: "2026-04-16T15:16:14Z"
+updated: "2026-04-16T15:38:15Z"
 ---
 # Project Architecture
 
@@ -19,3 +19,4 @@ Use this file for the structural shape of the repository.
 - Coolify production should use the Node server build via `@sveltejs/adapter-node` and `HOST=0.0.0.0 node build` from `nixpacks.toml`.
 - Do not use `@sveltejs/adapter-vercel` or `vite preview` for Coolify production.
 - mdsvex code highlighting is intentionally limited to the small set of languages used by the blog posts so Shiki does less work during builds.
+- Brain durable context files stay versioned, but Brain runtime/session artifacts remain ignored in the root `.gitignore` so teammates share project memory without syncing local sqlite state, backups, or session logs.

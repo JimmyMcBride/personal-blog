@@ -8,3 +8,13 @@ node_modules
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+.vercel
+
+# brain:begin gitignore-session
+.brain/session.json
+.brain/sessions/
+.brain/policy.override.yaml
+.brain/state/
+.codex/skills/
+.openclaw/skills/
+# brain:end gitignore-session

@@ -17,7 +17,7 @@ Use this file for the structural shape of the repository.
 ## Local Notes
 
 - Blog post markdown renders inside the `.markdown` container in `src/routes/blog/[slug]/+page.svelte`, which uses a centered flex column.
-- Keep explicit `width: 100%` rules for markdown list containers in `src/app.pcss` alongside headings, paragraphs, and code blocks, or unordered and ordered lists will shrink and appear centered.
+- Keep explicit `width: 100%` rules for markdown list containers in `src/app.css` alongside headings, paragraphs, and code blocks, or unordered and ordered lists will shrink and appear centered.
 - Coolify production should use the Node server build via `@sveltejs/adapter-node` and `HOST=0.0.0.0 node build` from `nixpacks.toml`.
 - Do not use `@sveltejs/adapter-vercel` or `vite preview` for Coolify production.
 - GitHub PR previews are handled by Coolify, not Vercel. The repository webhook must send both `push` and `pull_request` events to Coolify's manual GitHub webhook endpoint for the blog app.

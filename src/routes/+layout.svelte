@@ -1,5 +1,5 @@
 <script lang="ts">
-	import "../app.pcss"
+	import "../app.css"
 	import * as Avatar from "$lib/components/ui/avatar"
 	import { Toaster } from "svelte-sonner"
 	import { Button } from "$lib/components/ui/button"

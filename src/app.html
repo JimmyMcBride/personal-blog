@@ -8,7 +8,14 @@
 		<script>
 			;(() => {
 				const root = document.documentElement
-				const savedTheme = localStorage.getItem("theme")
+				let savedTheme = null
+
+				try {
+					savedTheme = localStorage.getItem("theme")
+				} catch {
+					savedTheme = null
+				}
+
 				const hasExplicitTheme = savedTheme === "light" || savedTheme === "dark"
 				const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
 				const isDark = hasExplicitTheme ? savedTheme === "dark" : systemPrefersDark

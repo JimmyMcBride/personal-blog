@@ -19,6 +19,7 @@
 	// Dark mode
 	let isDark = $state(false)
 	let themePreference = $state<"light" | "dark" | null>(null)
+	let themeReady = $state(false)
 
 	// Sync user store from server data
 	$effect(() => {
@@ -29,7 +30,7 @@
 	})
 
 	$effect(() => {
-		if (typeof window === "undefined") return
+		if (typeof window === "undefined" || !themeReady) return
 
 		document.documentElement.classList.toggle("dark", isDark)
 
@@ -46,6 +47,7 @@
 
 		themePreference = saved === "light" || saved === "dark" ? saved : null
 		isDark = document.documentElement.classList.contains("dark")
+		themeReady = true
 
 		const handleSystemThemeChange = (event: MediaQueryListEvent) => {
 			if (themePreference === null) {

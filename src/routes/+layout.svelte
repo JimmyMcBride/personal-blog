@@ -3,7 +3,7 @@
 	import * as Avatar from "$lib/components/ui/avatar"
 	import { Toaster } from "svelte-sonner"
 	import ThemeToggle from "$lib/components/ThemeToggle.svelte"
-	import { buttonVariants, type ButtonVariant } from "$lib/components/ui/button"
+	import { buttonVariants } from "$lib/components/ui/button"
 	import MyLinks from "$lib/components/MyLinks.svelte"
 	import PageTransition from "$lib/components/transition.svelte"
 	import Subscribe from "$lib/components/Subscribe.svelte"
@@ -73,11 +73,6 @@
 	let isHomeRoute = $derived(route === "/")
 	let isBlogIndexRoute = $derived(route === "/blog")
 	let isBlogChildRoute = $derived(route.startsWith("/blog/"))
-	let blogButtonVariant = $derived.by((): ButtonVariant => {
-		if (isBlogIndexRoute) return "default"
-		if (isBlogChildRoute) return "outline"
-		return "ghost"
-	})
 	let currentPostTitle = $derived(isBlogChildRoute ? ($page.data.meta?.title ?? "") : "")
 </script>
 
@@ -129,7 +124,12 @@
 				<a
 					href="/blog"
 					aria-current={isBlogIndexRoute ? "page" : undefined}
-					class={cn(buttonVariants(blogButtonVariant), "no-underline")}
+					class={cn(
+						buttonVariants(isBlogIndexRoute ? "default" : "ghost"),
+						isBlogChildRoute &&
+							"border border-primary/25 bg-primary/10 text-primary/80 hover:border-primary/35 hover:bg-primary/15 hover:text-primary",
+						"no-underline"
+					)}
 				>
 					Blog
 				</a>

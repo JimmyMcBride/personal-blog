@@ -1,6 +1,7 @@
 # Workflows
 
 <!-- brain:begin context-workflows -->
+
 Use this file for agent operating workflow inside the repo.
 
 ## Startup
@@ -23,7 +24,7 @@ Use this file for agent operating workflow inside the repo.
 
 1. Start one story or ticket at a time and keep the scope narrow.
 2. Implement the story, then run focused tests for the touched packages.
-3. Run the required full checks through `brain session run -- go test ./...` and `brain session run -- go build ./...`.
+3. Run the required full checks through `brain session run -- bun run check` and `brain session run -- bun run build`.
 4. Review the diff against the story acceptance criteria and user-facing behavior.
 5. If review finds issues, patch the work and repeat the test and review steps.
 6. When the story is clean, commit it, push it, and only then move to the next story.
@@ -42,3 +43,5 @@ Use this file for agent operating workflow inside the repo.
 ## Local Notes
 
 Add repo-specific notes here. `brain context refresh` preserves content outside managed blocks.
+
+- Bun is the default tool for installs, scripts, and one-off CLIs in this repo. Prefer `bun install`, `bun run <script>`, and `bunx <tool>` in examples and operational guidance.

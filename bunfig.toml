@@ -1,0 +1,6 @@
+[run]
+bun = true
+
+[install]
+auto = "disable"
+saveTextLockfile = true

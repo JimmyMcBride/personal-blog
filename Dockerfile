@@ -18,6 +18,9 @@ WORKDIR /app
 ENV HOST=0.0.0.0
 ENV PORT=3000
 ENV NODE_ENV=production
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends curl \
+	&& rm -rf /var/lib/apt/lists/*
 COPY --from=production-deps /app/node_modules ./node_modules
 COPY --from=build /app/build ./build
 COPY package.json bunfig.toml ./

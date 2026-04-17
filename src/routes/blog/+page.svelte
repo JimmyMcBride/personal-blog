@@ -1,8 +1,11 @@
 <script lang="ts">
+	import ArchiveSearchInput from "$lib/components/archive/ArchiveSearchInput.svelte"
+	import PaginationNav from "$lib/components/archive/PaginationNav.svelte"
 	import BlogCard from "$lib/components/BlogCard.svelte"
-	import { Button } from "$lib/components/ui/button"
+	import { buttonVariants } from "$lib/components/ui/button"
 	import { title } from "$lib/config"
 	import { createSeo } from "$lib/seo"
+	import { cn } from "$lib/utils"
 
 	let { data } = $props()
 	const pageSize = 8
@@ -17,12 +20,19 @@
 	let searchTerm = $state("")
 
 	let filteredPosts = $derived(
-		data.posts.filter((post: { title: string }) =>
-			post.title.toLowerCase().includes(searchTerm.toLowerCase())
+		data.posts.filter((post: { title: string; description: string }) =>
+			`${post.title} ${post.description}`.toLowerCase().includes(searchTerm.toLowerCase())
 		)
 	)
 
-	let totalPages = $derived(Math.ceil(filteredPosts.length / pageSize))
+	let totalPages = $derived(Math.max(1, Math.ceil(filteredPosts.length / pageSize)))
+	let showPagination = $derived(filteredPosts.length > pageSize)
+	let resultsLabel = $derived(
+		searchTerm.trim()
+			? `${filteredPosts.length} result${filteredPosts.length === 1 ? "" : "s"} for "${searchTerm.trim()}"`
+			: `${data.posts.length} post${data.posts.length === 1 ? "" : "s"} in the archive`
+	)
+	let pageLabel = $derived(showPagination ? `Page ${currentPage} of ${totalPages}` : "")
 
 	let paginatedPosts = $derived(
 		filteredPosts.slice((currentPage - 1) * pageSize, currentPage * pageSize)
@@ -31,6 +41,19 @@
 	$effect(() => {
 		if (searchTerm) currentPage = 1
 	})
+
+	function handleSearchChange(value: string) {
+		searchTerm = value
+	}
+
+	function clearSearch() {
+		searchTerm = ""
+		currentPage = 1
+	}
+
+	function handlePageChange(page: number) {
+		currentPage = Math.min(Math.max(page, 1), totalPages)
+	}
 </script>
 
 <svelte:head>
@@ -59,63 +82,65 @@
 </svelte:head>
 
 <section class="mb-16">
-	<div class="mx-4 mb-8 rounded-lg border border-border bg-card p-6">
-		<div class="mb-4 flex flex-wrap items-center justify-between gap-4">
-			<div>
-				<h2 class="text-2xl font-bold">Browse by topic</h2>
-				<p class="text-muted-foreground">
-					Follow the site's main subjects through focused hub pages instead of hunting through the full archive.
-				</p>
+	<div class="mx-4 mb-8 rounded-[1.75rem] border border-border/70 bg-card/70 p-5 md:p-6">
+		<div class="flex flex-col gap-5">
+			<div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+				<div class="space-y-2">
+					<p class="text-xs font-semibold uppercase tracking-[0.28em] text-muted-foreground">Archive</p>
+					<h2 class="text-2xl font-bold sm:text-3xl">Search the full archive</h2>
+					<p class="max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
+						Browse every post in one place, or switch to topic hubs when you want a tighter subject view.
+					</p>
+				</div>
+
+				<a
+					class={cn(buttonVariants("outline", "sm"), "w-fit rounded-full px-4 no-underline")}
+					href="/topics"
+				>
+					Explore topic hubs
+				</a>
 			</div>
-			<a class="font-semibold text-primary underline-offset-4 hover:underline" href="/topics">
-				View topic hubs
-			</a>
+
+			<div class="border-t border-border/70 pt-5">
+				<ArchiveSearchInput
+					id="blog-search"
+					label="Search blog posts"
+					placeholder="Search titles and summaries"
+					value={searchTerm}
+					{resultsLabel}
+					{pageLabel}
+					onValueChange={handleSearchChange}
+					onClear={clearSearch}
+				/>
+			</div>
 		</div>
 	</div>
 
-	<!-- Search Input -->
-	<div class="flex justify-center mb-4 mx-4">
-		<label class="sr-only" for="blog-search">Search blog posts</label>
-		<input
-			id="blog-search"
-			type="search"
-			name="search"
-			bind:value={searchTerm}
-			placeholder="Search blogs..."
-			class="flex h-10 w-full max-w-lg rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-		/>
-	</div>
+	{#if filteredPosts.length === 0}
+		<div class="mx-4 rounded-[1.5rem] border border-dashed border-border bg-card/60 p-8 text-center">
+			<h3 class="text-xl font-bold">No posts matched</h3>
+			<p class="mx-auto mt-3 max-w-xl text-sm leading-7 text-muted-foreground sm:text-base">
+				Try a broader search term or clear the current filter.
+			</p>
+			<button
+				type="button"
+				class="mt-5 inline-flex rounded-full border border-border px-4 py-2 text-sm font-medium transition-colors hover:border-primary/40 hover:text-primary"
+				onclick={clearSearch}
+			>
+				Clear search
+			</button>
+		</div>
+	{:else}
+		<ul class="flex flex-col items-center px-4 pb-2">
+			{#each paginatedPosts as post}
+				<BlogCard {post} />
+			{/each}
+		</ul>
 
-	<!-- Pagination (top) -->
-	<div class="flex justify-center items-center space-x-4 mt-4">
-		{#if currentPage > 1}
-			<Button aria-label="Previous page" onclick={() => currentPage--}>Previous</Button>
+		{#if showPagination}
+			<div class="mx-4">
+				<PaginationNav currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+			</div>
 		{/if}
-
-		{#if currentPage < totalPages}
-			<Button aria-label="Next page" onclick={() => currentPage++}>Next</Button>
-		{/if}
-
-		<p class="font-mono text-sm">Page: {currentPage}/{totalPages}</p>
-	</div>
-
-	<!-- Blog List -->
-	<ul class="flex flex-col items-center p-4">
-		{#each paginatedPosts as post}
-			<BlogCard {post} />
-		{/each}
-	</ul>
-
-	<!-- Pagination (bottom) -->
-	<div class="flex justify-center items-center space-x-4 mt-4">
-		{#if currentPage > 1}
-			<Button aria-label="Previous page" onclick={() => currentPage--}>Previous</Button>
-		{/if}
-
-		{#if currentPage < totalPages}
-			<Button aria-label="Next page" onclick={() => currentPage++}>Next</Button>
-		{/if}
-
-		<p class="font-mono text-sm">Page: {currentPage}/{totalPages}</p>
-	</div>
+	{/if}
 </section>

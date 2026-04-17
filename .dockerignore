@@ -1,0 +1,11 @@
+.git
+.idea
+.vscode
+.vercel
+.brain/session.json
+.brain/sessions
+.brain/state
+.codex/skills
+.svelte-kit
+build
+node_modules

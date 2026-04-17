@@ -1,7 +1,7 @@
 import { error } from "@sveltejs/kit"
 import type { LoadEvent } from "@sveltejs/kit"
 import { getPublishedPosts } from "$lib/posts"
-import { getPostsForTopic, getTopic } from "$lib/taxonomy"
+import { getPostsForTopic, getTopic, getTopicLatestDate } from "$lib/taxonomy"
 
 export const load = async ({ params }: LoadEvent) => {
 	const topicSlug = params.topic
@@ -20,6 +20,7 @@ export const load = async ({ params }: LoadEvent) => {
 
 	return {
 		topic,
+		latestActivityDate: getTopicLatestDate(posts),
 		posts,
 	}
 }

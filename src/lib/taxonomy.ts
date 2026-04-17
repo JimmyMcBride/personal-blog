@@ -6,6 +6,15 @@ export interface TopicDefinition {
 	focusAreas: string[]
 }
 
+export interface TopicOverviewItem extends TopicDefinition {
+	postCount: number
+	latestPost: {
+		title: string
+		slug: string
+		date: string
+	} | null
+}
+
 export const categoryAliases: Record<string, string> = {
 	"careerdevelopment": "career-development",
 	"texutal-healing": "textual-healing",
@@ -80,6 +89,18 @@ const topics: TopicDefinition[] = [
 
 const topicMap = new Map(topics.map((topic) => [topic.slug, topic]))
 
+function getPostActivityDate(post: Post) {
+	return post.updated ?? post.date
+}
+
+function getPostActivityTime(post: Post) {
+	return new Date(getPostActivityDate(post)).getTime()
+}
+
+function getLatestTopicPost(posts: Post[]) {
+	return [...posts].sort((first, second) => getPostActivityTime(second) - getPostActivityTime(first))[0] ?? null
+}
+
 export function formatTaxonomyLabel(slug: string) {
 	return slug
 		.split("-")
@@ -111,6 +132,30 @@ export function getPrimaryTopic(post: Post) {
 
 export function getPostsForTopic(posts: Post[], topicSlug: string) {
 	return posts.filter((post) => post.topics?.includes(topicSlug))
+}
+
+export function getTopicLatestDate(posts: Post[]) {
+	const latestPost = getLatestTopicPost(posts)
+	return latestPost ? getPostActivityDate(latestPost) : null
+}
+
+export function getTopicOverviewItems(posts: Post[]): TopicOverviewItem[] {
+	return topics.map((topic) => {
+		const topicPosts = getPostsForTopic(posts, topic.slug)
+		const latestPost = getLatestTopicPost(topicPosts)
+
+		return {
+			...topic,
+			postCount: topicPosts.length,
+			latestPost: latestPost
+				? {
+						title: latestPost.title,
+						slug: latestPost.slug,
+						date: getPostActivityDate(latestPost),
+					}
+				: null,
+		}
+	})
 }
 
 export function getRelatedPosts(posts: Post[], currentPost: Post, limit = 3) {

@@ -4,6 +4,7 @@
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.ico" />
 		<link rel="alternate" type="application/atom+xml" href="/rss.xml" />
+		<link rel="preload" as="image" href="/me-anime.webp" />
 		<meta name="viewport" content="width=device-width" />
 		<script>
 			;(() => {
@@ -21,6 +22,7 @@
 				const isDark = hasExplicitTheme ? savedTheme === "dark" : systemPrefersDark
 
 				root.classList.toggle("dark", isDark)
+				root.dataset.theme = isDark ? "dark" : "light"
 			})()
 		</script>
 		%sveltekit.head%

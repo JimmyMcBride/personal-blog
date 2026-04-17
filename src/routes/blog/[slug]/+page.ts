@@ -1,7 +1,5 @@
 import { error } from "@sveltejs/kit"
-import { pb } from "$lib/pocketbase"
 import type { LoadEvent } from "@sveltejs/kit"
-import type { ListResult, RecordModel } from "pocketbase"
 
 export const load = async ({ params, fetch }: LoadEvent) => {
 	try {
@@ -11,8 +9,7 @@ export const load = async ({ params, fetch }: LoadEvent) => {
 		// Fetch Plausible analytics data
 		const slug = params.slug
 
-		// Fetch data dynamically when the page is loaded, not during prerendering
-		let commentsData: ListResult<RecordModel> | null = null
+		// Fetch dynamic analytics client-side through the route-scoped fetch.
 		let views = 0
 		let readers = 0
 
@@ -23,12 +20,6 @@ export const load = async ({ params, fetch }: LoadEvent) => {
 			views = data.views
 			readers = data.readers
 
-			// Only fetch comments on the client-side after rendering
-			commentsData = await pb.collection("comments").getList(0, 50, {
-				filter: `slug = "${slug}"`,
-				sort: "-created", // Order by newest comments first
-				expand: "user",
-			})
 		}
 
 		// Return the markdown component and serializable data
@@ -37,7 +28,7 @@ export const load = async ({ params, fetch }: LoadEvent) => {
 			meta: post.metadata,
 			views,
 			readers,
-			comments: commentsData?.items || [],
+			comments: [],
 		}
 	} catch (e) {
 		console.error(e)

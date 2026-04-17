@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from "$app/environment"
 	import { formatDate } from "$lib/utils"
 	import { url, title } from "$lib/config"
 	import { page } from "$app/stores"
@@ -10,16 +11,41 @@
 
 	let { data } = $props()
 
-	let slug = $page.params.slug
+	let slug = $derived($page.params.slug)
 	let content = $derived(data.content)
 	let meta = $derived(data.meta)
 	let views = $derived(data.views)
 	let newComment = $state("")
 	let comments = $state<unknown[]>([])
+	let loadedCommentsFor = $state<string | null>(null)
 
 	$effect(() => {
 		comments = data.comments || []
+		loadedCommentsFor = null
 	})
+
+	$effect(() => {
+		if (!browser || !slug || loadedCommentsFor === slug) return
+
+		loadedCommentsFor = slug
+		void loadComments(slug)
+	})
+
+	async function loadComments(currentSlug: string) {
+		try {
+			const commentsData = await pb.collection("comments").getList(0, 50, {
+				filter: `slug = "${currentSlug}"`,
+				sort: "-created",
+				expand: "user",
+			})
+
+			if (currentSlug === slug) {
+				comments = commentsData.items || []
+			}
+		} catch (e) {
+			console.error(e)
+		}
+	}
 
 	async function addComment() {
 		if ($user) {
@@ -82,12 +108,21 @@
 	<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
 </svelte:head>
 
-<article class="prose md:prose-lg lg:prose-xl mx-auto dark:prose-invert mb-16 p-4">
+<article class="mx-auto mb-16 w-full max-w-6xl p-4">
 	<!-- Title -->
-	<hgroup class="flex flex-col items-end">
-		<h1 class="">{meta.title}</h1>
-		<img src={meta.image} alt={`Cover image for ${meta.title}`} class="rounded-md" width="800px" />
-		<p class="text-end text-sm">
+	<header class="mx-auto mb-6 w-full max-w-5xl space-y-6">
+		<div class="space-y-4 text-left">
+			<h1 class="text-left text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+				{meta.title}
+			</h1>
+		</div>
+		<img
+			src={meta.image}
+			alt={`Cover image for ${meta.title}`}
+			class="w-full rounded-md"
+			width="1000"
+		/>
+		<p class="text-right text-sm">
 			Published at {formatDate(meta.date)}
 			<br />
 			Total Views:
@@ -95,10 +130,10 @@
 				{views}
 			{/if}
 		</p>
-	</hgroup>
+	</header>
 
 	<!-- Tags -->
-	<div class="flex flex-wrap gap-4 mb-6">
+	<div class="mx-auto mb-6 flex w-full max-w-5xl flex-wrap gap-4">
 		{#each meta.categories as category}
 			<a href={`/blog/categories/${category}`} class="no-underline">
 				<Badge variant="secondary">&num;{category}</Badge>
@@ -107,15 +142,17 @@
 	</div>
 
 	<!-- Post -->
-	<div class="flex flex-col items-center markdown">
-		{#if content}
-			{@const PostContent = content}
-			<PostContent />
-		{/if}
+	<div class="mx-auto w-full max-w-5xl">
+		<div class="markdown prose md:prose-lg lg:prose-xl dark:prose-invert max-w-none">
+			{#if content}
+				{@const PostContent = content}
+				<PostContent />
+			{/if}
+		</div>
 	</div>
 
 	<!-- Comments Section -->
-	<section class="comments mt-10">
+	<section class="comments mx-auto mt-10 w-full max-w-5xl">
 		<h2>Comments</h2>
 
 		{#if comments?.length > 0}

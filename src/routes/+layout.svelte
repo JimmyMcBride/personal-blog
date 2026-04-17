@@ -1,8 +1,9 @@
 <script lang="ts">
 	import "../app.css"
-	import * as Avatar from "$lib/components/ui/avatar"
+	import { browser } from "$app/environment"
 	import { Toaster } from "svelte-sonner"
 	import ThemeToggle from "$lib/components/ThemeToggle.svelte"
+	import NavAvatar from "$lib/components/NavAvatar.svelte"
 	import { buttonVariants } from "$lib/components/ui/button"
 	import MyLinks from "$lib/components/MyLinks.svelte"
 	import PageTransition from "$lib/components/transition.svelte"
@@ -17,33 +18,45 @@
 	let { data, children } = $props()
 
 	// Dark mode
-	let isDark = $state(false)
+	let isDark = $state(browser ? document.documentElement.classList.contains("dark") : false)
 	let themePreference = $state<"light" | "dark" | null>(null)
 	let themeReady = $state(false)
 
 	// Sync user store from server data
 	$effect(() => {
-		user.set(data.user ?? null)
-		if (!data.user) {
-			pb.authStore.clear()
+		const nextUser = data.user ?? (browser ? pb.authStore.model : null)
+		if (nextUser) {
+			user.set(nextUser)
 		}
 	})
 
 	$effect(() => {
 		if (typeof window === "undefined" || !themeReady) return
 
+		const nextTheme = isDark ? "dark" : "light"
 		document.documentElement.classList.toggle("dark", isDark)
+		document.documentElement.dataset.theme = nextTheme
 
-		if (themePreference) {
-			localStorage.setItem("theme", themePreference)
-		} else {
-			localStorage.removeItem("theme")
+		try {
+			if (themePreference) {
+				localStorage.setItem("theme", themePreference)
+			} else {
+				localStorage.removeItem("theme")
+			}
+		} catch {
+			// Ignore storage failures and keep the DOM theme as the source of truth.
 		}
 	})
 
 	onMount(() => {
 		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
-		const saved = localStorage.getItem("theme")
+		let saved: string | null = null
+
+		try {
+			saved = localStorage.getItem("theme")
+		} catch {
+			saved = null
+		}
 
 		themePreference = saved === "light" || saved === "dark" ? saved : null
 		isDark = document.documentElement.classList.contains("dark")
@@ -91,6 +104,9 @@
 	let isBlogIndexRoute = $derived(route === "/blog")
 	let isBlogChildRoute = $derived(route.startsWith("/blog/"))
 	let currentPostTitle = $derived(isBlogChildRoute ? ($page.data.meta?.title ?? "") : "")
+	let navAvatarSrc = $derived(
+		$user && $user.avatar ? getAvatarUrl($user.id, $user.avatar) : "/me-anime.webp"
+	)
 
 	function handleThemeChange(nextChecked: boolean) {
 		isDark = nextChecked
@@ -117,21 +133,7 @@
 		<nav class="container mx-auto my-8 grid grid-cols-[auto_1fr_auto] items-center gap-4 px-2">
 			<!-- Avatar -->
 			<div class="ml-2">
-				{#if $user && $user.avatar}
-					<Avatar.Root class="h-12 w-12">
-						<Avatar.Image
-							src={getAvatarUrl($user.id, $user.avatar)}
-							alt="Jimmy's Profile Pic"
-							class="object-cover"
-						/>
-						<Avatar.Fallback class="bg-primary text-primary-foreground">J</Avatar.Fallback>
-					</Avatar.Root>
-				{:else}
-					<Avatar.Root class="h-12 w-12">
-						<Avatar.Image src="/me-anime.webp" alt="Jimmy's Profile Pic" class="object-cover" />
-						<Avatar.Fallback class="bg-primary text-primary-foreground">J</Avatar.Fallback>
-					</Avatar.Root>
-				{/if}
+				<NavAvatar src={navAvatarSrc} alt="Jimmy's Profile Pic" />
 			</div>
 
 			<!-- Navigation -->
@@ -167,7 +169,15 @@
 
 			<!-- Dark mode toggle -->
 			<div class="mr-2 flex items-center justify-end">
-				<ThemeToggle checked={isDark} onCheckedChange={handleThemeChange} />
+				<div
+					class={cn(
+						"flex h-10 w-16 items-center justify-end transition-opacity",
+						themeReady ? "opacity-100" : "pointer-events-none opacity-0"
+					)}
+					aria-hidden={themeReady ? undefined : "true"}
+				>
+					<ThemeToggle checked={isDark} onCheckedChange={handleThemeChange} />
+				</div>
 			</div>
 		</nav>
 	</header>

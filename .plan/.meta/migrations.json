@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "known": [],
+  "last_run_at": "2026-04-17T17:35:16Z",
+  "status": "current",
+  "last_operation": "adopt",
+  "last_created": [
+    ".plan",
+    ".plan/brainstorms",
+    ".plan/epics",
+    ".plan/specs",
+    ".plan/stories",
+    ".plan/.meta",
+    ".plan/PROJECT.md",
+    ".plan/ROADMAP.md",
+    ".plan/.meta/workspace.json",
+    ".plan/.meta/migrations.json"
+  ],
+  "history": [
+    {
+      "operation": "adopt",
+      "at": "2026-04-17T17:35:16Z",
+      "status": "current",
+      "created": [
+        ".plan",
+        ".plan/brainstorms",
+        ".plan/epics",
+        ".plan/specs",
+        ".plan/stories",
+        ".plan/.meta",
+        ".plan/PROJECT.md",
+        ".plan/ROADMAP.md",
+        ".plan/.meta/workspace.json",
+        ".plan/.meta/migrations.json"
+      ]
+    }
+  ]
+}

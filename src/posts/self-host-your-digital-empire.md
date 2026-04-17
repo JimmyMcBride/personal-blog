@@ -8,6 +8,8 @@ image: /self-host-your-digital-empire-banner.webp
 categories:
   - open-source
   - opinion
+topics:
+  - self-hosting
 published: true
 ---
 

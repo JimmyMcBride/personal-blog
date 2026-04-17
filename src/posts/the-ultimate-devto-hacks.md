@@ -7,6 +7,8 @@ image: /the-ultimate-devto-hacks-banner.webp
 categories:
   - seo
   - tutorial
+topics:
+  - sveltekit-blogging
 published: true
 ---
 

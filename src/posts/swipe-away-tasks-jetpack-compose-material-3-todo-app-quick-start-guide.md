@@ -9,6 +9,8 @@ categories:
   - android
   - animation
   - tutorial
+topics:
+  - android
 published: true
 ---
 

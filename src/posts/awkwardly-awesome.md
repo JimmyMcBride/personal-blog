@@ -7,7 +7,9 @@ image: /awkwardly-awesome-banner.webp
 categories:
   - bash
   - tutorial
-  - texutal-healing
+  - textual-healing
+topics:
+  - bash
 published: true
 ---
 

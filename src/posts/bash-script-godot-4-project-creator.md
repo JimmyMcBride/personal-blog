@@ -7,6 +7,8 @@ image: /bash-script-godot-4-project-creator-banner.webp
 categories:
   - advice
   - career
+topics:
+  - bash
 published: true
 ---
 

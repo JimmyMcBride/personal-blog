@@ -7,6 +7,8 @@ image: /tutorial-hell-banner.webp
 categories:
   - advice
   - career
+topics:
+  - career
 published: true
 ---
 

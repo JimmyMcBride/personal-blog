@@ -7,6 +7,8 @@ image: /writing-your-own-tools-banner.webp
 categories:
   - advice
   - career
+topics:
+  - career
 published: true
 ---
 

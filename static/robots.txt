@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+
+# Keep non-public or internal-only areas out of crawl.
+Disallow: /admin/
+Disallow: /drafts/
+Disallow: /preview/
+Disallow: /api/private/
+
+# Allow search-facing AI crawlers that can drive discovery and referral traffic.
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+# Block training crawlers by default while keeping search crawlers available.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+Sitemap: https://jimmymcbride.dev/sitemap.xml

@@ -8,6 +8,8 @@ categories:
   - linux
   - opinion
   - discuss
+topics:
+  - linux
 published: true
 ---
 

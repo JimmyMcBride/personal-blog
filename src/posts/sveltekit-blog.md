@@ -8,6 +8,8 @@ categories:
   - svelte
   - sveltekit
   - tutorial
+topics:
+  - sveltekit-blogging
 published: true
 ---
 

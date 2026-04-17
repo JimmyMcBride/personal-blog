@@ -1,3 +1,6 @@
+---
+updated: "2026-04-17T18:13:10Z"
+---
 # Current State
 
 <!-- brain:begin context-current-state -->
@@ -38,3 +41,4 @@ Add repo-specific notes here. `brain context refresh` preserves content outside 
 - The Bun migration changed the active repo boundaries around `package.json`, `bunfig.toml`, `Dockerfile`, `.dockerignore`, `README.md`, `docs/project-*.md`, and `.brain/context/*.md`. Treat those files as the primary runtime and deployment contract for future work.
 - The remaining migration follow-up is outside the repo: switch the Coolify app from Nixpacks to Dockerfile mode and point preview plus production deploys at the repo `Dockerfile`.
 - `bun run lint` still fails because the repo already has broad Prettier drift in untouched files. The Bun migration itself was validated with `bun install`, `bun run check`, `bun run build`, `bun run start`, `docker build`, and an HTTP smoke test against the built container.
+- GEO foundation work is now staged on `feat/geo-evergreen-system`: shared SEO helpers, JSON-LD, `robots.txt`, expanded sitemap coverage, normalized category redirects, topic hubs under `/topics`, evergreen content workflow docs, and the first refreshed post cohort seed in `src/posts/cat-grep-and-go.md`.

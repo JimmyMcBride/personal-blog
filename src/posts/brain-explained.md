@@ -8,6 +8,8 @@ categories:
   - ai
   - open-source
   - productivity
+topics:
+  - ai
 published: true
 ---
 
@@ -165,4 +167,3 @@ It just makes everything smoother.
 ## Last thing
 
 AI is powerful, but without context, it’s just guessing. That's what brain fixes that and once you feel that difference… it’s really hard to go back.
-

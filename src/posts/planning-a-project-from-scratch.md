@@ -6,9 +6,11 @@ updated: "2023-5-10"
 image: /planning-a-project-from-scratch-banner.webp
 categories:
   - career
-  - careerdevelopment
+  - career-development
   - tutorial
   - productivity
+topics:
+  - career
 published: true
 ---
 

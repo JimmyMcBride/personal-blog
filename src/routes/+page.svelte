@@ -1,32 +1,44 @@
 <script lang="ts">
 	import MyLinks from "$lib/components/MyLinks.svelte"
-	import { description, title, url } from "$lib/config"
+	import { title } from "$lib/config"
+	import { createSeo, createWebsiteJsonLd, renderJsonLdScript } from "$lib/seo"
 	import { ScaleBalancedSolid, ComputerSpeakerSolid, BrainSolid } from "flowbite-svelte-icons"
 	import Subscribe from "$lib/components/Subscribe.svelte"
+
+	const seo = createSeo({
+		path: "/",
+		title,
+		description:
+			"Jimmy McBride writes about SvelteKit, Bash, Linux, self-hosting, and practical software engineering from first-hand experience.",
+		image: "/me.webp",
+	})
+	const websiteJsonLd = createWebsiteJsonLd()
 </script>
 
 <svelte:head>
-	<title>{title}</title>
+	<title>{seo.title}</title>
 
-	<meta name="description" content={description} />
+	<link rel="canonical" href={seo.canonical} />
+	<meta name="description" content={seo.description} />
 
-	<meta property="og:type" content="article" />
-	<meta property="og:url" content={`${url}/blog`} />
-	<meta property="og:title" content={title} />
-	<meta property="og:description" content={description} />
+	<meta property="og:type" content={seo.type} />
+	<meta property="og:url" content={seo.canonical} />
+	<meta property="og:title" content={seo.title} />
+	<meta property="og:description" content={seo.description} />
 	<meta property="og:site_name" content={title} />
-	<meta property="og:image" content="/blog-banner.webp" />
+	<meta property="og:image" content={seo.image} />
 
 	<meta name="twitter:site" content="@McBride1105" />
 	<meta name="twitter:creator" content="@McBride1105" />
-	<meta name="twitter:title" content={title} />
-	<meta name="twitter:description" content={description} />
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:image:src" content="/blog-banner.webp" />
+	<meta name="twitter:title" content={seo.title} />
+	<meta name="twitter:description" content={seo.description} />
+	<meta name="twitter:card" content={seo.twitterCard} />
+	<meta name="twitter:image:src" content={seo.image} />
 	<meta name="twitter:widgets:new-embed-design" content="on" />
 
 	<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 	<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+	{@html renderJsonLdScript(websiteJsonLd)}
 </svelte:head>
 
 <section class="flex justify-center mt-16 flex-wrap">

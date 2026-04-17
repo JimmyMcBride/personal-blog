@@ -1,7 +1,6 @@
 ---
-updated: "2026-04-16T15:16:14Z"
+updated: "2026-04-17T18:10:51Z"
 ---
-
 # Project Architecture
 
 <!-- brain:begin project-doc-architecture -->
@@ -16,6 +15,10 @@ Use this file for the structural shape of the repository.
 
 ## Local Notes
 
+- GEO metadata is now centralized in `src/lib/seo.ts`, which supplies canonical, social, and JSON-LD data to home, archive, post, and topic routes.
+- Canonical content subjects now live in `topics` frontmatter plus `src/lib/taxonomy.ts`; `categories` remain tag/archive metadata and legacy typo slugs redirect to normalized category URLs.
+- Topic hubs now live under `/topics` with prerendered topic pages and post-to-topic navigation. Keep sitemap generation aligned with `src/lib/taxonomy.ts` as topics evolve.
+- The public post view counter was intentionally removed from `src/routes/blog/[slug]/+page.svelte` because the prerendered zero-state was misleading. Keep Plausible or the views API for internal reporting unless a trustworthy hydrated counter is reintroduced.
 - Blog post markdown renders inside the `.markdown` container in `src/routes/blog/[slug]/+page.svelte`, which uses a centered flex column.
 - Keep explicit `width: 100%` rules for markdown list containers in `src/app.css` alongside headings, paragraphs, and code blocks, or unordered and ordered lists will shrink and appear centered.
 - Tailwind v4 theme setup in `src/app.css` must keep the semantic token bridge (`@theme inline` mappings like `--color-card`, `--color-background`, `--color-border`, and related radius tokens) so shadcn-style component classes such as `bg-card`, `border-border`, and `text-muted-foreground` compile correctly.

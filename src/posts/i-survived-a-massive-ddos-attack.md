@@ -8,6 +8,8 @@ image: /i-survived-a-massive-ddos-attack-banner.webp
 categories:
   - linux
   - security
+topics:
+  - self-hosting
 published: true
 ---
 

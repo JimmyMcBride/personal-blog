@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html lang="en" class="dark">
+<!doctype html>
+<html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.ico" />
 		<link rel="alternate" type="application/atom+xml" href="/rss.xml" />
+		<link rel="preload" as="image" href="/me-anime.webp" />
 		<meta name="viewport" content="width=device-width" />
+		<script>
+			;(() => {
+				const root = document.documentElement
+				let savedTheme = null
+
+				try {
+					savedTheme = localStorage.getItem("theme")
+				} catch {
+					savedTheme = null
+				}
+
+				const hasExplicitTheme = savedTheme === "light" || savedTheme === "dark"
+				const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+				const isDark = hasExplicitTheme ? savedTheme === "dark" : systemPrefersDark
+
+				root.classList.toggle("dark", isDark)
+				root.dataset.theme = isDark ? "dark" : "light"
+			})()
+		</script>
 		%sveltekit.head%
 	</head>
 	<!-- Google tag (gtag.js) -->
@@ -16,7 +36,7 @@
 
 	<!--		gtag('config', 'G-1JDCB3KQD2');-->
 	<!--	</script>-->
-	<body data-sveltekit-preload-data="hover" data-theme="my-custom-theme">
-		<div style="display: contents" class="h-full">%sveltekit.body%</div>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>

@@ -1,37 +1,76 @@
 <script lang="ts">
-	import "../app.pcss"
-	import {
-		AppBar,
-		AppShell,
-		Avatar,
-    LightSwitch,
-		RadioGroup,
-		RadioItem,
-		Toast,
-    autoModeWatcher,
-		initializeStores,
-	} from "@skeletonlabs/skeleton"
+	import "../app.css"
+	import { browser } from "$app/environment"
+	import { Toaster } from "svelte-sonner"
+	import ThemeToggle from "$lib/components/ThemeToggle.svelte"
+	import NavAvatar from "$lib/components/NavAvatar.svelte"
+	import { buttonVariants } from "$lib/components/ui/button"
 	import MyLinks from "$lib/components/MyLinks.svelte"
 	import PageTransition from "$lib/components/transition.svelte"
 	import Subscribe from "$lib/components/Subscribe.svelte"
-	import { afterNavigate, goto } from "$app/navigation"
+	import { afterNavigate } from "$app/navigation"
 	import { page } from "$app/stores"
 	import { pb, getAvatarUrl } from "$lib/pocketbase"
 	import { user } from "$lib/stores/user"
-	import { onMount } from "svelte"
+	import { cn } from "$lib/utils.js"
+	import { onMount, tick } from "svelte"
 
-	export let data
+	let { data, children } = $props()
 
-	// User store initialization
-	$: user.set(data.user ?? null)
+	// Dark mode
+	let isDark = $state(browser ? document.documentElement.classList.contains("dark") : false)
+	let themePreference = $state<"light" | "dark" | null>(null)
+	let themeReady = $state(false)
 
-	// Clear authStore if there's no user
-	$: if (!data.user) {
-		pb.authStore.clear()
-	}
+	// Sync user store from server data
+	$effect(() => {
+		const nextUser = data.user ?? (browser ? pb.authStore.model : null)
+		if (nextUser) {
+			user.set(nextUser)
+		}
+	})
+
+	$effect(() => {
+		if (typeof window === "undefined" || !themeReady) return
+
+		const nextTheme = isDark ? "dark" : "light"
+		document.documentElement.classList.toggle("dark", isDark)
+		document.documentElement.dataset.theme = nextTheme
+
+		try {
+			if (themePreference) {
+				localStorage.setItem("theme", themePreference)
+			} else {
+				localStorage.removeItem("theme")
+			}
+		} catch {
+			// Ignore storage failures and keep the DOM theme as the source of truth.
+		}
+	})
 
 	onMount(() => {
-		// Register the auth change listener
+		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
+		let saved: string | null = null
+
+		try {
+			saved = localStorage.getItem("theme")
+		} catch {
+			saved = null
+		}
+
+		themePreference = saved === "light" || saved === "dark" ? saved : null
+		isDark = document.documentElement.classList.contains("dark")
+		themeReady = true
+
+		const handleSystemThemeChange = (event: MediaQueryListEvent) => {
+			if (themePreference === null) {
+				isDark = event.matches
+			}
+		}
+
+		mediaQuery.addEventListener("change", handleSystemThemeChange)
+
+		// Auth change listener
 		const unsubscribeAuthStore = pb.authStore.onChange((_, model) => {
 			if (!model) {
 				document.cookie = "pb_auth=; Max-Age=0; path=/;"
@@ -40,43 +79,42 @@
 		})
 
 		return () => {
+			mediaQuery.removeEventListener("change", handleSystemThemeChange)
 			unsubscribeAuthStore()
 		}
 	})
 
-	initializeStores()
+	afterNavigate(async () => {
+		await tick()
 
-	// Scroll heading into view
-	function scrollHeadingIntoView(): void {
-		if (!window.location.hash) return
-		const elemTarget: HTMLElement | null = document.querySelector(window.location.hash)
-		if (elemTarget) elemTarget.scrollIntoView({ behavior: "smooth" })
-	}
-
-	// Lifecycle
-	afterNavigate(() => {
-		// Scroll to top
-		const elemPage = document.querySelector("#page")
-		if (elemPage !== null) {
-			// logFirebaseEvent("page_view", { route: window.location.pathname })
-			elemPage.scrollTop = 0
+		const hash = window.location.hash.slice(1)
+		if (hash) {
+			requestAnimationFrame(() => {
+				const elemTarget = document.getElementById(decodeURIComponent(hash))
+				if (elemTarget) elemTarget.scrollIntoView({ behavior: "smooth", block: "start" })
+			})
+			return
 		}
-		// Scroll heading into view
-		scrollHeadingIntoView()
+
+		window.scrollTo({ top: 0, behavior: "auto" })
 	})
 
-	function handleNavigation(event: Event) {
-		const target = event.target as HTMLInputElement
-		if (target.value) {
-			goto(target.value)
-		}
-	}
+	let route = $derived($page.url.pathname)
+	let isHomeRoute = $derived(route === "/")
+	let isBlogIndexRoute = $derived(route === "/blog")
+	let isBlogChildRoute = $derived(route.startsWith("/blog/"))
+	let currentPostTitle = $derived(isBlogChildRoute ? ($page.data.meta?.title ?? "") : "")
+	let navAvatarSrc = $derived(
+		$user && $user.avatar ? getAvatarUrl($user.id, $user.avatar) : "/me-anime.webp"
+	)
 
-	$: route = $page.url.pathname
+	function handleThemeChange(nextChecked: boolean) {
+		isDark = nextChecked
+		themePreference = nextChecked ? "dark" : "light"
+	}
 </script>
 
 <svelte:head>
-  {@html "<script>(" + autoModeWatcher.toString() + ")();</script>"}
 	<meta name="google-site-verification" content="CseTqMt48Lh5608yesp0xuVuqTa6Y_Q1yWUe6rC5gSU" />
 	<script
 		defer
@@ -85,64 +123,80 @@
 	></script>
 </svelte:head>
 
-<Toast />
+<!-- Toast notifications -->
+<Toaster richColors position="top-right" theme={isDark ? "dark" : "light"} />
 
-<AppShell>
-	<svelte:fragment slot="header">
-		<nav class="container mx-auto my-8 grid grid-cols-3">
-			{#if $user && $user.avatar}
-				<Avatar
-					class="ml-2"
-					src={getAvatarUrl($user.id, $user.avatar)}
-					width="w-12"
-					rounded="rounded-full"
-					alt="Jimmy's Profile Pic"
-				/>
-			{:else}
-				<Avatar
-					class="ml-2"
-					src="/me-anime.webp"
-					width="w-12"
-					rounded="rounded-full"
-					alt="Jimmy's Profile Pic"
-				/>
-			{/if}
+<!-- App layout -->
+<div class="flex min-h-screen flex-col">
+	<!-- Header -->
+	<header>
+		<nav class="container mx-auto my-8 grid grid-cols-[auto_1fr_auto] items-center gap-4 px-2">
+			<!-- Avatar -->
+			<div class="ml-2">
+				<NavAvatar src={navAvatarSrc} alt="Jimmy's Profile Pic" />
+			</div>
 
-			<div class="flex justify-center">
-				<RadioGroup
-					active="variant-filled-primary"
-					hover="hover:variant-soft-primary"
-					class="items-center"
+			<!-- Navigation -->
+			<div class="flex min-w-0 items-center justify-center gap-2">
+				<a
+					href="/"
+					aria-current={isHomeRoute ? "page" : undefined}
+					class={cn(buttonVariants(isHomeRoute ? "default" : "ghost"), "no-underline")}
 				>
-					<RadioItem on:click={handleNavigation} name="route" bind:group={route} value="/">
-						Home
-					</RadioItem>
-					<RadioItem on:change={handleNavigation} name="route" bind:group={route} value="/blog">
-						Blog
-					</RadioItem>
-				</RadioGroup>
-        
+					Home
+				</a>
+				<a
+					href="/blog"
+					aria-current={isBlogIndexRoute ? "page" : undefined}
+					class={cn(
+						buttonVariants(isBlogIndexRoute ? "default" : "ghost"),
+						isBlogChildRoute &&
+							"border border-primary/25 bg-primary/10 text-primary/80 hover:border-primary/35 hover:bg-primary/15 hover:text-primary",
+						"no-underline"
+					)}
+				>
+					Blog
+				</a>
+				{#if currentPostTitle}
+					<span
+						class="hidden h-10 min-w-0 max-w-[14rem] items-center rounded-md border border-border bg-muted/50 px-3 text-sm text-muted-foreground sm:inline-flex md:max-w-[20rem] lg:max-w-[26rem]"
+						title={currentPostTitle}
+					>
+						<span class="truncate whitespace-nowrap">{currentPostTitle}</span>
+					</span>
+				{/if}
 			</div>
-      <div class="flex justify-end items-center mr-2">
-        <LightSwitch />
-      </div>
-		</nav>
-	</svelte:fragment>
-	<PageTransition url={route}>
-		<main class="container mx-auto h-full">
-			<slot />
-		</main>
-	</PageTransition>
 
-	<svelte:fragment slot="pageFooter">
-		<AppBar gridColumns="grid-cols-1" slotDefault="place-self-center" slotTrail="place-content-end">
-			<div class="flex flex-col gap-4 items-center">
-				<MyLinks />
-				<Subscribe />
+			<!-- Dark mode toggle -->
+			<div class="mr-2 flex items-center justify-end">
+				<div
+					class={cn(
+						"flex h-10 w-16 items-center justify-end transition-opacity",
+						themeReady ? "opacity-100" : "pointer-events-none opacity-0"
+					)}
+					aria-hidden={themeReady ? undefined : "true"}
+				>
+					<ThemeToggle checked={isDark} onCheckedChange={handleThemeChange} />
+				</div>
 			</div>
-			<svelte:fragment slot="headline">
-				<div class="text-center">&copy; Copyright 2023. All rights reserved.</div>
-			</svelte:fragment>
-		</AppBar>
-	</svelte:fragment>
-</AppShell>
+		</nav>
+	</header>
+
+	<!-- Main content -->
+	<main class="flex-1">
+		<div class="container mx-auto">
+			<PageTransition url={route}>
+				{@render children()}
+			</PageTransition>
+		</div>
+	</main>
+
+	<!-- Footer -->
+	<footer class="py-6 border-t border-border">
+		<div class="flex flex-col gap-4 items-center">
+			<MyLinks />
+			<Subscribe />
+			<p class="text-center text-sm opacity-60">&copy; Copyright 2023. All rights reserved.</p>
+		</div>
+	</footer>
+</div>

@@ -1,17 +1,51 @@
-<script lang="ts" defer>
+<script lang="ts">
+	import { browser } from "$app/environment"
 	import { formatDate } from "$lib/utils"
 	import { url, title } from "$lib/config"
 	import { page } from "$app/stores"
 	import { handleDiscordLogin, handleLogout } from "$lib/pocketbase"
 	import { user } from "$lib/stores/user"
-	import { Avatar } from "@skeletonlabs/skeleton"
 	import { pb, getAvatarUrl } from "$lib/pocketbase"
+	import { Button } from "$lib/components/ui/button"
+	import { Badge } from "$lib/components/ui/badge"
 
-	let slug = $page.params.slug
-	export let data
-	let { content, meta, views } = data
-	let newComment = ""
-	let comments = data.comments || []
+	let { data } = $props()
+
+	let slug = $derived($page.params.slug)
+	let content = $derived(data.content)
+	let meta = $derived(data.meta)
+	let views = $derived(data.views)
+	let newComment = $state("")
+	let comments = $state<unknown[]>([])
+	let loadedCommentsFor = $state<string | null>(null)
+
+	$effect(() => {
+		comments = data.comments || []
+		loadedCommentsFor = null
+	})
+
+	$effect(() => {
+		if (!browser || !slug || loadedCommentsFor === slug) return
+
+		loadedCommentsFor = slug
+		void loadComments(slug)
+	})
+
+	async function loadComments(currentSlug: string) {
+		try {
+			const commentsData = await pb.collection("comments").getList(0, 50, {
+				filter: `slug = "${currentSlug}"`,
+				sort: "-created",
+				expand: "user",
+			})
+
+			if (currentSlug === slug) {
+				comments = commentsData.items || []
+			}
+		} catch (e) {
+			console.error(e)
+		}
+	}
 
 	async function addComment() {
 		if ($user) {
@@ -74,12 +108,21 @@
 	<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
 </svelte:head>
 
-<article class="prose md:prose-lg lg:prose-xl mx-auto dark:prose-invert mb-16 p-4">
+<article class="mx-auto mb-16 w-full max-w-6xl p-4">
 	<!-- Title -->
-	<hgroup class="flex flex-col items-end">
-		<h1 class="">{meta.title}</h1>
-		<img src={meta.image} alt="blog banner" class="rounded-md" width="800px" title="Blog banner" />
-		<p class="text-end text-sm">
+	<header class="mx-auto mb-6 w-full max-w-5xl space-y-6">
+		<div class="space-y-4 text-left">
+			<h1 class="text-left text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+				{meta.title}
+			</h1>
+		</div>
+		<img
+			src={meta.image}
+			alt={`Cover image for ${meta.title}`}
+			class="w-full rounded-md"
+			width="1000"
+		/>
+		<p class="text-right text-sm">
 			Published at {formatDate(meta.date)}
 			<br />
 			Total Views:
@@ -87,37 +130,49 @@
 				{views}
 			{/if}
 		</p>
-	</hgroup>
+	</header>
 
 	<!-- Tags -->
-	<div class="flex flex-wrap gap-4 mb-6">
+	<div class="mx-auto mb-6 flex w-full max-w-5xl flex-wrap gap-4">
 		{#each meta.categories as category}
-			<a href={`/blog/categories/${category}`} class="chip variant-filled-secondary no-underline"
-				>&num;{category}</a
-			>
+			<a href={`/blog/categories/${category}`} class="no-underline">
+				<Badge variant="secondary">&num;{category}</Badge>
+			</a>
 		{/each}
 	</div>
 
 	<!-- Post -->
-	<div class="flex flex-col items-center markdown">
-		<svelte:component this={content} />
+	<div class="mx-auto w-full max-w-5xl">
+		<div class="markdown prose md:prose-lg lg:prose-xl dark:prose-invert max-w-none">
+			{#if content}
+				{@const PostContent = content}
+				<PostContent />
+			{/if}
+		</div>
 	</div>
 
 	<!-- Comments Section -->
-	<section class="comments mt-10">
+	<section class="comments mx-auto mt-10 w-full max-w-5xl">
 		<h2>Comments</h2>
 
 		{#if comments?.length > 0}
-			{#each comments as comment}
+			{#each comments as c}
+				{@const comment = c as {
+					expand?: { user?: { id: string; avatar: string; username: string } }
+					created: string
+					message: string
+				}}
 				<div class="grid grid-cols-[auto_1fr] gap-2 mb-4">
-					<Avatar
-						src={getAvatarUrl(comment.expand.user.id, comment.expand.user.avatar)}
-						width="w-12"
-						rounded="rounded-full"
+					<img
+						src={comment.expand?.user
+							? getAvatarUrl(comment.expand.user.id, comment.expand.user.avatar)
+							: "/me-anime.webp"}
+						alt={comment.expand?.user?.username ?? "User"}
+						class="w-12 h-12 rounded-full object-cover"
 					/>
-					<div class="card p-4 variant-soft rounded-tl-none space-y-2">
+					<div class="rounded-md bg-muted p-4 rounded-tl-none space-y-2">
 						<header class="flex justify-between">
-							<small class="font-bold text-lg">{comment.expand.user.username}</small>
+							<small class="font-bold text-lg">{comment.expand?.user?.username}</small>
 							<small class="opacity-50">
 								{formatDate(comment.created)}
 							</small>
@@ -132,27 +187,33 @@
 
 		{#if $user}
 			<div>
-				<form on:submit|preventDefault={addComment} class="mt-4">
+				<form
+					onsubmit={(e) => {
+						e.preventDefault()
+						addComment()
+					}}
+					class="mt-4"
+				>
+					<label class="sr-only" for="comment-message">Write a comment</label>
 					<div
-						class="input-group input-group-divider grid-cols-[auto_1fr_auto] rounded-container-token"
+						class="grid grid-cols-[1fr_auto] overflow-hidden rounded-md ring-1 ring-border focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background"
 					>
-						<button class="input-group-shim">+</button>
 						<textarea
+							id="comment-message"
 							bind:value={newComment}
-							class="bg-transparent border-0 ring-0"
+							class="w-full resize-y border-0 bg-transparent px-3 py-2 text-base focus:outline-none"
 							name="prompt"
-							id="prompt"
 							placeholder="Write a message..."
-							rows="1"
-						/>
-						<button class="variant-filled-primary">Send</button>
+							rows={1}
+						></textarea>
+						<Button type="submit" class="rounded-none">Send</Button>
 					</div>
 				</form>
-				<button class="btn variant-filled-error mt-8" on:click={handleLogout}>Sign out</button>
+				<Button variant="destructive" class="mt-8" onclick={handleLogout}>Sign out</Button>
 			</div>
 		{:else}
 			<p>You must be logged in to add a comment.</p>
-			<button class="btn variant-filled-primary" on:click={login}>Log in with Discord</button>
+			<Button onclick={login}>Log in with Discord</Button>
 		{/if}
 	</section>
 </article>

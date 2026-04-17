@@ -37,3 +37,5 @@ Read the linked context files before substantial work. Prefer the `brain` skill 
 ## Local Notes
 
 Add repo-specific notes here. `brain context refresh` preserves content outside managed blocks.
+
+- In the prerendered app shell, header controls that depend on client-only state should read the pre-hydration DOM result first and stay hidden until hydration catches up. Use load-pending placeholders in the navbar sparingly; the header avatar should only show `J` on an actual missing or error state.

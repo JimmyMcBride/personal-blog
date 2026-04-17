@@ -2,7 +2,7 @@
 	import BlogCard from "$lib/components/BlogCard.svelte"
 	import type { PageData } from "./$types"
 
-	export let data: PageData
+	let { data }: { data: PageData } = $props()
 </script>
 
 {#if data.posts.length}

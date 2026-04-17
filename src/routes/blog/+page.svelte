@@ -1,36 +1,29 @@
-<script defer>
+<script lang="ts">
 	import BlogCard from "$lib/components/BlogCard.svelte"
+	import { Button } from "$lib/components/ui/button"
 	import { title, description, url } from "$lib/config"
 
-	export let data
+	let { data } = $props()
 	const pageSize = 8
 
-	let posts = [...data.posts]
-	let currentPage = 1
-	let totalPages = 1
-	let searchTerm = ""
+	let currentPage = $state(1)
+	let searchTerm = $state("")
 
-	// Reactive filtered posts based on search term
-	$: filteredPosts = posts.filter((post) =>
-		post.title.toLowerCase().includes(searchTerm.toLowerCase())
+	let filteredPosts = $derived(
+		data.posts.filter((post: { title: string }) =>
+			post.title.toLowerCase().includes(searchTerm.toLowerCase())
+		)
 	)
 
-	// Watch for searchTerm changes and reset the currentPage
-	$: {
-		if (searchTerm) {
-			currentPage = 1 // Reset page to 1 when search term changes
-		}
-	}
+	let totalPages = $derived(Math.ceil(filteredPosts.length / pageSize))
 
-	$: {
-		// Calculate total pages
-		totalPages = Math.ceil(filteredPosts.length / pageSize)
-	}
+	let paginatedPosts = $derived(
+		filteredPosts.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+	)
 
-	// Get paginated posts based on current page
-	$: paginatedPosts = filteredPosts.slice((currentPage - 1) * pageSize, currentPage * pageSize)
-
-	// export let data
+	$effect(() => {
+		if (searchTerm) currentPage = 1
+	})
 </script>
 
 <svelte:head>
@@ -60,37 +53,30 @@
 <section class="mb-16">
 	<!-- Search Input -->
 	<div class="flex justify-center mb-4 mx-4">
+		<label class="sr-only" for="blog-search">Search blog posts</label>
 		<input
+			id="blog-search"
 			type="search"
 			name="search"
 			bind:value={searchTerm}
 			placeholder="Search blogs..."
-			class="input border p-2 w-full max-w-lg"
+			class="flex h-10 w-full max-w-lg rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
 		/>
 	</div>
 
-	<!-- Pagination -->
+	<!-- Pagination (top) -->
 	<div class="flex justify-center items-center space-x-4 mt-4">
 		{#if currentPage > 1}
-			<button
-				on:click={() => currentPage--}
-				class="btn variant-filled-primary px-4 py-2 bg-blue-500 text-white"
-			>
-				Previous
-			</button>
+			<Button aria-label="Previous page" onclick={() => currentPage--}>Previous</Button>
 		{/if}
 
 		{#if currentPage < totalPages}
-			<button
-				on:click={() => currentPage++}
-				class="btn variant-filled-primary px-4 py-2 bg-blue-500 text-white"
-			>
-				Next
-			</button>
+			<Button aria-label="Next page" onclick={() => currentPage++}>Next</Button>
 		{/if}
 
-		<p class="code">Page: {currentPage}/{totalPages}</p>
+		<p class="font-mono text-sm">Page: {currentPage}/{totalPages}</p>
 	</div>
+
 	<!-- Blog List -->
 	<ul class="flex flex-col items-center p-4">
 		{#each paginatedPosts as post}
@@ -98,26 +84,16 @@
 		{/each}
 	</ul>
 
-	<!-- Pagination -->
+	<!-- Pagination (bottom) -->
 	<div class="flex justify-center items-center space-x-4 mt-4">
 		{#if currentPage > 1}
-			<button
-				on:click={() => currentPage--}
-				class="btn variant-filled-primary px-4 py-2 bg-blue-500 text-white"
-			>
-				Previous
-			</button>
+			<Button aria-label="Previous page" onclick={() => currentPage--}>Previous</Button>
 		{/if}
 
 		{#if currentPage < totalPages}
-			<button
-				on:click={() => currentPage++}
-				class="btn variant-filled-primary px-4 py-2 bg-blue-500 text-white"
-			>
-				Next
-			</button>
+			<Button aria-label="Next page" onclick={() => currentPage++}>Next</Button>
 		{/if}
 
-		<p class="code">Page: {currentPage}/{totalPages}</p>
+		<p class="font-mono text-sm">Page: {currentPage}/{totalPages}</p>
 	</div>
 </section>

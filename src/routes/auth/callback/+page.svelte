@@ -61,9 +61,9 @@
 			sessionStorage.removeItem("discord_codeVerifier")
 
 			// Only upload the avatar if the user is new
-			if (authData.meta.isNew) {
+			if (authData.meta?.isNew) {
 				// Fetch user data from Discord using the access token
-				const discordUser = await fetchDiscordUserData(authData.meta.accessToken)
+				const discordUser = await fetchDiscordUserData(authData.meta?.accessToken ?? "")
 
 				// Construct the avatar URL
 				const avatarUrl = `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`
@@ -86,12 +86,11 @@
 				httpOnly: false,
 				secure: !dev,
 				sameSite: false,
-				credentials: "include",
 			})
 
 			// On success, redirect to the homepage or any desired page
 			const lastPage = sessionStorage.getItem("last_page")
-			goto(lastPage)
+			goto(lastPage ?? "/")
 			sessionStorage.removeItem("last_page")
 		} catch (error) {
 			// Remove the codeVerifier

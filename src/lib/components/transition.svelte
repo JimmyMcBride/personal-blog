@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { fade } from "svelte/transition"
+	import type { Snippet } from "svelte"
 
-	export let url: string
+	let { url, children }: { url: string; children: Snippet } = $props()
 </script>
 
 {#key url}
-	<div class="h-full" in:fade>
-		<slot />
+	<div in:fade>
+		{@render children()}
 	</div>
 {/key}

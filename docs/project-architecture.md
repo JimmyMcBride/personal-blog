@@ -27,6 +27,7 @@ Use this file for the structural shape of the repository.
 - Keep `@sveltejs/adapter-node` as the SvelteKit adapter. The app does not use a Bun-specific adapter or `Bun.serve()` directly.
 - Coolify production should build from the repo `Dockerfile` and run the adapter output with Bun via `bun run ./build/index.js`.
 - Do not use Nixpacks, `@sveltejs/adapter-vercel`, or `vite preview` for production.
+- The runtime Docker image must include `curl` or `wget`, because Coolify's Dockerfile healthcheck shell uses one of those tools to probe the app container.
 - GitHub PR previews are handled by Coolify, not Vercel. The repository webhook must send both `push` and `pull_request` events to Coolify's manual GitHub webhook endpoint for the blog app.
 - The Coolify app itself must also have Preview Deployments enabled in the dashboard. The webhook alone is not enough; otherwise Coolify accepts the PR webhook and responds with `Preview deployments disabled.`.
 - The PR comment workflow in `.github/workflows/coolify-preview-link.yml` mirrors the Coolify preview URL into each pull request using `COOLIFY_PREVIEW_HOST`. Keep that GitHub repo variable aligned with Coolify's preview URL template and wildcard DNS.

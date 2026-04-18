@@ -82,7 +82,7 @@
 </svelte:head>
 
 <section class="mb-16">
-	<div class="mx-4 mb-8 rounded-[1.75rem] border border-border/70 bg-card/70 p-5 md:p-6">
+	<div class="mx-auto mb-8 max-w-4xl rounded-[1.75rem] border border-border/70 bg-card/70 p-5 md:p-6">
 		<div class="flex flex-col gap-5">
 			<div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
 				<div class="space-y-2">
@@ -117,7 +117,7 @@
 	</div>
 
 	{#if filteredPosts.length === 0}
-		<div class="mx-4 rounded-[1.5rem] border border-dashed border-border bg-card/60 p-8 text-center">
+		<div class="mx-auto max-w-4xl rounded-[1.5rem] border border-dashed border-border bg-card/60 p-8 text-center">
 			<h3 class="text-xl font-bold">No posts matched</h3>
 			<p class="mx-auto mt-3 max-w-xl text-sm leading-7 text-muted-foreground sm:text-base">
 				Try a broader search term or clear the current filter.
@@ -138,7 +138,7 @@
 		</ul>
 
 		{#if showPagination}
-			<div class="mx-4">
+			<div class="mx-auto max-w-4xl">
 				<PaginationNav currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
 			</div>
 		{/if}

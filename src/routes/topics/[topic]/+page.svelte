@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { browser } from "$app/environment"
-	import { afterNavigate, goto } from "$app/navigation"
 	import ArchiveSearchInput from "$lib/components/archive/ArchiveSearchInput.svelte"
 	import PaginationNav from "$lib/components/archive/PaginationNav.svelte"
 	import BlogCard from "$lib/components/BlogCard.svelte"
@@ -115,7 +114,7 @@
 		return `${nextUrl.pathname}${nextUrl.search}`
 	}
 
-	function writeTopicUrl(query: string, pageNumber: number, replaceState = false) {
+	function writeTopicHistory(query: string, pageNumber: number, replaceState = false) {
 		const nextUrl = serializeTopicUrl(query, pageNumber)
 		const currentUrl = `${window.location.pathname}${window.location.search}`
 
@@ -123,7 +122,12 @@
 			return
 		}
 
-		goto(nextUrl, { replaceState, noScroll: true, keepFocus: true })
+		if (replaceState) {
+			window.history.replaceState(window.history.state, "", nextUrl)
+			return
+		}
+
+		window.history.pushState(window.history.state, "", nextUrl)
 	}
 
 	function handleSearchChange(value: string) {
@@ -136,7 +140,7 @@
 		currentPage = 1
 
 		if (browser) {
-			writeTopicUrl("", 1, true)
+			writeTopicHistory("", 1, true)
 		}
 	}
 
@@ -145,16 +149,21 @@
 		currentPage = clampedPage
 
 		if (browser) {
-			writeTopicUrl(normalizedSearchTerm, clampedPage, false)
+			writeTopicHistory(normalizedSearchTerm, clampedPage, false)
 		}
 	}
 
 	onMount(() => {
 		syncStateFromUrl()
-
-		afterNavigate(() => {
+		const handlePopState = () => {
 			syncStateFromUrl()
-		})
+		}
+
+		window.addEventListener("popstate", handlePopState)
+
+		return () => {
+			window.removeEventListener("popstate", handlePopState)
+		}
 	})
 
 	$effect(() => {
@@ -175,7 +184,7 @@
 
 		if (urlQuery !== normalizedSearchTerm) {
 			const timeoutId = window.setTimeout(() => {
-				writeTopicUrl(normalizedSearchTerm, 1, true)
+				writeTopicHistory(normalizedSearchTerm, 1, true)
 			}, 150)
 
 			return () => window.clearTimeout(timeoutId)
@@ -196,7 +205,7 @@
 			urlPage !== normalizedPage ||
 			(!showPagination && new URLSearchParams(window.location.search).has("page"))
 		) {
-			writeTopicUrl(normalizedSearchTerm, normalizedPage, true)
+			writeTopicHistory(normalizedSearchTerm, normalizedPage, true)
 		}
 	})
 </script>

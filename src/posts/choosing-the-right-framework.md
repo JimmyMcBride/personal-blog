@@ -7,6 +7,8 @@ image: /choosing-the-right-framework-banner.webp
 categories:
   - advice
   - career
+topics:
+  - career
 published: true
 ---
 

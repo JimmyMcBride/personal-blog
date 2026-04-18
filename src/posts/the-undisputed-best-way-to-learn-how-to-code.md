@@ -9,6 +9,8 @@ categories:
   - productivity
   - career
   - codenewbie
+topics:
+  - career
 published: true
 ---
 

@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { browser } from "$app/environment"
 	import { formatDate } from "$lib/utils"
-	import { url, title } from "$lib/config"
+	import { title } from "$lib/config"
+	import { createBlogPostingJsonLd, createSeo, renderJsonLdScript } from "$lib/seo"
+	import { formatTaxonomyLabel } from "$lib/taxonomy"
 	import { page } from "$app/stores"
 	import { handleDiscordLogin, handleLogout } from "$lib/pocketbase"
 	import { user } from "$lib/stores/user"
@@ -14,7 +16,25 @@
 	let slug = $derived($page.params.slug)
 	let content = $derived(data.content)
 	let meta = $derived(data.meta)
-	let views = $derived(data.views)
+	let seo = $derived(
+		createSeo({
+			path: `/blog/${slug}`,
+			title: meta.title,
+			description: meta.short ? meta.short : meta.description,
+			image: meta.image,
+			type: "article",
+			publishedTime: meta.date,
+			modifiedTime: meta.updated ? meta.updated : meta.date,
+		})
+	)
+	let blogPostingJsonLd = $derived(
+		createBlogPostingJsonLd({
+			...meta,
+			slug,
+		})
+	)
+	let primaryTopic = $derived(data.primaryTopic)
+	let relatedPosts = $derived(data.relatedPosts ?? [])
 	let newComment = $state("")
 	let comments = $state<unknown[]>([])
 	let loadedCommentsFor = $state<string | null>(null)
@@ -79,33 +99,38 @@
 
 <!-- SEO -->
 <svelte:head>
-	<title>{meta.title}</title>
+	<title>{seo.title}</title>
 
-	<link rel="canonical" href={`${url}${url}`} />
-	<meta name="description" content={meta.short ? meta.short : meta.description} />
+	<link rel="canonical" href={seo.canonical} />
+	<meta name="description" content={seo.description} />
 
-	<meta property="og:type" content="article" />
-	<meta property="og:url" content={`${url}${url}`} />
-	<meta property="og:title" content={meta.title} />
-	<meta property="og:description" content={meta.short ? meta.short : meta.description} />
+	<meta property="og:type" content={seo.type} />
+	<meta property="og:url" content={seo.canonical} />
+	<meta property="og:title" content={seo.title} />
+	<meta property="og:description" content={seo.description} />
 	<meta property="og:site_name" content={title} />
 
 	<meta name="twitter:site" content="@McBride1105" />
 	<meta name="twitter:creator" content="@McBride1105" />
-	<meta name="twitter:title" content={meta.title} />
-	<meta name="twitter:description" content={meta.short ? meta.short : meta.description} />
-	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content={seo.title} />
+	<meta name="twitter:description" content={seo.description} />
+	<meta name="twitter:card" content={seo.twitterCard} />
 	<meta name="twitter:widgets:new-embed-design" content="on" />
 
-	<meta property="article:published_time" content={meta.updated} />
-	<meta property="article:modified_time" content={meta.updated} />
-	<meta name="date" content={meta.updated} />
+	{#if seo.publishedTime}
+		<meta property="article:published_time" content={seo.publishedTime} />
+	{/if}
+	{#if seo.modifiedTime}
+		<meta property="article:modified_time" content={seo.modifiedTime} />
+		<meta name="date" content={seo.modifiedTime} />
+	{/if}
 
-	<meta property="og:image" content={meta.image} />
-	<meta name="twitter:image:src" content={meta.image} />
+	<meta property="og:image" content={seo.image} />
+	<meta name="twitter:image:src" content={seo.image} />
 
 	<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 	<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+	{@html renderJsonLdScript(blogPostingJsonLd)}
 </svelte:head>
 
 <article class="mx-auto mb-16 w-full max-w-6xl p-4">
@@ -125,21 +150,51 @@
 		<p class="text-right text-sm">
 			Published at {formatDate(meta.date)}
 			<br />
-			Total Views:
-			{#if views !== undefined}
-				{views}
-			{/if}
+			Updated at {formatDate(meta.updated ? meta.updated : meta.date)}
 		</p>
 	</header>
 
 	<!-- Tags -->
 	<div class="mx-auto mb-6 flex w-full max-w-5xl flex-wrap gap-4">
+		{#if primaryTopic}
+			<a href={`/topics/${primaryTopic.slug}`} class="no-underline">
+				<Badge>#topic: {primaryTopic.title}</Badge>
+			</a>
+		{/if}
 		{#each meta.categories as category}
 			<a href={`/blog/categories/${category}`} class="no-underline">
 				<Badge variant="secondary">&num;{category}</Badge>
 			</a>
 		{/each}
 	</div>
+
+	{#if primaryTopic}
+		<section class="mx-auto mb-10 w-full max-w-5xl rounded-lg border border-border bg-card p-6">
+			<p class="mb-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+				Primary topic
+			</p>
+			<h2 class="mb-3 text-2xl font-bold">{primaryTopic.title}</h2>
+			<p class="mb-4 text-muted-foreground">{primaryTopic.summary}</p>
+			<a class="font-semibold text-primary underline-offset-4 hover:underline" href={`/topics/${primaryTopic.slug}`}>
+				Explore the {formatTaxonomyLabel(primaryTopic.slug)} hub
+			</a>
+
+			{#if relatedPosts.length}
+				<div class="mt-6">
+					<h3 class="mb-3 text-lg font-semibold">Related posts</h3>
+					<ul class="space-y-2">
+						{#each relatedPosts as post}
+							<li>
+								<a class="font-medium text-primary underline-offset-4 hover:underline" href={`/blog/${post.slug}`}>
+									{post.title}
+								</a>
+							</li>
+						{/each}
+					</ul>
+				</div>
+			{/if}
+		</section>
+	{/if}
 
 	<!-- Post -->
 	<div class="mx-auto w-full max-w-5xl">

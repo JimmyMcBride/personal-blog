@@ -1,34 +1,28 @@
 import { error } from "@sveltejs/kit"
 import type { LoadEvent } from "@sveltejs/kit"
+import { getPublishedPosts } from "$lib/posts"
+import { getPrimaryTopic, getRelatedPosts } from "$lib/taxonomy"
 
 export const load = async ({ params, fetch }: LoadEvent) => {
 	try {
 		// Load the mdsvex markdown post (Svelte component)
 		const post = await import(`../../../posts/${params.slug}.md`)
-
-		// Fetch Plausible analytics data
-		const slug = params.slug
-
-		// Fetch dynamic analytics client-side through the route-scoped fetch.
-		let views = 0
-		let readers = 0
-
-		if (!import.meta.env.SSR) {
-			const res = await fetch(`/api/views/${slug}`)
-
-			const data = await res.json()
-			views = data.views
-			readers = data.readers
-
-		}
+		const currentPost = {
+			...post.metadata,
+			slug: params.slug,
+		} as Post
 
 		// Return the markdown component and serializable data
+		const posts = getPublishedPosts()
+		const primaryTopic = getPrimaryTopic(currentPost)
+		const relatedPosts = getRelatedPosts(posts, currentPost)
+
 		return {
 			content: post.default, // This is the Svelte component for the blog content
 			meta: post.metadata,
-			views,
-			readers,
 			comments: [],
+			primaryTopic,
+			relatedPosts,
 		}
 	} catch (e) {
 		console.error(e)

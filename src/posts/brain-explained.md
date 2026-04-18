@@ -2,12 +2,14 @@
 title: "Brain, Explained"
 description: "Brain gives AI coding agents a durable memory and context layer inside the repo, so they can start with the right docs, decisions, and workflow rules instead of starting cold."
 date: "2026-04-16"
-updated: "2026-04-16"
+updated: "2026-04-17"
 image: /brain-explained-banner.webp
 categories:
   - ai
   - open-source
   - productivity
+topics:
+  - ai
 published: true
 ---
 
@@ -34,6 +36,8 @@ Brain is super simple. It just lives inside your project and does one job:
 
 That’s it! No crazy UI, no “platform”, no extra thing you have to manage.
 
+If you want to poke around, Brain is open source on GitHub: [JimmyMcBride/brain](https://github.com/JimmyMcBride/brain).
+
 ## Quick example
 
 Let’s say you’re fixing a bug:
@@ -50,7 +54,7 @@ Normally you’d:
 And hope for the best. Now with Brain:
 
 ```bash
-brain context compile --task "fix token refresh race condition"
+brain context compile --task "fix token refresh race condition" --budget small
 ```
 
 That one command pulls together:
@@ -61,7 +65,7 @@ That one command pulls together:
 * your project structure
 * what’s currently changing
 
-Now AI actually understands what it’s working on. That's a huge difference!
+Now AI actually understands what it’s working on. And that `--budget small` part matters too. It tells Brain to start tight instead of dumping the whole kitchen sink into the model.
 
 ## The three things Brain is doing
 
@@ -73,17 +77,25 @@ Your project stops forgetting stuff. Fix a bug? Save it. Make a decision? Save i
 
 ### 2. Retrieval
 
-You can actually find things.
+You can actually find things without remembering the exact phrase you used three weeks ago.
 
 ```bash
 brain search "auth bug"
 ```
 
-Instead of digging through files or trying to remember where something was.
+This is where the hybrid search starts to matter. Brain is using lexical and semantic search together, which really just means it can work when you remember the exact words, and it can still help when you only remember the idea.
+
+* If you search with the real words, the lexical side helps lock onto exact terms and close keyword matches.
+* If your note says `token refresh race condition` and you search `token auth race` or `refresh bug`, the semantic side can still pull you toward the right thing.
+* Put together, it feels a lot more like “find what I mean” and a lot less like “hope I guessed the exact filename.”
 
 ### 3. Context
 
-This is the big one. Instead of throwing your whole project at AI… Brain builds a small, focused packet for whatever you’re working on. Only what matters, no noise.
+This is the big one. Instead of throwing your whole project at AI… Brain builds a packet for whatever you’re working on. A packet is just a small, task-focused bundle of context. Not the whole repo. Not every note you’ve ever written. Just the stuff Brain thinks actually matters for that task.
+
+And this is also where budgets come in. `small`, `default`, and `large` are basically ways to tell Brain how much context it should try to pull together. Smaller packets are usually better than people think, because “more context” sounds smart right up until the model gets distracted by a bunch of irrelevant junk.
+
+So if I’m doing something narrow, I’ll usually start with `small`. If the task is broader, I can loosen it up. And if the budget is tight, Brain can show that some lower-priority stuff got left out instead of burying the useful context under a giant dump of everything. That’s the point: keep the signal, drop the noise.
 
 ## Real world difference
 
@@ -164,5 +176,4 @@ It just makes everything smoother.
 
 ## Last thing
 
-AI is powerful, but without context, it’s just guessing. That's what brain fixes that and once you feel that difference… it’s really hard to go back.
-
+AI is powerful, but without context, it’s still guessing. That’s what Brain fixes, and once you feel that difference… it’s really hard to go back.

@@ -12,9 +12,12 @@ interface Post {
 	title: string
 	slug: string
 	description: string
+	short?: string
 	image?: string
 	date: string
+	updated?: string
 	categories: string[]
+	topics?: string[]
 	published: boolean
 }
 

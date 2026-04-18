@@ -8,6 +8,8 @@ image: /how-to-use-ai-writing-tools-banner.webp
 categories:
   - ai
   - opinion
+topics:
+  - ai
 published: true
 ---
 

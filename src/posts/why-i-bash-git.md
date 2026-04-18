@@ -5,9 +5,11 @@ date: "2024-9-15"
 updated: "2024-9-15"
 image: /why-i-bash-git-banner.webp
 categories:
-  - tutoiral
+  - tutorial
   - bash
   - git
+topics:
+  - bash
 published: true
 ---
 

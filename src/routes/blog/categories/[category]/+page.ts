@@ -1,5 +1,6 @@
 import type { ServerLoadEvent } from "@sveltejs/kit"
-import { error } from "@sveltejs/kit"
+import { error, redirect } from "@sveltejs/kit"
+import { normalizeCategorySlug } from "$lib/taxonomy"
 
 export const load = async ({ params, fetch }: ServerLoadEvent) => {
 	const { category } = params
@@ -10,10 +11,18 @@ export const load = async ({ params, fetch }: ServerLoadEvent) => {
 		throw error(404, "Category not found")
 	}
 
-	const posts = allPosts.filter((post: Post) => post.categories.includes(category))
+	const normalizedCategory = normalizeCategorySlug(category)
+
+	if (normalizedCategory !== category) {
+		throw redirect(308, `/blog/categories/${normalizedCategory}`)
+	}
+
+	const posts = allPosts.filter((post: Post) =>
+		post.categories.some((postCategory) => normalizeCategorySlug(postCategory) === normalizedCategory)
+	)
 
 	return {
-		category,
+		category: normalizedCategory,
 		posts,
 	}
 }

@@ -8,6 +8,8 @@ categories:
   - linux
   - arch
   - tutorial
+topics:
+  - bash
 published: true
 ---
 

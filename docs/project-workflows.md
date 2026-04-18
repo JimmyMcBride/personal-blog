@@ -1,3 +1,6 @@
+---
+updated: "2026-04-17T17:39:07Z"
+---
 # Project Workflows
 
 <!-- brain:begin project-doc-workflows -->
@@ -42,6 +45,7 @@ Use this file for agent operating workflow inside the repo.
 
 ## Local Notes
 
+- `.plan/` is now the repo-local planning workspace. Use it for brainstorms, epics, specs, stories, and roadmap work such as GEO planning before implementation starts.
 Add repo-specific notes here. `brain context refresh` preserves content outside managed blocks.
 
 - Bun is the default tool for installs, scripts, and one-off CLIs in this repo. Prefer `bun install`, `bun run <script>`, and `bunx <tool>` in examples and operational guidance.

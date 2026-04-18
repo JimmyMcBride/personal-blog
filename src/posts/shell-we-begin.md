@@ -8,6 +8,8 @@ categories:
   - tutorial
   - bash
   - shell-wizards
+topics:
+  - bash
 published: true
 ---
 

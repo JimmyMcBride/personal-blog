@@ -1,5 +1,5 @@
 ---
-updated: "2026-04-17T23:41:15Z"
+updated: "2026-04-18T00:53:12Z"
 ---
 # Current State
 
@@ -43,3 +43,4 @@ Add repo-specific notes here. `brain context refresh` preserves content outside 
 - `bun run lint` still fails because the repo already has broad Prettier drift in untouched files. The Bun migration itself was validated with `bun install`, `bun run check`, `bun run build`, `bun run start`, `docker build`, and an HTTP smoke test against the built container.
 - GEO foundation work is now staged on `feat/geo-evergreen-system`: shared SEO helpers, JSON-LD, `robots.txt`, expanded sitemap coverage, normalized category redirects, topic hubs under `/topics`, evergreen content workflow docs, and the first refreshed post cohort seed in `src/posts/cat-grep-and-go.md`.
 - The blog archive header at `src/routes/blog/+page.svelte` now uses the same quieter archive-control language as the topic pages: one integrated surface for search, page status, and the topic-hub CTA instead of separate promo and pagination blocks.
+- Paginated archive views in `src/routes/blog/+page.svelte` and `src/routes/topics/[topic]/+page.svelte` now render `PaginationNav` above and below the list so the page controls remain visible without scrolling to the footer.

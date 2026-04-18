@@ -286,6 +286,12 @@
 				</button>
 			</div>
 		{:else}
+			{#if showPagination}
+				<div class="mb-6">
+					<PaginationNav currentPage={effectivePage} totalPages={totalPages} onPageChange={handlePageChange} />
+				</div>
+			{/if}
+
 			<ul class="flex flex-col items-center">
 				{#each paginatedPosts as post}
 					<BlogCard {post} variant="compact" />
